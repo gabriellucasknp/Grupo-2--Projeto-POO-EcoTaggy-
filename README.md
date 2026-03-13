@@ -1,6 +1,8 @@
 ECO TAGGY
+
 Plataforma de Cálculo e Visualização de Impacto Ambiental
 Programação Orientada a Objetos 
+
 1. Introdução
 A sustentabilidade tem se tornado um fator cada vez mais relevante para empresas e consumidores, especialmente no contexto das transformações digitais. Soluções tecnológicas que substituem processos físicos podem gerar impactos ambientais positivos, como a redução de emissões de gases de efeito estufa (GEE), menor consumo de recursos naturais e diminuição de resíduos.
 No setor de mobilidade e pagamentos digitais, diversas tecnologias têm contribuído para tornar processos mais eficientes e sustentáveis. No entanto, muitas vezes esses benefícios ambientais não são mensurados ou comunicados de forma clara aos usuários e às organizações.
