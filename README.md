@@ -10,7 +10,7 @@ Pedro Pessoa Bastos,
 Gabriel Lucas Soares da Silva.
 
 
-Plataforma de Cálculo e Visualização de Impacto Ambiental
+Projeto: Plataforma de Cálculo e Visualização de Impacto Ambiental
 Programação Orientada a Objetos 
 
 1. Introdução
