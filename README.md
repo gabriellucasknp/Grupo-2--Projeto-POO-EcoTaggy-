@@ -1,13 +1,13 @@
 ECO TAGGY
 
 Integrantes: 
-David Guilherme Souza Alves
-Diego José Arroxelas
-João Gabriel de Souza Neri
-Rafael de Andrade Arruda
-Matheus Paulo dos Santos Silva
-Pedro Pessoa Bastos
-Gabriel Lucas Soares da Silva
+David Guilherme Souza Alves, 
+Diego José Arroxelas, 
+João Gabriel de Souza Neri, 
+Rafael de Andrade Arruda. 
+Matheus Paulo dos Santos Silva, 
+Pedro Pessoa Bastos, 
+Gabriel Lucas Soares da Silva.
 
 
 Plataforma de Cálculo e Visualização de Impacto Ambiental
