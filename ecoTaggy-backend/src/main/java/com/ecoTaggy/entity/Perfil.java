@@ -1,4 +1,4 @@
-package entity;
+package com.ecoTaggy.entity;
 
 public enum Perfil {
     MOTORISTA,
