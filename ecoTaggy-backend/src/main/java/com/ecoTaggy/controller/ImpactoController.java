@@ -2,15 +2,18 @@ package com.ecoTaggy.controller;
 
 import com.ecoTaggy.entity.ImpactoAmbiental;
 import com.ecoTaggy.service.ImpactoService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/impacto")
-@RequiredArgsConstructor
 public class ImpactoController {
 
     private final ImpactoService impactoService;
+
+    // Construtor manual adicionado para substituir o Lombok
+    public ImpactoController(ImpactoService impactoService) {
+        this.impactoService = impactoService;
+    }
 
     // 🔹 Simulação (não salva no banco)
     @PostMapping("/simular")
