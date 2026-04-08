@@ -340,14 +340,11 @@ Esta seção detalha o ambiente de desenvolvimento e as duas primeiras história
 ###  Gestão de Tarefas (Issue Tracker)
 Ambiente de versionamento atuante com acompanhamento contínuo de tarefas:
 
-![Print do Painel de Issues 
-
-
+https://trello.com/invite/b/69d52e14a4a61f00aeb5d663/ATTIfda8e02c55713876f1d01cc014ba168b9F5534AB/ecotaggy-poo
 
 ###  Screencast do Sistema (Entrega 02)
 Demonstração do sistema em uso (com áudio/narração explicativa), comprovando o funcionamento da API Rest e Frontend:
 
- **[INSERIR_LINK_DO_NOVO_VIDEO_DO_SISTEMA_RODANDO_AQUI]**
 
 ###  Como Executar a Aplicação Localmente
 
