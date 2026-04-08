@@ -2,9 +2,9 @@ package com.ecoTaggy.repository;
 
 import com.ecoTaggy.entity.ImpactoAmbiental;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ImpactoAmbientalRepository extends JpaRepository<ImpactoAmbiental, Long> {
-
-    Optional<ImpactoAmbiental> findByTransacaoId(Long transacaoId);
+    // Apague qualquer método findByTransacaoId que estiver aqui dentro por enquanto!
 }

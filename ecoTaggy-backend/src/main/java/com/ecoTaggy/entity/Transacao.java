@@ -1,14 +1,7 @@
 package com.ecoTaggy.entity;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_transacao")
@@ -18,52 +11,36 @@ public class Transacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime dataHora;
+    @Column(nullable = false)
+    private Double valor;
 
-    private String local;
+    @Column(nullable = false)
+    private LocalDateTime dataTransacao;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    public Long getId() {
-        return id;
-    }
+    public Transacao() {}
 
-    public void setId(Long id) {
+    public Transacao(Long id, Double valor, LocalDateTime dataTransacao, Usuario usuario) {
         this.id = id;
-    }
-
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
-
-    public void setDataHora(LocalDateTime dataHora) {
-        this.dataHora = dataHora;
-    }
-
-    public String getLocal() {
-        return local;
-    }
-
-    public void setLocal(String local) {
-        this.local = local;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
+        this.valor = valor;
+        this.dataTransacao = dataTransacao;
         this.usuario = usuario;
     }
 
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public Double getValor() { return valor; }
+    public void setValor(Double valor) { this.valor = valor; }
+    public LocalDateTime getDataTransacao() { return dataTransacao; }
+    public void setDataTransacao(LocalDateTime dataTransacao) { this.dataTransacao = dataTransacao; }
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
+
     @Override
     public String toString() {
-        return "Transacao{" +
-                "id=" + id +
-                ", dataHora=" + dataHora +
-                ", local='" + local + '\'' +
-                '}';
+        return "Transacao{id=" + id + ", valor=" + valor + ", dataTransacao=" + dataTransacao + "}";
     }
 }

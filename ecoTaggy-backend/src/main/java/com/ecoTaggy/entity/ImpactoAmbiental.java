@@ -1,77 +1,43 @@
 package com.ecoTaggy.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
-
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tb_impacto_ambiental")
+@Table(name = "tb_impacto")
 public class ImpactoAmbiental {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double co2Evitado;
-    private double papelEconomizado;
-    private double combustivelSalvo;
+    private Integer transacoesProcessadas;
+    private Double co2Evitado;
+    private Double papelEconomizado;
+    private Double combustivelEconomizado;
 
-    @OneToOne
-    @JoinColumn(name = "transacao_id")
-    private Transacao transacao;
+    public ImpactoAmbiental() {}
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public ImpactoAmbiental(Long id, Integer transacoesProcessadas, Double co2Evitado, Double papelEconomizado, Double combustivelEconomizado) {
         this.id = id;
-    }
-
-    public double getCo2Evitado() {
-        return co2Evitado;
-    }
-
-    public void setCo2Evitado(double co2Evitado) {
+        this.transacoesProcessadas = transacoesProcessadas;
         this.co2Evitado = co2Evitado;
-    }
-
-    public double getPapelEconomizado() {
-        return papelEconomizado;
-    }
-
-    public void setPapelEconomizado(double papelEconomizado) {
         this.papelEconomizado = papelEconomizado;
+        this.combustivelEconomizado = combustivelEconomizado;
     }
 
-    public double getCombustivelSalvo() {
-        return combustivelSalvo;
-    }
-
-    public void setCombustivelSalvo(double combustivelSalvo) {
-        this.combustivelSalvo = combustivelSalvo;
-    }
-
-    public Transacao getTransacao() {
-        return transacao;
-    }
-
-    public void setTransacao(Transacao transacao) {
-        this.transacao = transacao;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public Integer getTransacoesProcessadas() { return transacoesProcessadas; }
+    public void setTransacoesProcessadas(Integer transacoesProcessadas) { this.transacoesProcessadas = transacoesProcessadas; }
+    public Double getCo2Evitado() { return co2Evitado; }
+    public void setCo2Evitado(Double co2Evitado) { this.co2Evitado = co2Evitado; }
+    public Double getPapelEconomizado() { return papelEconomizado; }
+    public void setPapelEconomizado(Double papelEconomizado) { this.papelEconomizado = papelEconomizado; }
+    public Double getCombustivelEconomizado() { return combustivelEconomizado; }
+    public void setCombustivelEconomizado(Double combustivelEconomizado) { this.combustivelEconomizado = combustivelEconomizado; }
 
     @Override
     public String toString() {
-        return "ImpactoAmbiental{" +
-                "id=" + id +
-                ", co2Evitado=" + co2Evitado +
-                ", papelEconomizado=" + papelEconomizado +
-                ", combustivelSalvo=" + combustivelSalvo +
-                '}';
+        return "ImpactoAmbiental{id=" + id + ", co2=" + co2Evitado + ", papel=" + papelEconomizado + "}";
     }
 }
