@@ -317,8 +317,8 @@ Repositório oficial do projeto **Eco Taggy**, uma Aplicação WEB Orientada a O
 
 Esta seção contempla os artefatos iniciais de definição do produto:
 
-* **Histórias de Usuário (BDD):** BDD - Eco Taggy
-* **Protótipo de Baixa Fidelidade (Figma):** Figma
+* **Histórias de Usuário (BDD):** BDD - https://docs.google.com/document/d/1sdJkV6rNWwF7iKfVUFjboWM1kaCtoc9ELlnbYbxGx44/edit?usp=sharing
+* **Protótipo de Baixa Fidelidade (Figma):** https://www.figma.com/design/TGD8z07FFK2N8NXbb2GH8j/EcoTaggy?node-id=0-1&p=f&t=Z0rBfxvdiPGCsXii-0
 * **Screencast do Protótipo (Apresentação Lo-Fi):** https://youtube.com/shorts/w2Ib_-uEIPA?si=N3eJL1VYIspQOFWI
 
 ---
