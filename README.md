@@ -296,3 +296,66 @@ fortalecimento da estratégia de sustentabilidade da empresa
 A criação de uma plataforma de cálculo e visualização de impacto ambiental representa uma solução eficaz para mensurar e comunicar os benefícios ambientais gerados pela utilização da solução Taggy.
 Ao transformar dados operacionais em indicadores ambientais claros e acessíveis, a ferramenta permite que usuários e empresas compreendam melhor sua contribuição para a redução de emissões de gases de efeito estufa.
 Além disso, a plataforma pode contribuir para fortalecer estratégias de sustentabilidade, melhorar a comunicação com clientes e apoiar iniciativas relacionadas à responsabilidade ambiental.
+
+# Projeto Eco Taggy - Plataforma de Sustentabilidade
+
+Repositório oficial do projeto **Eco Taggy**, uma Aplicação WEB Orientada a Objetos desenvolvida para a resolução de problemas ambientais, calculando e simulando impactos evitados por meio de soluções de pagamento digital em pedágios e estacionamentos.
+
+## Equipe e Responsabilidades (Kickoff)
+
+| Integrante | Função |
+| :--- | :--- |
+| **Matheus Paulo** | DevOps / Líder (Arquitetura, Integração e Merge) |
+| **Gabriel Lucas e David Alves** | Backend Core (Modelagem de Entidades e Repositórios) |
+| **Pedro Pessoa e João Neri** | Backend Service (Regras de Negócio e Controllers) |
+| **Rafael** | Frontend UI (Telas dinâmicas com Thymeleaf) |
+| **Diego Jose** | QA & Documentação (Issue Tracker, Validação e Screencasts) |
+
+---
+
+## Entrega 01: Planejamento e Prototipação
+
+Esta seção contempla os artefatos iniciais de definição do produto:
+
+* **Histórias de Usuário (BDD):** BDD - Eco Taggy
+* **Protótipo de Baixa Fidelidade (Figma):** Figma
+* **Screencast do Protótipo (Apresentação Lo-Fi):** https://youtube.com/shorts/w2Ib_-uEIPA?si=N3eJL1VYIspQOFWI
+
+---
+
+##  Entrega 02: Desenvolvimento e Integração Base
+
+Esta seção detalha o ambiente de desenvolvimento e as duas primeiras histórias de usuário integradas e funcionais, com leitura e escrita em banco de dados.
+
+### Diretrizes e Stack Tecnológica
+* **Linguagem:** Java 21 | **Framework:** Spring Boot 3.5.x
+* **Persistência e Banco:** Spring Data JPA / H2 Database (In-Memory)
+* **Visualização:** Thymeleaf (HTML/CSS), Tailwind CSS e Chart.js
+* **Nota de Conformidade:** Cumprindo a regra do projeto, **a biblioteca Lombok NÃO foi utilizada**. Todos os códigos boilerplate (construtores, getters, setters) foram desenvolvidos manualmente.
+
+### Histórias de Usuário Implementadas
+1. **História 01 (Dashboard):** Visualização de Indicadores Ambientais para Empresas.
+2. **História 04 (Simulador):** Simulação de Impacto Ambiental baseada na taxa de adoção e tamanho da frota.
+
+###  Gestão de Tarefas (Issue Tracker)
+Ambiente de versionamento atuante com acompanhamento contínuo de tarefas:
+
+![Print do Painel de Issues 
+
+
+
+###  Screencast do Sistema (Entrega 02)
+Demonstração do sistema em uso (com áudio/narração explicativa), comprovando o funcionamento da API Rest e Frontend:
+
+ **[INSERIR_LINK_DO_NOVO_VIDEO_DO_SISTEMA_RODANDO_AQUI]**
+
+###  Como Executar a Aplicação Localmente
+
+1. Clone este repositório. https://github.com/gabriellucasknp/Grupo-2--Projeto-POO-EcoTaggy-
+2. Acesse a pasta do backend: `cd ecoTaggy-backend`
+3. Execute o comando Maven: `mvn spring-boot:run`
+4. Acesse as páginas no navegador:
+   * **Início:** `http://localhost:8080/`
+   * **Dashboard:** `http://localhost:8080/dashboard`
+   * **Simulador:** `http://localhost:8080/simulador
+
