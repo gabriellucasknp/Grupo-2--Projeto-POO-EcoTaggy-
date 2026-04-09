@@ -1,85 +1,30 @@
 <!DOCTYPE html>
-<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eco Taggy - Sustentabilidade</title>
+    <title>Eco Taggy | Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="size-full overflow-y-auto bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 text-gray-900">
+<body class="bg-slate-50 font-sans text-slate-900">
+    <nav class="flex items-center justify-between px-8 py-6 bg-white border-b border-slate-200">
+        <div class="flex items-center gap-3 py-1">
+            <img src="/images/logo1.png" alt="Eco Taggy Logo" class="h-16 w-auto object-contain"> 
+        </div>
+        <div class="flex gap-4">
+            <a href="/login" class="px-5 py-2 font-medium text-slate-600 hover:text-green-600">Entrar</a>
+            <a href="/cadastro" class="px-6 py-2 bg-green-600 text-white rounded-lg font-bold hover:bg-green-700 transition">Criar Conta</a>
+        </div>
+    </nav>
 
-    <header class="sticky top-0 z-50 backdrop-blur-md border-b bg-white/80 border-green-100">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="font-bold text-2xl text-green-600 flex items-center">
-                <i data-lucide="leaf" class="w-8 h-8 mr-2"></i> EcoTaggy
-            </div>
-            <nav class="hidden md:flex items-center gap-8">
-                <a href="#features" class="transition-colors text-gray-700 hover:text-green-600 font-medium">Recursos</a>
-                <a href="/dashboard" class="transition-colors text-gray-700 hover:text-green-600 font-medium">Painel</a>
-                <a href="/simulador" class="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium shadow-sm">
-                    Acessar Plataforma
-                </a>
-            </nav>
-        </div>
-    </header>
-
-    <section class="max-w-7xl mx-auto px-6 py-20 text-center">
-        <div class="inline-block px-4 py-2 rounded-full text-sm font-medium mb-6 bg-green-100 text-green-700">
-            <i data-lucide="leaf" class="inline-block w-4 h-4 mr-2"></i> Cálculo de Impacto Ambiental
-        </div>
-        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-gray-900">
-            Mensuração Transparente para um <br/> <span class="text-green-500">Futuro Sustentável</span>
-        </h1>
-        <p class="text-xl max-w-3xl mx-auto mb-12 leading-relaxed text-gray-600">
-            A plataforma Eco Taggy permite calcular e visualizar o impacto ambiental evitado pela solução Taggy. 
-            Quantifique a redução de emissões de CO₂, economia de combustível e eliminação de papel.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/simulador" class="px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-lg font-medium shadow-lg">
-                Simular Cenário
-            </a>
-            <a href="/dashboard" class="px-8 py-4 rounded-lg transition-colors text-lg font-medium border-2 bg-white text-gray-900 border-gray-200 hover:bg-gray-50">
-                Ver Relatório ESG
-            </a>
-        </div>
-    </section>
-
-    <section id="features" class="max-w-7xl mx-auto px-6 py-20">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold mb-4 text-gray-900">Módulos da Plataforma</h2>
-            <p class="text-xl text-gray-600">Ferramentas completas para medir os benefícios ambientais.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6 text-green-600">
-                    <i data-lucide="layout-dashboard" class="w-8 h-8"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3">Dashboard ESG</h3>
-                <p class="text-gray-600">Acompanhamento visual da evolução dos indicadores da sua empresa.</p>
-            </div>
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6 text-blue-600">
-                    <i data-lucide="line-chart" class="w-8 h-8"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3">Simulador</h3>
-                <p class="text-gray-600">Projete diferentes níveis de utilização da solução Taggy no futuro.</p>
-            </div>
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center mb-6 text-emerald-600">
-                    <i data-lucide="wind" class="w-8 h-8"></i>
-                </div>
-                <h3 class="text-xl font-bold mb-3">Redução de CO₂</h3>
-                <p class="text-gray-600">Meça a diminuição de emissões provenientes da redução de frenagens.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-gray-900 text-white mt-10">
-        <div class="max-w-7xl mx-auto px-6 py-8 text-center text-gray-400 text-sm">
-            © 2026 Eco Taggy. Todos os direitos reservados.
-        </div>
-    </footer>
+    <main class="max-w-4xl mx-auto px-8 py-24 text-center">
+        <h1 class="text-5xl font-extrabold mb-6 leading-tight">Mensure sua pegada de <span class="text-green-600 italic">carbono digital.</span></h1>
+        <p class="text-xl text-slate-600 mb-12 max-w-2xl mx-auto">Sua frota mais sustentável com monitoramento em tempo real. Cadastre-se para acessar o portal completo.</p>
+        
+        <a href="/cadastro" class="inline-flex items-center gap-2 px-8 py-4 bg-green-600 text-white rounded-xl font-bold text-lg hover:bg-green-700 shadow-lg shadow-green-200">
+            Começar Agora <i data-lucide="arrow-right"></i>
+        </a>
+    </main>
 
     <script>lucide.createIcons();</script>
 </body>

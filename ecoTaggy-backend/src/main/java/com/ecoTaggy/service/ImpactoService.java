@@ -6,6 +6,12 @@ import com.ecoTaggy.repository.ImpactoAmbientalRepository;
 import com.ecoTaggy.repository.TransacaoRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class ImpactoService {
 
@@ -42,8 +48,39 @@ public class ImpactoService {
 
         impacto.setCo2Evitado(volumeTransacoes * 0.05);
         impacto.setPapelEconomizado(volumeTransacoes * 0.002);
-        impacto.setCombustivelEconomizado(volumeTransacoes * 0.01); // Corrigido para bater com a Entidade
+        impacto.setCombustivelEconomizado(volumeTransacoes * 0.01); 
 
         return impacto;
+    }
+
+    // 🔹 NOVO: Método de geração de Relatório ESG automatizado (Entrega 03)
+    public Map<String, Object> gerarRelatorioESG() {
+        // LER DO BANCO DE DADOS (Regra da faculdade)
+        List<ImpactoAmbiental> todosImpactos = impactoRepository.findAll();
+
+        double co2TotalEvitado = 0.0;
+        double papelTotalEvitado = 0.0;
+        double combustivelTotalPoupado = 0.0;
+
+        // Somarizando os dados brutos usando os getters da sua entidade
+        for (ImpactoAmbiental impacto : todosImpactos) {
+            co2TotalEvitado += impacto.getCo2Evitado();
+            papelTotalEvitado += impacto.getPapelEconomizado(); 
+            combustivelTotalPoupado += impacto.getCombustivelEconomizado(); 
+        }
+
+        // Formatando a data padrão BR
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        // Montando o Dicionário/Map que será enviado para a tela (Thymeleaf)
+        Map<String, Object> relatorio = new HashMap<>();
+        relatorio.put("co2Total", String.format("%.2f", co2TotalEvitado));
+        relatorio.put("papelTotal", String.format("%.2f", papelTotalEvitado));
+        relatorio.put("combustivelTotal", String.format("%.2f", combustivelTotalPoupado));
+        relatorio.put("transacoesAvaliadas", todosImpactos.size());
+        relatorio.put("dataGeracao", LocalDate.now().format(formatter));
+        relatorio.put("metodologia", "GHG Protocol (Escopo 3) - Otimização de Operações");
+
+        return relatorio;
     }
 }

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eco Taggy - Mensuração Sustentável</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="size-full overflow-y-auto bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 font-sans antialiased text-gray-900">
+
+    <header class="sticky top-0 z-50 backdrop-blur-md border-b bg-white/80 border-green-100">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-green-600 p-1.5 rounded-md">
+                    <i data-lucide="leaf" class="w-6 h-6 text-white"></i>
+                </div>
+                <span class="text-2xl font-bold text-gray-800 tracking-tight">Eco<span class="text-green-600">Taggy</span></span>
+            </div>
+            
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#features" class="transition-colors text-gray-700 hover:text-green-600 font-medium">
+                    Recursos
+                </a>
+                <a href="#about" class="transition-colors text-gray-700 hover:text-green-600 font-medium">
+                    Sobre
+                </a>
+                
+                <a href="/simulador" class="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium shadow-sm">
+                    Começar Agora
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-6 py-20 text-center">
+        <div class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-6 bg-green-100 text-green-700">
+            <i data-lucide="leaf" class="w-4 h-4 mr-2"></i>
+            Cálculo de Impacto Ambiental
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-gray-900">
+            Mensuração Transparente para um
+            <br />
+            <span class="text-green-500">Futuro Sustentável</span>
+        </h1>
+        
+        <p class="text-xl max-w-3xl mx-auto mb-12 leading-relaxed text-gray-600">
+            A plataforma Eco Taggy permite calcular e visualizar o impacto ambiental evitado pela solução Taggy. 
+            Quantifique a redução de emissões de CO₂, economia de combustível e eliminação de papel em pedágios e estacionamentos.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/simulador" class="px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-lg font-medium shadow-lg inline-block">
+                Acessar Calculadora
+            </a>
+            <a href="/dashboard" class="px-8 py-4 rounded-lg transition-colors text-lg font-medium border-2 bg-white text-gray-900 border-gray-200 hover:bg-gray-50 inline-block">
+                Ver Relatório ESG
+            </a>
+        </div>
+    </section>
+
+    <section id="features" class="max-w-7xl mx-auto px-6 py-20">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4 text-gray-900">
+                Módulos da Plataforma
+            </h2>
+            <p class="text-xl text-gray-600">
+                Ferramentas completas para medir os benefícios ambientais de operações digitais
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <a href="/simulador" class="block p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group">
+                <div class="text-green-600 mb-6 group-hover:scale-110 transition-transform origin-left">
+                    <i data-lucide="calculator" class="w-12 h-12"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Calculadora de Emissões</h3>
+                <p class="text-gray-600 leading-relaxed">Calcule as emissões de GEE (Gases de Efeito Estufa) evitadas ao substituir métodos tradicionais por soluções digitais em pedágios e estacionamentos.</p>
+            </a>
+            
+            <a href="/dashboard" class="block p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group">
+                <div class="text-green-600 mb-6 group-hover:scale-110 transition-transform origin-left">
+                    <i data-lucide="layout-dashboard" class="w-12 h-12"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Dashboard de Sustentabilidade</h3>
+                <p class="text-gray-600 leading-relaxed">Apresentação visual com gráficos e histórico de impacto ambiental, permitindo o acompanhamento da evolução da sua empresa ao longo do tempo.</p>
+            </a>
+            
+            <a href="/simulador" class="block p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group">
+                <div class="text-green-600 mb-6 group-hover:scale-110 transition-transform origin-left">
+                    <i data-lucide="line-chart" class="w-12 h-12"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Simulador de Cenários</h3>
+                <p class="text-gray-600 leading-relaxed">Projete diferentes níveis de utilização da solução Taggy e visualize estimativas de impacto ambiental positivo no futuro.</p>
+            </a>
+            
+            <a href="/simulador" class="block p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group">
+                <div class="text-green-600 mb-6 group-hover:scale-110 transition-transform origin-left">
+                    <i data-lucide="wind" class="w-12 h-12"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Redução de CO₂</h3>
+                <p class="text-gray-600 leading-relaxed">Meça a diminuição de emissões provenientes da redução de frenagens, acelerações e congestionamentos em praças de pedágio.</p>
+            </a>
+            
+            <a href="/simulador" class="block p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group">
+                <div class="text-green-600 mb-6 group-hover:scale-110 transition-transform origin-left">
+                    <i data-lucide="trees" class="w-12 h-12"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Economia de Papel</h3>
+                <p class="text-gray-600 leading-relaxed">Quantifique o benefício da eliminação de tickets físicos de estacionamento e do uso de cartões plásticos/PVC.</p>
+            </a>
+            
+            <a href="/relatorio-esg" class="block p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group">
+                <div class="text-green-600 mb-6 group-hover:scale-110 transition-transform origin-left">
+                    <i data-lucide="file-text" class="w-12 h-12"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Relatórios Ambientais ESG</h3>
+                <p class="text-gray-600 leading-relaxed">Gere métricas padronizadas usando metodologias confiáveis (como GHG Protocol) para integrar diretamente nas estratégias ESG da sua empresa.</p>
+            </a>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 py-20">
+        <div class="rounded-3xl p-12 md:p-16 text-center text-white shadow-2xl bg-gradient-to-br from-green-600 to-emerald-700">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                Comunique Seu Valor Sustentável
+            </h2>
+            <p class="text-xl mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed">
+                Transforme dados operacionais em indicadores ambientais claros. 
+                Permita que seus clientes e empresas compreendam os impactos ambientais evitados pela sua transição digital.
+            </p>
+            <a href="/simulador" class="inline-block px-10 py-4 rounded-lg transition-colors text-lg font-semibold shadow-lg bg-white hover:bg-gray-100 text-green-700">
+                Simular Cenário Agora
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white mt-20">
+        <div class="max-w-7xl mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="bg-green-600 p-1.5 rounded-md">
+                            <i data-lucide="leaf" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white tracking-tight">Eco<span class="text-green-500">Taggy</span></span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Plataforma de cálculo e visualização de impacto ambiental.
+                    </p>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4 text-gray-100">Plataforma</h3>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li><a href="/simulador" class="hover:text-white transition-colors">Calculadora</a></li>
+                        <li><a href="/dashboard" class="hover:text-white transition-colors">Dashboard</a></li>
+                        <li><a href="/simulador" class="hover:text-white transition-colors">Simulador</a></li>
+                        <li><a href="/relatorio-esg" class="hover:text-white transition-colors">Relatórios ESG</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4 text-gray-100">Empresa</h3>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Sobre Nós</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Metodologia</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="font-semibold mb-4 text-gray-100">Legal</h3>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white transition-colors">Privacidade</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Termos</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
+                © 2026 Eco Taggy. Todos os direitos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
