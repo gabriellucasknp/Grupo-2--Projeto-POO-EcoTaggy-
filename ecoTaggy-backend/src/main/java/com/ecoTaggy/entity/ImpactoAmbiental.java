@@ -15,16 +15,22 @@ public class ImpactoAmbiental {
     private Double papelEconomizado;
     private Double combustivelEconomizado;
 
+    @OneToOne //Cada registro de impacto está associado a um único usuário
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
     public ImpactoAmbiental() {}
 
-    public ImpactoAmbiental(Long id, Integer transacoesProcessadas, Double co2Evitado, Double papelEconomizado, Double combustivelEconomizado) {
+    public ImpactoAmbiental(Long id, Integer transacoesProcessadas, Double co2Evitado, Double papelEconomizado, Double combustivelEconomizado, Usuario usuario) {
         this.id = id;
         this.transacoesProcessadas = transacoesProcessadas;
         this.co2Evitado = co2Evitado;
         this.papelEconomizado = papelEconomizado;
         this.combustivelEconomizado = combustivelEconomizado;
+        this.usuario = usuario;
     }
-
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     public Integer getTransacoesProcessadas() { return transacoesProcessadas; }

@@ -1,6 +1,7 @@
 package com.ecoTaggy.entity;
 
 import jakarta.persistence.*;
+import java.util.ArrayList; // Importante!
 import java.util.List;
 
 @Entity
@@ -17,15 +18,24 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private Perfil perfil;
+
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private ImpactoAmbiental impacto;
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<Transacao> transacoes;
+    private List<Transacao> transacoes = new ArrayList<>();
 
     public Usuario() {}
 
-    public Usuario(Long id, String nome, String email, List<Transacao> transacoes) {
+    // Construtor atualizado com Perfil e Impacto
+    public Usuario(Long id, String nome, String email, Perfil perfil, ImpactoAmbiental impacto, List<Transacao> transacoes) {
         this.id = id;
         this.nome = nome;
         this.email = email;
+        this.perfil = perfil;
+        this.impacto = impacto;
         this.transacoes = transacoes;
     }
 
@@ -35,11 +45,18 @@ public class Usuario {
     public void setNome(String nome) { this.nome = nome; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
+    
+    // Novos Getters e Setters
+    public Perfil getPerfil() { return perfil; }
+    public void setPerfil(Perfil perfil) { this.perfil = perfil; }
+    public ImpactoAmbiental getImpacto() { return impacto; }
+    public void setImpacto(ImpactoAmbiental impacto) { this.impacto = impacto; }
+
     public List<Transacao> getTransacoes() { return transacoes; }
     public void setTransacoes(List<Transacao> transacoes) { this.transacoes = transacoes; }
 
     @Override
     public String toString() {
-        return "Usuario{id=" + id + ", nome='" + nome + "', email='" + email + "'}";
+        return "Usuario{id=" + id + ", nome='" + nome + "', email='" + email + "', perfil=" + perfil + "}";
     }
 }
