@@ -59,4 +59,15 @@ public class Usuario {
     public String toString() {
         return "Usuario{id=" + id + ", nome='" + nome + "', email='" + email + "', perfil=" + perfil + "}";
     }
+
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
+    private String fotoUrl;
+    private String senha;
+
+    public String getFotoUrl() { return fotoUrl; }
+    public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
+
+    public String getSenha() { return senha; }
+    public void setSenha(String senha) { this.senha = senha; }
 }

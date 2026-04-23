@@ -10,6 +10,7 @@
 </head>
 <body class="size-full overflow-y-auto min-h-screen bg-gray-50 text-gray-900">
 
+
     <header class="sticky top-0 z-50 backdrop-blur-md border-b shadow-sm bg-white/80 border-gray-200">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <a th:href="@{/landing}" class="flex items-center transition-colors font-medium text-gray-600 hover:text-green-600">
@@ -29,14 +30,15 @@
         </div>
     </header>
 
+
     <main class="max-w-7xl mx-auto px-6 py-8">
-        
+       
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
                 <h1 class="text-3xl font-bold mb-2">Dashboard de Sustentabilidade</h1>
-                <p class="text-gray-600">Acompanhe as métricas de impacto ambiental da sua frota e operações.</p>
+                <p class="text-gray-600">Acompanhe as métricas de impacto ambiental da sua frota em tempo real.</p>
             </div>
-            
+           
             <div class="flex rounded-lg p-1 border border-gray-200 bg-white shadow-sm self-start md:self-auto">
                 <button class="px-4 py-1.5 text-sm font-medium rounded-md bg-green-50 text-green-700">Mensal</button>
                 <button class="px-4 py-1.5 text-sm font-medium rounded-md text-gray-500 hover:text-gray-900">YTD</button>
@@ -44,34 +46,37 @@
             </div>
         </div>
 
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            <div class="p-6 rounded-2xl shadow-sm border bg-white border-gray-100 hover:border-green-200 transition-all group">
+            <div class="p-6 rounded-2xl shadow-sm border bg-white border-gray-100 hover:border-green-200 transition-all">
                 <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-green-100 text-green-700">
                     <i data-lucide="cloud-fog" class="w-5 h-5"></i>
                 </div>
                 <p class="text-sm font-medium mb-1 text-gray-500">CO₂ Evitado Total</p>
                 <div class="flex items-end gap-2">
-                    <h3 class="text-3xl font-bold" th:text="${co2Total}">0.00</h3>
+                    <h3 class="text-3xl font-bold" th:text="${relatorio.co2Total}">0.000</h3>
                     <span class="text-sm mb-1 text-gray-500">kg</span>
                 </div>
                 <div class="mt-4 flex items-center text-sm text-green-600 font-medium">
-                    <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i> Atualizado <span class="ml-2 text-gray-400 font-normal">em tempo real</span>
+                    <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i> Atualizado <span class="ml-2 text-gray-400 font-normal">ao vivo</span>
                 </div>
             </div>
+
 
             <div class="p-6 rounded-2xl shadow-sm border bg-white border-gray-100 hover:border-emerald-200 transition-all">
                 <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-emerald-100 text-emerald-700">
                     <i data-lucide="tree-pine" class="w-5 h-5"></i>
                 </div>
-                <p class="text-sm font-medium mb-1 text-gray-500">Árvores Equivalentes</p>
+                <p class="text-sm font-medium mb-1 text-gray-500">Árvores Preservadas</p>
                 <div class="flex items-end gap-2">
-                    <h3 class="text-3xl font-bold" th:text="${arvoresSalvas}">0</h3>
-                    <span class="text-sm mb-1 text-gray-500">árvores</span>
+                    <h3 class="text-3xl font-bold" th:text="${relatorio.co2Total != '0,000' ? '1' : '0'}">0</h3>
+                    <span class="text-sm mb-1 text-gray-500">unid.</span>
                 </div>
                 <div class="mt-4 flex items-center text-sm text-emerald-600 font-medium">
                     <i data-lucide="plus" class="w-4 h-4 mr-1"></i> Impacto <span class="ml-2 text-gray-400 font-normal">positivo</span>
                 </div>
             </div>
+
 
             <div class="p-6 rounded-2xl shadow-sm border bg-white border-gray-100 hover:border-blue-200 transition-all">
                 <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-blue-100 text-blue-700">
@@ -79,7 +84,7 @@
                 </div>
                 <p class="text-sm font-medium mb-1 text-gray-500">Combustível Poupado</p>
                 <div class="flex items-end gap-2">
-                    <h3 class="text-3xl font-bold" th:text="${combustivelPoupado}">0.00</h3>
+                    <h3 class="text-3xl font-bold" th:text="${relatorio.combustivelTotal}">0.000</h3>
                     <span class="text-sm mb-1 text-gray-500">L</span>
                 </div>
                 <div class="mt-4 flex items-center text-sm text-blue-600 font-medium">
@@ -87,13 +92,14 @@
                 </div>
             </div>
 
+
             <div class="p-6 rounded-2xl shadow-sm border bg-white border-gray-100 hover:border-amber-200 transition-all">
                 <div class="w-10 h-10 rounded-xl flex items-center justify-center mb-4 bg-amber-100 text-amber-700">
                     <i data-lucide="receipt" class="w-5 h-5"></i>
                 </div>
                 <p class="text-sm font-medium mb-1 text-gray-500">Tickets Evitados</p>
                 <div class="flex items-end gap-2">
-                    <h3 class="text-3xl font-bold" th:text="${ticketsEvitados}">0</h3>
+                    <h3 class="text-3xl font-bold" th:text="${relatorio.transacoesAvaliadas}">0</h3>
                     <span class="text-sm mb-1 text-gray-500">und</span>
                 </div>
                 <div class="mt-4 flex items-center text-sm text-amber-600 font-medium">
@@ -102,37 +108,6 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-            <div class="lg:col-span-2 p-6 rounded-2xl shadow-sm border bg-white border-gray-100">
-                <div class="mb-6">
-                    <h3 class="text-lg font-bold">Evolução de Emissões Evitadas</h3>
-                    <p class="text-sm text-gray-500">Histórico de CO₂ evitado (em kg) ao longo do tempo</p>
-                </div>
-                <div class="h-[300px] w-full relative">
-                    <canvas id="areaChart"></canvas>
-                </div>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                <div class="mb-6">
-                    <h3 class="text-lg font-bold text-gray-900">Origem da Redução</h3>
-                    <p class="text-sm text-gray-500">Distribuição por tipo de operação</p>
-                </div>
-                <div class="h-[240px] w-full relative flex justify-center">
-                    <canvas id="donutChart"></canvas>
-                </div>
-                <div class="mt-6 space-y-3">
-                    <div class="flex items-center justify-between text-sm">
-                        <div class="flex items-center"><div class="w-3 h-3 rounded-full bg-green-600 mr-2"></div> Pedágios</div>
-                        <span class="font-bold">65%</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm">
-                        <div class="flex items-center"><div class="w-3 h-3 rounded-full bg-green-300 mr-2"></div> Estacionamentos</div>
-                        <span class="font-bold">35%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl shadow-lg p-8 text-white flex flex-col md:flex-row items-center justify-between">
             <div class="flex items-start gap-6 mb-6 md:mb-0">
@@ -140,11 +115,11 @@
                     <i data-lucide="file-text" class="w-8 h-8 text-white"></i>
                 </div>
                 <div>
-                    <h3 class="text-2xl font-bold mb-2">Relatório ESG Completo Pronto</h3>
+                    <h3 class="text-2xl font-bold mb-2">Relatório ESG Gerado com Sucesso</h3>
                     <p class="text-green-100 max-w-xl">
-                        Relatório gerado em <span th:text="${dataGeracao}">00/00/0000</span> seguindo a metodologia 
-                        <span th:text="${metodologia}">GHG Protocol</span>. Dados baseados em 
-                        <span th:text="${transacoesAvaliadas}">0</span> transações.
+                        Consolidado em <span th:text="${relatorio.dataGeracao}">--/--/----</span> via 
+                        <span th:text="${relatorio.metodologia}">Metodologia ESG</span>. 
+                        Processamento baseado em <span th:text="${relatorio.transacoesAvaliadas}">0</span> transações reais.
                     </p>
                 </div>
             </div>
@@ -153,61 +128,14 @@
             </a>
         </div>
 
+
     </main>
+
 
     <script>
         lucide.createIcons();
-
-        const ctxArea = document.getElementById('areaChart').getContext('2d');
-        const gradientArea = ctxArea.createLinearGradient(0, 0, 0, 300);
-        gradientArea.addColorStop(0, 'rgba(22, 163, 74, 0.4)');
-        gradientArea.addColorStop(1, 'rgba(22, 163, 74, 0.0)');
-
-        new Chart(ctxArea, {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'],
-                datasets: [{
-                    label: 'CO₂ Evitado (kg)',
-                    data: [400, 300, 550, 480, 600, 720, 850],
-                    borderColor: '#16a34a',
-                    backgroundColor: gradientArea,
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 4,
-                    pointBackgroundColor: '#fff'
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { display: false } },
-                    y: { grid: { borderDash: [3, 3] }, beginAtZero: true }
-                }
-            }
-        });
-
-        const ctxDonut = document.getElementById('donutChart').getContext('2d');
-        new Chart(ctxDonut, {
-            type: 'doughnut',
-            data: {
-                labels: ['Pedágios', 'Estacionamentos'],
-                datasets: [{
-                    data: [65, 35],
-                    backgroundColor: ['#16a34a', '#86efac'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '75%',
-                plugins: { legend: { display: false } }
-            }
-        });
     </script>
 </body>
 </html>
+
+

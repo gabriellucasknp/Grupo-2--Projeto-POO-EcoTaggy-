@@ -27,11 +27,6 @@ public class ViewController {
         return "index"; 
     }
 
-    @GetMapping("/landing")
-    public String exibirLanding() {
-        return "landing"; 
-    }
-
     @GetMapping("/login")
     public String exibirLogin() {
         return "login";

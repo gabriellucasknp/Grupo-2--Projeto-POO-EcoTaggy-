@@ -19,6 +19,14 @@ public class ImpactoAmbiental {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+    public ImpactoAmbiental(Usuario usuario) {
+        this.usuario = usuario;
+        this.transacoesProcessadas = 0;
+        this.co2Evitado = 0.0;
+        this.papelEconomizado = 0.0;
+        this.combustivelEconomizado = 0.0;
+    }
+    
     public ImpactoAmbiental() {}
 
     public ImpactoAmbiental(Long id, Integer transacoesProcessadas, Double co2Evitado, Double papelEconomizado, Double combustivelEconomizado, Usuario usuario) {

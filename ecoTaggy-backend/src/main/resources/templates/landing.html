@@ -6,119 +6,174 @@
     <title>Eco Taggy - Mensuração Sustentável</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        // Detecção de tema persistente para evitar flash branco
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <style>
+        .animate-in { animation: fadeIn 0.2s ease-out; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<body class="size-full overflow-y-auto bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 font-sans antialiased text-gray-900">
+<body class="size-full overflow-y-auto bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 font-sans antialiased text-gray-900 dark:text-gray-100 transition-colors duration-300">
 
-    <header class="sticky top-0 z-50 backdrop-blur-md border-b bg-white/80 border-green-100">
+
+    <header class="sticky top-0 z-50 backdrop-blur-md border-b bg-white/80 border-green-100 dark:bg-slate-900/80 dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <div class="flex items-center gap-3 py-1">
-                    <img src="/images/logo1.png" alt="Eco Taggy Logo" class="h-16 w-auto object-contain"> 
-                </div>
+                <img src="/images/logo1.png" alt="Eco Taggy Logo" class="h-16 w-auto object-contain dark:brightness-110">
             </div>
-            
+           
             <nav class="hidden md:flex items-center gap-8">
-                <a href="#features" class="transition-colors text-gray-700 hover:text-green-600 font-medium">
-                    Recursos
-                </a>
-                <a href="#about" class="transition-colors text-gray-700 hover:text-green-600 font-medium">
-                    Sobre
-                </a>
-                
-                <a href="/simulador" class="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium shadow-sm">
-                    Começar Agora
-                </a>
+                <a href="#features" class="transition-colors text-gray-700 hover:text-green-600 font-medium dark:text-gray-300 dark:hover:text-green-400">Recursos</a>
+                <a href="#about" class="transition-colors text-gray-700 hover:text-green-600 font-medium dark:text-gray-300 dark:hover:text-green-400">Sobre</a>
+               
+                <div class="relative" id="profile-container">
+                    <button id="avatar-btn" class="w-11 h-11 rounded-full overflow-hidden border-2 border-green-500 hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 dark:ring-offset-slate-900">
+                        <img th:src="${usuario.fotoUrl != null && !usuario.fotoUrl.isEmpty() ? usuario.fotoUrl : 'https://ui-avatars.com/api/?name=' + usuario.nome}" 
+                        alt="Perfil" 
+                        class="w-full h-full object-cover">
+
+
+
+                    </button>
+
+
+                    <div id="profile-menu" class="hidden absolute right-0 mt-3 w-64 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-gray-100 dark:border-slate-700 py-2 z-50 animate-in">
+                        <div class="px-4 py-3 border-b border-gray-100 dark:border-slate-700">
+                            <p class="text-sm font-bold text-gray-900 dark:text-white" th:text="${usuario.nome}">Matheus Paulo</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 truncate" th:text="${usuario.email}">matheus@teste.com</p>
+                        </div>
+                        
+                        <div class="py-2">
+                            <a th:href="@{/perfil/{id}(id=${usuario.id})}" class="w-full px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-slate-700 flex items-center transition-colors">
+                                <i data-lucide="user" class="w-4 h-4 mr-3 text-gray-400"></i> Meu Perfil
+                            </a>
+                            <button class="w-full px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-slate-700 flex items-center transition-colors">
+                                <i data-lucide="settings" class="w-4 h-4 mr-3 text-gray-400"></i> Configurações
+                            </button>
+                            
+                            <button onclick="toggleTheme()" class="w-full px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-slate-700 flex items-center justify-between transition-colors">
+                                <div class="flex items-center">
+                                    <i id="theme-icon" data-lucide="sun" class="w-4 h-4 mr-3 text-gray-400"></i>
+                                    Tema
+                                </div>
+                                <span id="theme-text" class="text-[10px] uppercase tracking-wider font-bold bg-gray-100 dark:bg-slate-700 px-2 py-1 rounded-full text-gray-500 dark:text-gray-400">Claro</span>
+                            </button>
+                        </div>
+                        
+                        <div class="py-2 border-t border-gray-100 dark:border-slate-700">
+                            <button class="w-full px-4 py-2.5 text-sm text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-slate-700 flex items-center transition-colors font-medium">
+                                <i data-lucide="users" class="w-4 h-4 mr-3"></i> Trocar Usuário
+                            </button>
+                            <a href="/logout" class="w-full px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center transition-colors font-bold">
+                                <i data-lucide="log-out" class="w-4 h-4 mr-3"></i> Sair da Conta
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
 
+
     <section class="max-w-7xl mx-auto px-6 py-20 text-center">
-        <div class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-6 bg-green-100 text-green-700">
+        <div class="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-6 bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">
             <i data-lucide="leaf" class="w-4 h-4 mr-2"></i>
             Cálculo de Impacto Ambiental
         </div>
-        
-        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-gray-900">
+       
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-gray-900 dark:text-white">
             Mensuração Transparente para um
             <br />
-            <span class="text-green-500">Futuro Sustentável</span>
+            <span class="text-green-500 dark:text-green-400">Futuro Sustentável</span>
         </h1>
-        
-        <p class="text-xl max-w-3xl mx-auto mb-12 leading-relaxed text-gray-600">
-            A plataforma Eco Taggy permite calcular e visualizar o impacto ambiental evitado pela solução Taggy. 
-            Quantifique a redução de emissões de CO₂, economia de combustível e eliminação de papel em pedágios e estacionamentos.
+       
+        <p class="text-xl max-w-3xl mx-auto mb-12 leading-relaxed text-gray-600 dark:text-gray-400">
+            A plataforma Eco Taggy permite calcular e visualizar o impacto ambiental evitado pela solução Taggy.
+            Quantifique a redução de emissões de CO₂, economia de combustível e eliminação de papel.
         </p>
-        
+       
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/simulador" class="px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-lg font-medium shadow-lg inline-block">
                 Acessar Calculadora
             </a>
-            <a href="/dashboard" class="px-8 py-4 rounded-lg transition-colors text-lg font-medium border-2 bg-white text-gray-900 border-gray-200 hover:bg-gray-50 inline-block">
+            <a href="/dashboard" class="px-8 py-4 rounded-lg transition-colors text-lg font-medium border-2 bg-white text-gray-900 border-gray-200 hover:bg-gray-50 dark:bg-slate-800 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 inline-block">
                 Ver Relatório ESG
             </a>
         </div>
     </section>
 
+
     <section id="features" class="max-w-7xl mx-auto px-6 py-20">
         <div class="text-center mb-16">
-            <h2 class="text-4xl font-bold mb-4 text-gray-900">
+            <h2 class="text-4xl font-bold mb-4 dark:text-white text-gray-900">
                 Módulos da Plataforma
             </h2>
-            <p class="text-xl text-gray-600">
+            <p class="text-xl text-gray-600 dark:text-gray-400">
                 Ferramentas completas para medir os benefícios ambientais de operações digitais
             </p>
         </div>
-        
+       
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <a href="/simulador" class="block p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group">
-                <div class="text-green-600 mb-6 group-hover:scale-110 transition-transform origin-left">
+            <a href="/simulador" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
+                <div class="text-green-600 dark:text-green-400 mb-6 group-hover:scale-110 transition-transform origin-left">
                     <i data-lucide="calculator" class="w-12 h-12"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Calculadora de Emissões</h3>
-                <p class="text-gray-600 leading-relaxed">Calcule as emissões de GEE (Gases de Efeito Estufa) evitadas ao substituir métodos tradicionais por soluções digitais em pedágios e estacionamentos.</p>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Calculadora de Emissões</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Calcule as emissões de GEE evitadas ao substituir métodos tradicionais por digitais.</p>
             </a>
-            
-            <a href="/dashboard" class="block p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group">
-                <div class="text-green-600 mb-6 group-hover:scale-110 transition-transform origin-left">
+           
+            <a href="/dashboard" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
+                <div class="text-green-600 dark:text-green-400 mb-6 group-hover:scale-110 transition-transform origin-left">
                     <i data-lucide="layout-dashboard" class="w-12 h-12"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Dashboard de Sustentabilidade</h3>
-                <p class="text-gray-600 leading-relaxed">Apresentação visual com gráficos e histórico de impacto ambiental, permitindo o acompanhamento da evolução da sua empresa ao longo do tempo.</p>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Dashboard de Sustentabilidade</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Apresentação visual com gráficos e histórico de impacto ambiental em tempo real.</p>
             </a>
-            
-            <a href="/simulador" class="block p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group">
-                <div class="text-green-600 mb-6 group-hover:scale-110 transition-transform origin-left">
+           
+            <a href="/simulador" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
+                <div class="text-green-600 dark:text-green-400 mb-6 group-hover:scale-110 transition-transform origin-left">
                     <i data-lucide="line-chart" class="w-12 h-12"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Simulador de Cenários</h3>
-                <p class="text-gray-600 leading-relaxed">Projete diferentes níveis de utilização da solução Taggy e visualize estimativas de impacto ambiental positivo no futuro.</p>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Simulador de Cenários</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Projete diferentes níveis de utilização e visualize estimativas de impacto ambiental futuro.</p>
             </a>
-            
-            <a href="/simulador" class="block p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group">
-                <div class="text-green-600 mb-6 group-hover:scale-110 transition-transform origin-left">
+           
+            <a href="/simulador" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
+                <div class="text-green-600 dark:text-green-400 mb-6 group-hover:scale-110 transition-transform origin-left">
                     <i data-lucide="wind" class="w-12 h-12"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Redução de CO₂</h3>
-                <p class="text-gray-600 leading-relaxed">Meça a diminuição de emissões provenientes da redução de frenagens, acelerações e congestionamentos em praças de pedágio.</p>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Redução de CO₂</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Meça a diminuição de emissões provenientes da redução de frenagens e acelerações.</p>
             </a>
-            
-            <a href="/simulador" class="block p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group">
-                <div class="text-green-600 mb-6 group-hover:scale-110 transition-transform origin-left">
+           
+            <a href="/simulador" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
+                <div class="text-green-600 dark:text-green-400 mb-6 group-hover:scale-110 transition-transform origin-left">
                     <i data-lucide="trees" class="w-12 h-12"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Economia de Papel</h3>
-                <p class="text-gray-600 leading-relaxed">Quantifique o benefício da eliminação de tickets físicos de estacionamento e do uso de cartões plásticos/PVC.</p>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Economia de Papel</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Quantifique o benefício da eliminação de tickets físicos de estacionamento.</p>
             </a>
-            
-            <a href="/relatorio-esg" class="block p-8 bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow border border-gray-100 group">
-                <div class="text-green-600 mb-6 group-hover:scale-110 transition-transform origin-left">
+           
+            <a href="/dashboard" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
+                <div class="text-green-600 dark:text-green-400 mb-6 group-hover:scale-110 transition-transform origin-left">
                     <i data-lucide="file-text" class="w-12 h-12"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-3">Relatórios Ambientais ESG</h3>
-                <p class="text-gray-600 leading-relaxed">Gere métricas padronizadas usando metodologias confiáveis (como GHG Protocol) para integrar diretamente nas estratégias ESG da sua empresa.</p>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Relatórios Ambientais ESG</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Gere métricas padronizadas para integrar diretamente nas estratégias corporativas.</p>
             </a>
         </div>
     </section>
+
 
     <section class="max-w-7xl mx-auto px-6 py-20">
         <div class="rounded-3xl p-12 md:p-16 text-center text-white shadow-2xl bg-gradient-to-br from-green-600 to-emerald-700">
@@ -126,8 +181,8 @@
                 Comunique Seu Valor Sustentável
             </h2>
             <p class="text-xl mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed">
-                Transforme dados operacionais em indicadores ambientais claros. 
-                Permita que seus clientes e empresas compreendam os impactos ambientais evitados pela sua transição digital.
+                Transforme dados operacionais em indicadores ambientais claros.
+                Permita que seus clientes compreendam os impactos evitados pela sua transição digital.
             </p>
             <a href="/simulador" class="inline-block px-10 py-4 rounded-lg transition-colors text-lg font-semibold shadow-lg bg-white hover:bg-gray-100 text-green-700">
                 Simular Cenário Agora
@@ -135,57 +190,89 @@
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-white mt-20">
+
+    <footer class="bg-gray-900 text-white mt-20 dark:bg-slate-950">
         <div class="max-w-7xl mx-auto px-6 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="flex items-center gap-3 py-1">
-                            <img src="/images/logo1.png" alt="Eco Taggy Logo" class="h-10 w-auto object-contain"> 
-                        </div>
-                    </div>
+                    <img src="/images/logo1.png" alt="Eco Taggy Logo" class="h-10 w-auto mb-4 brightness-200">
                     <p class="text-gray-400 text-sm leading-relaxed">
                         Plataforma de cálculo e visualização de impacto ambiental.
                     </p>
                 </div>
-                
                 <div>
                     <h3 class="font-semibold mb-4 text-gray-100">Plataforma</h3>
                     <ul class="space-y-3 text-gray-400 text-sm">
-                        <li><a href="/simulador" class="hover:text-white transition-colors">Calculadora</a></li>
-                        <li><a href="/dashboard" class="hover:text-white transition-colors">Dashboard</a></li>
-                        <li><a href="/simulador" class="hover:text-white transition-colors">Simulador</a></li>
-                        <li><a href="/relatorio-esg" class="hover:text-white transition-colors">Relatórios ESG</a></li>
+                        <li><a href="/simulador" class="hover:text-white">Calculadora</a></li>
+                        <li><a href="/dashboard" class="hover:text-white">Dashboard</a></li>
+                        <li><a href="/simulador" class="hover:text-white">Simulador</a></li>
+                        <li><a href="/dashboard" class="hover:text-white">Relatórios ESG</a></li>
                     </ul>
                 </div>
-                
                 <div>
                     <h3 class="font-semibold mb-4 text-gray-100">Empresa</h3>
                     <ul class="space-y-3 text-gray-400 text-sm">
-                        <li><a href="#" class="hover:text-white transition-colors">Sobre Nós</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Metodologia</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Contato</a></li>
+                        <li><a href="#" class="hover:text-white">Sobre Nós</a></li>
+                        <li><a href="#" class="hover:text-white">Metodologia</a></li>
+                        <li><a href="#" class="hover:text-white">Contato</a></li>
                     </ul>
                 </div>
-                
                 <div>
                     <h3 class="font-semibold mb-4 text-gray-100">Legal</h3>
                     <ul class="space-y-3 text-gray-400 text-sm">
-                        <li><a href="#" class="hover:text-white transition-colors">Privacidade</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Termos</a></li>
-                        <li><a href="#" class="hover:text-white transition-colors">Cookies</a></li>
+                        <li><a href="#" class="hover:text-white">Privacidade</a></li>
+                        <li><a href="#" class="hover:text-white">Termos</a></li>
+                        <li><a href="#" class="hover:text-white">Cookies</a></li>
                     </ul>
                 </div>
             </div>
-            
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
                 © 2026 Eco Taggy. Todos os direitos reservados.
             </div>
         </div>
     </footer>
 
+
     <script>
         lucide.createIcons();
+
+
+        // Lógica Dropdown Perfil
+        const avatarBtn = document.getElementById('avatar-btn');
+        const profileMenu = document.getElementById('profile-menu');
+        const profileContainer = document.getElementById('profile-container');
+
+
+        avatarBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            profileMenu.classList.toggle('hidden');
+        });
+
+
+        window.addEventListener('click', (e) => {
+            if (!profileContainer.contains(e.target)) {
+                profileMenu.classList.add('hidden');
+            }
+        });
+
+
+        // Lógica de Dark Mode
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.classList.toggle('dark');
+            const themeText = document.getElementById('theme-text');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            themeText.innerText = isDark ? 'Escuro' : 'Claro';
+            lucide.createIcons();
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            document.getElementById('theme-text').innerText = isDark ? 'Escuro' : 'Claro';
+        });
     </script>
 </body>
 </html>
+
+
