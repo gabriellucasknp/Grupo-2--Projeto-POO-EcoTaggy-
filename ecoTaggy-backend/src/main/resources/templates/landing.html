@@ -103,10 +103,10 @@
         </p>
        
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/simulador" class="px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-lg font-medium shadow-lg inline-block">
+            <a href="/calculadora" class="px-8 py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-lg font-medium shadow-lg inline-block">
                 Acessar Calculadora
             </a>
-            <a href="/dashboard" class="px-8 py-4 rounded-lg transition-colors text-lg font-medium border-2 bg-white text-gray-900 border-gray-200 hover:bg-gray-50 dark:bg-slate-800 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 inline-block">
+            <a href="/relatorio-ghg" class="px-8 py-4 rounded-lg transition-colors text-lg font-medium border-2 bg-white text-gray-900 border-gray-200 hover:bg-gray-50 dark:bg-slate-800 dark:text-white dark:border-slate-700 dark:hover:bg-slate-700 inline-block">
                 Ver Relatório ESG
             </a>
         </div>
@@ -123,13 +123,13 @@
             </p>
         </div>
        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <a href="/simulador" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="modulos-grid">
+            <a href="/calculadora" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
                 <div class="text-green-600 dark:text-green-400 mb-6 group-hover:scale-110 transition-transform origin-left">
                     <i data-lucide="calculator" class="w-12 h-12"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Calculadora de Emissões</h3>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Calcule as emissões de GEE evitadas ao substituir métodos tradicionais por digitais.</p>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Simule a redução de emissões e economia de recursos ao substituir métodos tradicionais pela Taggy.</p>
             </a>
            
             <a href="/dashboard" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
@@ -137,7 +137,7 @@
                     <i data-lucide="layout-dashboard" class="w-12 h-12"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Dashboard de Sustentabilidade</h3>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Apresentação visual com gráficos e histórico de impacto ambiental em tempo real.</p>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Acompanhe as métricas de impacto ambiental da sua frota e operações com gráficos detalhados.</p>
             </a>
            
             <a href="/simulador" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
@@ -148,28 +148,28 @@
                 <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Projete diferentes níveis de utilização e visualize estimativas de impacto ambiental futuro.</p>
             </a>
            
-            <a href="/simulador" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
+            <a href="/impacto-pedagio" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
                 <div class="text-green-600 dark:text-green-400 mb-6 group-hover:scale-110 transition-transform origin-left">
                     <i data-lucide="wind" class="w-12 h-12"></i>
                 </div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Redução de CO₂</h3>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Meça a diminuição de emissões provenientes da redução de frenagens e acelerações.</p>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Impacto em Pedágios</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Descubra o quanto de CO₂ você evita ao eliminar marchas lentas e reacelerações nas praças.</p>
             </a>
            
-            <a href="/simulador" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
+            <a href="/relatorio-ghg" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
                 <div class="text-green-600 dark:text-green-400 mb-6 group-hover:scale-110 transition-transform origin-left">
-                    <i data-lucide="trees" class="w-12 h-12"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Economia de Papel</h3>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Quantifique o benefício da eliminação de tickets físicos de estacionamento.</p>
-            </a>
-           
-            <a href="/dashboard" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
-                <div class="text-green-600 dark:text-green-400 mb-6 group-hover:scale-110 transition-transform origin-left">
-                    <i data-lucide="file-text" class="w-12 h-12"></i>
+                    <i data-lucide="pie-chart" class="w-12 h-12"></i>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Relatórios Ambientais ESG</h3>
-                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Gere métricas padronizadas para integrar diretamente nas estratégias corporativas.</p>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Métricas padronizadas (GHG Protocol) para integrar nas estratégias corporativas.</p>
+            </a>
+
+            <a href="/simular-passagem" class="block p-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-700 group text-left">
+                <div class="text-green-600 dark:text-green-400 mb-6 group-hover:scale-110 transition-transform origin-left">
+                    <i data-lucide="activity" class="w-12 h-12"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Simulador de Passagem</h3>
+                <p class="text-gray-600 dark:text-gray-400 leading-relaxed">Registre uma passagem simulada para atualizar o banco de dados e visualizar o impacto ambiental em tempo real.</p>
             </a>
         </div>
     </section>
@@ -203,10 +203,12 @@
                 <div>
                     <h3 class="font-semibold mb-4 text-gray-100">Plataforma</h3>
                     <ul class="space-y-3 text-gray-400 text-sm">
-                        <li><a href="/simulador" class="hover:text-white">Calculadora</a></li>
+                        <li><a href="/calculadora" class="hover:text-white">Calculadora</a></li>
                         <li><a href="/dashboard" class="hover:text-white">Dashboard</a></li>
                         <li><a href="/simulador" class="hover:text-white">Simulador</a></li>
-                        <li><a href="/dashboard" class="hover:text-white">Relatórios ESG</a></li>
+                        <li><a href="/impacto-pedagio" class="hover:text-white">Impacto Pedágio</a></li>
+                        <li><a href="/relatorio-ghg" class="hover:text-white">Relatórios ESG</a></li>
+                        <li><a href="/simular-passagem" class="hover:text-white">Simular Passagem</a></li>
                     </ul>
                 </div>
                 <div>
@@ -274,5 +276,3 @@
     </script>
 </body>
 </html>
-
-

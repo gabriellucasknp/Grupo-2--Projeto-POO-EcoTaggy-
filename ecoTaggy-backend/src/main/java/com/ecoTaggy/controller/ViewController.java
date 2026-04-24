@@ -48,32 +48,30 @@ public class ViewController {
         }
     }
 
-    @GetMapping("/dashboard")
-    public String exibirDashboard(Model model) {
-        // 1. Chamamos a lógica de relatório que você criou no ImpactoService
-        Map<String, Object> relatorio = impactoService.gerarRelatorioESG();
-
-        // 2. Passamos os dados reais para o Thymeleaf
-        // Nota: Usei os nomes que estão no seu HTML do Dashboard
-        model.addAttribute("co2Total", relatorio.get("co2Total"));
-        model.addAttribute("papelTotal", relatorio.get("papelTotal"));
-        model.addAttribute("combustivelPoupado", relatorio.get("combustivelTotal"));
-        model.addAttribute("ticketsEvitados", relatorio.get("papelTotal")); // Mapeado para o ticket
-        
-        // 3. Lógica extra para as árvores
-        double co2Val = Double.parseDouble(relatorio.get("co2Total").toString().replace(",", "."));
-        int arvores = (int) (co2Val / 20); // 1 árvore para cada 20kg de CO2
-        model.addAttribute("arvoresSalvas", arvores);
-
-        // 4. Dados extras para o Banner ESG no final do HTML
-        model.addAttribute("dataGeracao", relatorio.get("dataGeracao"));
-        model.addAttribute("metodologia", relatorio.get("metodologia"));
-        
-        return "dashboard";
-    }
-
+    // --- NOVOS MÓDULOS (Traduzidos do React para Thymeleaf) ---
+    
     @GetMapping("/simulador")
     public String exibirSimulador() {
         return "simulador"; 
+    }
+    
+    @GetMapping("/calculadora")
+    public String exibirCalculadora() {
+        return "calculadora"; 
+    }
+    
+    @GetMapping("/impacto-pedagio")
+    public String exibirImpactoPedagio() {
+        return "impacto-pedagio"; 
+    }
+    
+    @GetMapping("/relatorio-ghg")
+    public String exibirRelatorioGhg() {
+        return "relatorio-ghg"; 
+    }
+    
+    @GetMapping("/simular-passagem")
+    public String exibirSimularPassagem() {
+        return "simular-passagem"; 
     }
 }
