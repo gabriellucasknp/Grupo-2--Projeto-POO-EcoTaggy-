@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Sustentabilidade - EcoTaggy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/landing" class="flex items-center text-gray-600 hover:text-green-600 transition-colors font-medium">
+                <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i> Voltar ao Início
+            </a>
+            <div class="text-xl font-bold text-green-600 tracking-wider">ECO TAGGY</div>
+            <div class="w-[120px]"></div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-8 lg:py-12">
+        <div class="text-center mb-12">
+            <div class="inline-block p-3 bg-gray-100 rounded-full text-gray-700 mb-4">
+                <i data-lucide="pie-chart" class="w-8 h-8"></i>
+            </div>
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">Relatório de Sustentabilidade & GHG Protocol</h1>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Inventário corporativo de Gases de Efeito Estufa (GEE) alinhado aos padrões internacionais.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-4 space-y-6">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center border-b pb-3">
+                        <i data-lucide="file-text" class="w-5 h-5 mr-2 text-blue-600"></i> Registrar Mitigação (API POST)
+                    </h2>
+                    <form id="recordForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Data</label>
+                            <input type="date" id="newDate" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">CO₂ Evitado (kg)</label>
+                            <input type="number" step="0.01" id="newCo2" placeholder="Ex: 1500" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Água Poupada (Litros)</label>
+                            <input type="number" step="0.01" id="newWater" placeholder="Ex: 5000" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-1">Árvores Equivalentes</label>
+                            <input type="number" id="newTrees" placeholder="Ex: 10" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 outline-none" required>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors mt-2">
+                            Salvar no Banco
+                        </button>
+                    </form>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                    <h2 class="text-lg font-bold text-gray-900 mb-4 flex items-center border-b pb-3">
+                        <i data-lucide="bar-chart" class="w-5 h-5 mr-2 text-gray-600"></i> Histórico (API GET)
+                    </h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-gray-50 text-gray-600 font-semibold uppercase">
+                                <tr>
+                                    <th class="py-2 px-3 rounded-tl-lg">ID</th>
+                                    <th class="py-2 px-3">Data</th>
+                                    <th class="py-2 px-3 rounded-tr-lg">CO₂ (kg)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recordsTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900">Relatório Corporativo - Ano Base 2026</h2>
+                        <span class="inline-flex items-center mt-2 px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 border border-gray-200">
+                            Padrão GHG Protocol Corporate Standard
+                        </span>
+                    </div>
+                    <button onclick="window.print()" class="mt-4 sm:mt-0 flex items-center bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                        <i data-lucide="download" class="w-4 h-4 mr-2"></i> Exportar PDF
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm border-t-4 border-t-amber-500 text-center">
+                        <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Emissões Brutas (Projeção)</p>
+                        <div class="text-3xl font-black text-gray-900">145.2 <span class="text-lg font-normal text-gray-500">tCO₂e</span></div>
+                    </div>
+                    <div class="bg-gray-900 rounded-xl p-6 border border-gray-800 shadow-sm border-t-4 border-t-green-500 text-center relative overflow-hidden">
+                        <i data-lucide="leaf" class="absolute -right-4 -bottom-4 w-24 h-24 text-gray-800 opacity-50"></i>
+                        <div class="relative z-10">
+                            <p class="text-xs text-gray-400 uppercase font-bold tracking-wider mb-2">Emissões Evitadas (EcoTaggy)</p>
+                            <div class="text-4xl font-black text-white"><span id="totalCo2Display">4.30</span> <span class="text-lg font-normal text-gray-400">tCO₂e</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 border border-gray-200 shadow-sm border-t-4 border-t-blue-500 text-center">
+                        <p class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-2">Compensação Hídrica</p>
+                        <div class="text-3xl font-black text-gray-900"><span id="totalWaterDisplay">26.0</span> <span class="text-lg font-normal text-gray-500">m³</span></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                        <h3 class="text-lg font-bold text-gray-900 mb-6 flex items-center">
+                            <i data-lucide="pie-chart" class="w-5 h-5 mr-2 text-gray-500"></i> Inventário por Escopos
+                        </h3>
+                        <div class="h-[250px] w-full">
+                            <canvas id="ghgPieChart"></canvas>
+                        </div>
+                        <div class="mt-4 p-3 bg-green-50 border border-green-100 rounded-lg text-sm text-green-800">
+                            <strong>Atenção:</strong> A adoção da plataforma EcoTaggy atua diretamente na redução das emissões do <strong>Escopo 3</strong> (Bens e Serviços Comprados / Resíduos).
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 flex flex-col">
+                        <h3 class="text-lg font-bold text-gray-900 mb-6 flex items-center">
+                            <i data-lucide="target" class="w-5 h-5 mr-2 text-gray-500"></i> Estratégia ODS / Net Zero
+                        </h3>
+                        <div class="space-y-4 flex-1">
+                            <div class="flex p-4 bg-gray-50 rounded-xl border border-gray-100">
+                                <div class="text-3xl mr-4">🏭</div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-sm mb-1">ODS 9: Inovação e Infraestrutura</h4>
+                                    <p class="text-xs text-gray-600">Digitalização de processos de pedágio e estacionamento, eliminando dependência de recursos físicos.</p>
+                                </div>
+                            </div>
+                            <div class="flex p-4 bg-gray-50 rounded-xl border border-gray-100">
+                                <div class="text-3xl mr-4">♻️</div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-sm mb-1">ODS 12: Consumo Responsável</h4>
+                                    <p class="text-xs text-gray-600">Redução drástica do uso de plásticos (PVC) em cartões de acesso, promovendo política de resíduo zero.</p>
+                                </div>
+                            </div>
+                            <div class="flex p-4 bg-blue-50 rounded-xl border border-blue-100 border-l-4 border-l-blue-600">
+                                <i data-lucide="award" class="w-8 h-8 text-blue-600 mr-4 flex-shrink-0"></i>
+                                <div>
+                                    <h4 class="font-bold text-blue-900 text-sm mb-1">Meta Net Zero (2030)</h4>
+                                    <p class="text-xs text-blue-800">As <strong id="netZeroCo2">4.30</strong> <strong>tCO₂e</strong> evitadas este ano representam economia direta na compra de Créditos de Carbono.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        
+        document.getElementById('newDate').valueAsDate = new Date();
+
+        let records = [
+            { id: 101, date: '2026-03-01', co2SavedKg: 2500, waterSavedLiters: 15000, treesSaved: 40 },
+            { id: 102, date: '2026-03-15', co2SavedKg: 1800, waterSavedLiters: 11000, treesSaved: 28 }
+        ];
+
+        function updateUI() {
+            const tbody = document.getElementById('recordsTableBody');
+            tbody.innerHTML = records.map(r => `
+                <tr class="border-b border-gray-100 hover:bg-gray-50">
+                    <td class="py-2 px-3 text-gray-500 font-mono">#${r.id}</td>
+                    <td class="py-2 px-3">${r.date.split('-').reverse().join('/')}</td>
+                    <td class="py-2 px-3 text-green-600 font-bold">${r.co2SavedKg}</td>
+                </tr>
+            `).join('');
+
+            const totalCo2 = records.reduce((sum, r) => sum + r.co2SavedKg, 0) / 1000;
+            const totalWater = records.reduce((sum, r) => sum + r.waterSavedLiters, 0) / 1000;
+            
+            document.getElementById('totalCo2Display').innerText = totalCo2.toFixed(2);
+            document.getElementById('netZeroCo2').innerText = totalCo2.toFixed(2);
+            document.getElementById('totalWaterDisplay').innerText = totalWater.toFixed(1);
+        }
+
+        document.getElementById('recordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            records.push({
+                id: Math.floor(Math.random() * 1000) + 200,
+                date: document.getElementById('newDate').value,
+                co2SavedKg: parseFloat(document.getElementById('newCo2').value),
+                waterSavedLiters: parseFloat(document.getElementById('newWater').value),
+                treesSaved: parseInt(document.getElementById('newTrees').value)
+            });
+            document.getElementById('newCo2').value = '';
+            document.getElementById('newWater').value = '';
+            document.getElementById('newTrees').value = '';
+            updateUI();
+        });
+
+        new Chart(document.getElementById('ghgPieChart').getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: ['Escopo 1 (Direto)', 'Escopo 2 (Energia)', 'Escopo 3 (Cadeia/Resíduos)'],
+                datasets: [{ data: [65.3, 43.5, 36.4], backgroundColor: ['#f59e0b', '#3b82f6', '#10b981'], borderWidth: 0 }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+        });
+
+        updateUI();
+    </script>
+</body>
+</html>

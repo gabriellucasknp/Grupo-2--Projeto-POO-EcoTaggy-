@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Conta - Eco Taggy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-50 font-sans antialiased text-gray-900 min-h-screen flex">
+
+    <div class="w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-16 md:px-24 py-12 bg-white relative">
+        
+        <a th:href="@{/}" class="absolute top-8 left-8 flex items-center text-gray-500 hover:text-green-600 transition-colors font-medium">
+            <i data-lucide="home" class="w-5 h-5 mr-2"></i>
+            Início
+        </a>
+
+        <div class="max-w-md w-full mx-auto mt-8 animate-in fade-in duration-500">
+            
+            <div class="mb-8 flex items-center gap-4">
+                <a th:href="@{/login}" class="p-2 -ml-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500">
+                    <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                </a>
+                <h2 class="text-3xl font-bold text-gray-900">
+                    Nova Conta
+                </h2>
+            </div>
+
+            <form th:action="@{/cadastrar}" th:object="${usuario}" method="POST" class="space-y-4">
+                
+                <div class="space-y-1">
+                    <input type="text" th:field="*{nome}" required placeholder="Nome Completo *" 
+                           class="block w-full px-4 h-14 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 font-medium text-sm outline-none transition-colors">
+                </div>
+
+                <div class="space-y-1">
+                    <input type="email" th:field="*{email}" required placeholder="E-mail *" 
+                           class="block w-full px-4 h-14 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 font-medium text-sm outline-none transition-colors">
+                </div>
+                
+                <div class="space-y-1">
+                    <input type="text" required maxlength="11" placeholder="CPF (apenas números) *" 
+                           class="block w-full px-4 h-14 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 font-medium text-sm outline-none transition-colors">
+                </div>
+                
+                <div class="space-y-1">
+                    <input type="date" required 
+                           class="block w-full px-4 h-14 border border-gray-300 text-gray-500 rounded-lg focus:ring-green-500 focus:border-green-500 font-medium text-sm outline-none transition-colors">
+                </div>
+
+                <div class="space-y-1">
+                    <input type="password" required placeholder="Senha *" 
+                           class="block w-full px-4 h-14 border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 font-medium text-sm outline-none transition-colors">
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="flex justify-center items-center w-full h-14 rounded-lg shadow-md text-sm font-bold text-white bg-green-600 hover:bg-green-700 transition-colors tracking-wide">
+                        CONCLUIR CADASTRO 
+                        <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                    </button>
+                </div>
+            </form>
+            
+            <p class="mt-6 text-center text-xs text-gray-500">
+                Ao criar uma conta, você concorda com nossos <br/>
+                <a href="#" class="underline hover:text-gray-800 transition-colors">Termos</a> e <a href="#" class="underline hover:text-gray-800 transition-colors">Política de Privacidade</a>.
+            </p>
+        </div>
+    </div>
+
+    <div class="hidden lg:flex w-1/2 bg-green-700 justify-center items-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg" id="patternId" x="0" y="0" width="40" height="40" viewBox="0 0 40 40"><path d="M0 0h40v40H0z" fill="none"/><path d="M20 0l20 20-20 20L0 20z" fill="currentColor"/></svg>
+        </div>
+        
+        <div class="relative z-10 text-center px-12 text-white max-w-lg">
+            <div class="bg-white/20 p-4 rounded-2xl inline-block mb-8 backdrop-blur-sm">
+                <i data-lucide="leaf" class="w-16 h-16 text-white"></i>
+            </div>
+            <h3 class="text-4xl font-bold mb-6 leading-tight">Faça parte da transição digital</h3>
+            <p class="text-green-100 text-lg leading-relaxed">
+                Comece agora a quantificar e neutralizar o impacto ambiental das suas operações com dados precisos e transparentes.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

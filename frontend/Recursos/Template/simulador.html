@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTaggy - Simulador</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="size-full overflow-y-auto min-h-screen bg-slate-50 text-gray-900">
+
+    <header class="sticky top-0 z-50 backdrop-blur-md border-b shadow-sm bg-white/80 border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="dashboard.html"
+                class="flex items-center transition-colors font-medium text-gray-600 hover:text-green-600">
+                <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i>
+                Voltar ao Dashboard
+            </a>
+            <div class="font-bold text-2xl text-green-600 flex items-center">
+                <i data-lucide="leaf" class="w-6 h-6 mr-2"></i> EcoTaggy
+            </div>
+            <div class="w-[120px]"></div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-8 lg:py-12">
+        <div class="text-center mb-12">
+            <div class="inline-block p-3 rounded-full mb-4 bg-blue-100 text-blue-600">
+                <i data-lucide="line-chart" class="w-8 h-8"></i>
+            </div>
+            <h1 class="text-4xl font-bold mb-4">Simulador de Cenários Futuros</h1>
+            <p class="text-xl max-w-2xl mx-auto text-gray-600">
+                Projete o impacto ambiental da sua empresa nos próximos anos variando o tamanho da frota e a taxa de
+                adoção da solução digital.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+            <div class="lg:col-span-4 space-y-6">
+                <div class="rounded-2xl shadow-sm border p-6 bg-white border-gray-200">
+                    <h2 class="text-lg font-semibold mb-6 flex items-center">
+                        <i data-lucide="target" class="w-5 h-5 mr-2 text-blue-600"></i>
+                        Variáveis da Projeção
+                    </h2>
+
+                    <div class="space-y-8">
+                        <div>
+                            <label class="flex justify-between text-sm font-medium mb-3 text-gray-700">
+                                <span>Tamanho da Frota (Veículos)</span>
+                                <span id="fleetSizeValue"
+                                    class="font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-600">500</span>
+                            </label>
+                            <input type="range" id="fleetSizeInput" min="10" max="5000" step="10" value="500"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                        </div>
+
+                        <div>
+                            <label class="flex justify-between text-sm font-medium mb-3 text-gray-700">
+                                <span>Adoção Inicial da Taggy (%)</span>
+                                <span id="adoptionRateValue"
+                                    class="font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-600">30%</span>
+                            </label>
+                            <input type="range" id="adoptionRateInput" min="1" max="100" value="30"
+                                class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
+                        </div>
+
+                        <div>
+                            <label class="flex justify-between text-sm font-medium mb-3 text-gray-700">
+                                <span>Horizonte de Tempo (Anos)</span>
+                                <span id="timeHorizonValue"
+                                    class="font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-600">3 anos</span>
+                            </label>
+                            <div class="flex gap-2" id="horizonButtons">
+                                <button data-years="1"
+                                    class="horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white border-gray-200 text-gray-600 hover:bg-gray-50">1
+                                    ano</button>
+                                <button data-years="3"
+                                    class="horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-blue-50 border-blue-200 text-blue-700 shadow-sm active-horizon">3
+                                    anos</button>
+                                <button data-years="5"
+                                    class="horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white border-gray-200 text-gray-600 hover:bg-gray-50">5
+                                    anos</button>
+                                <button data-years="10"
+                                    class="horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white border-gray-200 text-gray-600 hover:bg-gray-50">10
+                                    anos</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rounded-2xl shadow-sm p-6 text-white bg-gradient-to-br from-slate-800 to-slate-900">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <i data-lucide="zap" class="w-5 h-5 mr-2 text-yellow-400"></i>
+                        Impacto Estratégico
+                    </h3>
+                    <ul class="space-y-4 text-sm text-slate-300">
+                        <li class="flex items-start">
+                            <i data-lucide="shield-check" class="w-5 h-5 mr-2 text-green-400 shrink-0 mt-0.5"></i>
+                            <span>Em <span id="insightYears">3</span> anos, você atingirá conformidade avançada com
+                                metas de ESG corporativas.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="building" class="w-5 h-5 mr-2 text-blue-400 shrink-0 mt-0.5"></i>
+                            <span>Economia projetada em horas operacionais reduz o OPEX da frota
+                                significativamente.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8 space-y-6">
+                <div class="rounded-2xl shadow-sm border p-6 lg:p-8 bg-white border-gray-200">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+                        <div>
+                            <h2 class="text-xl font-bold">Projeção de CO₂ Evitado (kg)</h2>
+                            <p class="text-sm text-gray-500">Comparativo entre adoção projetada e cenário otimista
+                                (Dados reais do Backend)</p>
+                        </div>
+                        <div class="flex items-center gap-4 text-sm">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 rounded-full bg-blue-600 mr-2"></div>
+                                <span class="text-gray-600">Projetado</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 rounded-full bg-emerald-500 mr-2"></div>
+                                <span class="text-gray-600">Otimista</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-[350px] w-full relative">
+                        <canvas id="projectionChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="p-6 rounded-2xl border flex items-center gap-6 bg-blue-50/50 border-blue-100">
+                        <div
+                            class="w-16 h-16 rounded-full flex items-center justify-center shrink-0 bg-white shadow-sm">
+                            <i data-lucide="rocket" class="w-8 h-8 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium mb-1 text-gray-600">Impacto Final Projetado (Ano <span
+                                    id="finalYearLabel"></span>)</p>
+                            <p class="text-2xl font-bold">
+                                <span id="finalSavingsValue">0</span> <span class="text-base font-normal">kg CO₂</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-6 rounded-2xl border flex items-center gap-6 bg-emerald-50/50 border-emerald-100">
+                        <div
+                            class="w-16 h-16 rounded-full flex items-center justify-center shrink-0 bg-white shadow-sm">
+                            <i data-lucide="shield-check" class="w-8 h-8 text-emerald-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium mb-1 text-gray-600">Benefício Ambiental Equivalente</p>
+                            <p class="text-2xl font-bold text-emerald-500">
+                                <span id="treesEquivalentValue">0</span> <span
+                                    class="text-base font-normal">árvores/ano</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Inicializa os ícones
+        lucide.createIcons();
+
+        // Variáveis de Estado
+        let fleetSize = 500;
+        let adoptionRate = 30;
+        let timeHorizon = 3;
+        let chartInstance = null;
+
+        // Elementos do DOM
+        const fleetInput = document.getElementById('fleetSizeInput');
+        const fleetValue = document.getElementById('fleetSizeValue');
+        const adoptionInput = document.getElementById('adoptionRateInput');
+        const adoptionValue = document.getElementById('adoptionRateValue');
+        const horizonButtons = document.querySelectorAll('.horizon-btn');
+        const timeHorizonValue = document.getElementById('timeHorizonValue');
+        const insightYears = document.getElementById('insightYears');
+
+        const finalYearLabel = document.getElementById('finalYearLabel');
+        const finalSavingsValue = document.getElementById('finalSavingsValue');
+        const treesEquivalentValue = document.getElementById('treesEquivalentValue');
+
+        // Configuração do Gráfico (Chart.js imitando o Recharts)
+        function initChart() {
+            const ctx = document.getElementById('projectionChart').getContext('2d');
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: { labels: [], datasets: [] },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: {
+                            grid: { borderDash: [3, 3], color: '#f3f4f6' },
+                            ticks: { callback: function (value) { return (value / 1000) + 'k'; } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Lógica de Comunicação com o Backend (Issue #06)
+        async function updateSimulation() {
+            // Estimativa: 1 veículo faz aprox. 2400 transações por ano
+            const transacoesPorVeiculoAno = 2400;
+            const volumeTotal = Math.round(fleetSize * (adoptionRate / 100) * transacoesPorVeiculoAno);
+
+            try {
+                // Usa a mesma origem por padrão e permite sobrescrever por window.ECOTAGGY_API_BASE
+                const apiBase = (window.ECOTAGGY_API_BASE || '').replace(/\/$/, '');
+                const response = await fetch(`${apiBase}/api/impacto/simular?volumeTransacoes=${volumeTotal}`, {
+                    method: 'POST'
+                });
+                const impactoBase = await response.json();
+
+                // Pega o valor real calculado pelo Java (0.05kg por transação)
+                const co2Base = impactoBase.co2Evitado;
+
+                generateChartData(co2Base);
+            } catch (error) {
+                console.error("Erro ao conectar com o backend. O Spring Boot está rodando?", error);
+                // Fallback visual caso o servidor caia
+                generateChartData(volumeTotal * 0.05);
+            }
+        }
+
+        function generateChartData(baseCo2Savings) {
+            const labels = [];
+            const dataProjetado = [];
+            const dataOtimista = [];
+            const currentYear = new Date().getFullYear();
+
+            let currentAdoption = adoptionRate;
+            const adoptionGrowthRate = 1.2;
+
+            for (let i = 0; i <= timeHorizon; i++) {
+                labels.push((currentYear + i).toString());
+
+                // Cálculo da Projeção Normal
+                const multiplicadorProjetado = currentAdoption / adoptionRate;
+                const projectedSavings = Math.round(baseCo2Savings * multiplicadorProjetado);
+                dataProjetado.push(projectedSavings);
+
+                // Cálculo do Cenário Otimista (Adoção acelerada)
+                const aggAdoption = Math.min(100, adoptionRate + (i * 25));
+                const multiplicadorOtimista = aggAdoption / adoptionRate;
+                const aggressiveSavings = Math.round(baseCo2Savings * multiplicadorOtimista);
+                dataOtimista.push(aggressiveSavings);
+
+                currentAdoption = Math.min(100, currentAdoption * adoptionGrowthRate);
+            }
+
+            // Atualiza os Textos dos Cards
+            const finalSavings = dataProjetado[dataProjetado.length - 1];
+            finalYearLabel.innerText = currentYear + timeHorizon;
+            finalSavingsValue.innerText = finalSavings.toLocaleString('pt-BR');
+            treesEquivalentValue.innerText = Math.round(finalSavings / 21).toLocaleString('pt-BR');
+
+            // Atualiza o Gráfico
+            chartInstance.data.labels = labels;
+            chartInstance.data.datasets = [
+                {
+                    label: 'Projetado (kg)',
+                    data: dataProjetado,
+                    borderColor: '#2563eb',
+                    backgroundColor: '#2563eb',
+                    borderWidth: 3,
+                    tension: 0.4
+                },
+                {
+                    label: 'Cenário Otimista (kg)',
+                    data: dataOtimista,
+                    borderColor: '#10b981',
+                    borderDash: [5, 5],
+                    borderWidth: 3,
+                    tension: 0.4,
+                    pointRadius: 0
+                }
+            ];
+            chartInstance.update();
+        }
+
+        // Listeners de Eventos para os Inputs
+        fleetInput.addEventListener('input', (e) => {
+            fleetSize = parseInt(e.target.value);
+            fleetValue.innerText = fleetSize;
+            updateSimulation();
+        });
+
+        adoptionInput.addEventListener('input', (e) => {
+            adoptionRate = parseInt(e.target.value);
+            adoptionValue.innerText = adoptionRate + '%';
+            updateSimulation();
+        });
+
+        horizonButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Atualiza Estilo dos Botões
+                horizonButtons.forEach(b => {
+                    b.className = "horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white border-gray-200 text-gray-600 hover:bg-gray-50";
+                });
+                e.target.className = "horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-blue-50 border-blue-200 text-blue-700 shadow-sm active-horizon";
+
+                timeHorizon = parseInt(e.target.dataset.years);
+                timeHorizonValue.innerText = timeHorizon + (timeHorizon === 1 ? ' ano' : ' anos');
+                insightYears.innerText = timeHorizon;
+                updateSimulation();
+            });
+        });
+
+        // Inicialização
+        initChart();
+        updateSimulation();
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulador de Passagem - EcoTaggy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+        if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+    </script>
+</head>
+<body class="min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-gray-100 transition-colors">
+
+
+    <header class="sticky top-0 z-50 backdrop-blur-md border-b bg-white/80 dark:bg-slate-900/80 border-gray-200 dark:border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a th:href="@{/landing}" class="flex items-center text-gray-600 dark:text-gray-400 hover:text-green-600">
+                <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i> Voltar
+            </a>
+            <img src="/images/logo1.png" alt="Logo" class="h-10">
+            <div id="status-badge" class="hidden">
+                <span class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-200">
+                    Salvando...
+                </span>
+            </div>
+        </div>
+    </header>
+
+
+    <main class="max-w-3xl mx-auto px-6 py-12">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-bold mb-4">Simular Passagem</h1>
+            <p class="text-gray-600 dark:text-gray-400">Escolha o veículo e registre a economia no seu banco de dados.</p>
+        </div>
+
+
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-slate-800">
+            <form th:action="@{/transacao/confirmar}" method="POST" id="transacaoForm">
+                <input type="hidden" name="usuarioId" th:value="${usuario.id}">
+                
+                <h2 class="text-xl font-bold mb-6">1. Tipo de Veículo</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+                    <label class="cursor-pointer">
+                        <input type="radio" name="tipo" value="PEDAGIO" class="hidden peer" checked>
+                        <div class="flex flex-col items-center p-6 rounded-xl border-2 peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/20 transition-all border-gray-100 dark:border-slate-800">
+                            <i data-lucide="car" class="w-8 h-8 mb-2"></i>
+                            <span class="font-bold">Carro</span>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="tipo" value="CAMINHAO" class="hidden peer">
+                        <div class="flex flex-col items-center p-6 rounded-xl border-2 peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/20 transition-all border-gray-100 dark:border-slate-800">
+                            <i data-lucide="truck" class="w-8 h-8 mb-2"></i>
+                            <span class="font-bold">Caminhão</span>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="tipo" value="MOTO" class="hidden peer">
+                        <div class="flex flex-col items-center p-6 rounded-xl border-2 peer-checked:border-green-500 peer-checked:bg-green-50 dark:peer-checked:bg-green-900/20 transition-all border-gray-100 dark:border-slate-800">
+                            <i data-lucide="bike" class="w-8 h-8 mb-2"></i>
+                            <span class="font-bold">Moto</span>
+                        </div>
+                    </label>
+                </div>
+
+
+                <button type="submit" onclick="showLoading()" class="w-full py-5 bg-green-600 text-white rounded-xl font-bold text-lg hover:bg-green-700 shadow-lg flex items-center justify-center transition-all">
+                    <i data-lucide="save" class="w-6 h-6 mr-3"></i>
+                    Confirmar e Atualizar Banco de Dados
+                </button>
+            </form>
+        </div>
+    </main>
+
+
+    <script>
+        lucide.createIcons();
+        function showLoading() {
+            document.getElementById('status-badge').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
+
+
+
+

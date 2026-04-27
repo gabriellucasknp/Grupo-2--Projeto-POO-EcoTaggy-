@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Passagem - EcoTaggy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen">
+    
+    <!-- Toast de Notificação -->
+    <div id="toast" class="fixed top-4 right-4 bg-white border border-green-200 shadow-lg rounded-xl p-4 transform transition-all duration-300 translate-x-full opacity-0 z-[100]">
+        <div class="flex items-start">
+            <i data-lucide="check-circle" class="w-5 h-5 text-green-500 mr-3 mt-0.5"></i>
+            <div>
+                <h4 class="text-sm font-bold text-gray-900" id="toast-title">Passagem Registrada!</h4>
+                <p class="text-xs text-gray-500 mt-1" id="toast-desc">kg de CO₂ evitado salvo no banco de dados.</p>
+            </div>
+        </div>
+    </div>
+
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/landing" class="flex items-center text-gray-600 hover:text-green-600 transition-colors font-medium">
+                <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i> Voltar ao Início
+            </a>
+            <div class="text-xl font-bold text-green-600 tracking-wider">ECO TAGGY</div>
+            <div class="flex items-center justify-end w-[150px]">
+                <span id="badge-count" class="hidden inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-200">
+                    0 salvos
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-6 py-12">
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6 bg-green-100 text-green-600">
+                <i data-lucide="activity" class="w-8 h-8"></i>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">Simular Passagem</h1>
+            <p class="text-lg text-gray-600">
+                Veículos que usam TAG para passar direto no pedágio poluem menos que os que param. 
+                Escolha o veículo e simule a economia salva no seu banco de dados.
+            </p>
+        </div>
+
+        <div class="rounded-2xl p-6 md:p-10 shadow-lg border bg-white border-gray-100">
+            <h2 class="text-xl font-bold mb-6">1. Qual tipo de veículo passou?</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10" id="vehicle-options">
+                <!-- Options renderizadas via JS -->
+            </div>
+
+            <h2 class="text-xl font-bold mb-6">2. Impacto Evitado Calculado</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                <div class="p-6 rounded-xl border relative overflow-hidden bg-green-50/50 border-green-100">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-green-500 opacity-5 rounded-bl-full"></div>
+                    <p class="text-sm font-semibold mb-2 text-green-800/70">Redução de CO₂</p>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-4xl font-extrabold text-green-600" id="display-co2">0.35</span>
+                        <span class="text-lg font-bold text-green-700 mb-1">kg</span>
+                    </div>
+                    <p class="text-sm mt-3 text-green-700/60">Menos poluentes emitidos na atmosfera.</p>
+                </div>
+                
+                <div class="p-6 rounded-xl border relative overflow-hidden bg-blue-50/50 border-blue-100">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-blue-500 opacity-5 rounded-bl-full"></div>
+                    <p class="text-sm font-semibold mb-2 text-blue-800/70">Combustível Poupado</p>
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-4xl font-extrabold text-blue-600" id="display-fuel">0.15</span>
+                        <span class="text-lg font-bold text-blue-700 mb-1">L</span>
+                    </div>
+                    <p class="text-sm mt-3 text-blue-700/60">Economizados sem a parada e reaceleração.</p>
+                </div>
+            </div>
+
+            <button id="btn-confirm" onclick="handleConfirm()" class="w-full py-5 px-6 rounded-xl font-bold text-lg transition-all shadow-lg flex items-center justify-center bg-green-600 text-white hover:bg-green-700 hover:shadow-green-500/30">
+                <i data-lucide="save" class="w-6 h-6 mr-3" id="btn-icon"></i>
+                <span id="btn-text">Confirmar e Atualizar Banco de Dados</span>
+            </button>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        const vehicleImpacts = {
+            car: { id: 'car', name: 'Carro', icon: 'car', co2: 0.35, fuel: 0.15 },
+            truck: { id: 'truck', name: 'Caminhão', icon: 'truck', co2: 1.20, fuel: 0.45 },
+            motorcycle: { id: 'motorcycle', name: 'Moto', icon: 'bike', co2: 0.12, fuel: 0.05 }
+        };
+
+        let selectedVehicle = 'car';
+        let passagesCount = 0;
+        let isSubmitting = false;
+
+        function renderOptions() {
+            const container = document.getElementById('vehicle-options');
+            container.innerHTML = Object.values(vehicleImpacts).map(v => `
+                <button onclick="selectVehicle('${v.id}')" class="flex flex-col items-center justify-center p-6 rounded-xl border-2 transition-all ${selectedVehicle === v.id ? 'border-green-500 bg-green-50 shadow-md transform scale-105' : 'border-gray-100 hover:border-gray-300 bg-gray-50'}">
+                    <i data-lucide="${v.icon}" class="w-8 h-8 mb-4 ${selectedVehicle === v.id ? 'text-green-600' : 'text-gray-500'}"></i>
+                    <span class="font-bold ${selectedVehicle === v.id ? 'text-green-700' : 'text-gray-700'}">${v.name}</span>
+                </button>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function selectVehicle(id) {
+            if(isSubmitting) return;
+            selectedVehicle = id;
+            renderOptions();
+            document.getElementById('display-co2').innerText = vehicleImpacts[id].co2.toFixed(2);
+            document.getElementById('display-fuel').innerText = vehicleImpacts[id].fuel.toFixed(2);
+        }
+
+        function handleConfirm() {
+            if(isSubmitting) return;
+            isSubmitting = true;
+            
+            const btn = document.getElementById('btn-confirm');
+            const icon = document.getElementById('btn-icon');
+            const text = document.getElementById('btn-text');
+            
+            btn.className = "w-full py-5 px-6 rounded-xl font-bold text-lg transition-all shadow-lg flex items-center justify-center bg-green-700 text-white opacity-80 cursor-not-allowed";
+            icon.setAttribute('data-lucide', 'loader');
+            icon.classList.add('animate-spin');
+            text.innerText = "Salvando no Banco de Dados...";
+            lucide.createIcons();
+
+            setTimeout(() => {
+                isSubmitting = false;
+                passagesCount++;
+                document.getElementById('badge-count').classList.remove('hidden');
+                document.getElementById('badge-count').innerText = passagesCount + " salvos";
+                
+                // Toast
+                document.getElementById('toast-desc').innerText = `+${vehicleImpacts[selectedVehicle].co2} kg de CO₂ evitado salvo no banco de dados.`;
+                document.getElementById('toast').classList.remove('translate-x-full', 'opacity-0');
+                setTimeout(() => { document.getElementById('toast').classList.add('translate-x-full', 'opacity-0'); }, 3000);
+
+                btn.className = "w-full py-5 px-6 rounded-xl font-bold text-lg transition-all shadow-lg flex items-center justify-center bg-green-600 text-white hover:bg-green-700 hover:shadow-green-500/30";
+                icon.setAttribute('data-lucide', 'save');
+                icon.classList.remove('animate-spin');
+                text.innerText = "Confirmar e Atualizar Banco de Dados";
+                lucide.createIcons();
+            }, 1200);
+        }
+        renderOptions();
+    </script>
+</body>
+</html>
