@@ -1,9 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoTaggy - Simulador</title>
+<<<<<<< HEAD
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -11,11 +16,26 @@
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+=======
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
 <body class="size-full overflow-y-auto min-h-screen bg-slate-50 text-gray-900">
 
     <header class="sticky top-0 z-50 backdrop-blur-md border-b shadow-sm bg-white/80 border-gray-200">
         <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+<<<<<<< HEAD
             <a href="/dashboard" class="flex items-center transition-colors font-medium text-gray-600 hover:text-green-600">
+=======
+            <a href="dashboard.html"
+                class="flex items-center transition-colors font-medium text-gray-600 hover:text-green-600">
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
                 <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i>
                 Voltar ao Dashboard
             </a>
@@ -33,12 +53,21 @@
             </div>
             <h1 class="text-4xl font-bold mb-4">Simulador de Cenários Futuros</h1>
             <p class="text-xl max-w-2xl mx-auto text-gray-600">
+<<<<<<< HEAD
                 Projete o impacto ambiental da sua empresa nos próximos anos variando o tamanho da frota e a taxa de adoção da solução digital.
+=======
+                Projete o impacto ambiental da sua empresa nos próximos anos variando o tamanho da frota e a taxa de
+                adoção da solução digital.
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
             </p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
             <div class="lg:col-span-4 space-y-6">
                 <div class="rounded-2xl shadow-sm border p-6 bg-white border-gray-200">
                     <h2 class="text-lg font-semibold mb-6 flex items-center">
@@ -50,7 +79,12 @@
                         <div>
                             <label class="flex justify-between text-sm font-medium mb-3 text-gray-700">
                                 <span>Tamanho da Frota (Veículos)</span>
+<<<<<<< HEAD
                                 <span id="fleetSizeValue" class="font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-600">500</span>
+=======
+                                <span id="fleetSizeValue"
+                                    class="font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-600">500</span>
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
                             </label>
                             <input type="range" id="fleetSizeInput" min="10" max="5000" step="10" value="500"
                                 class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
@@ -59,7 +93,12 @@
                         <div>
                             <label class="flex justify-between text-sm font-medium mb-3 text-gray-700">
                                 <span>Adoção Inicial da Taggy (%)</span>
+<<<<<<< HEAD
                                 <span id="adoptionRateValue" class="font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-600">30%</span>
+=======
+                                <span id="adoptionRateValue"
+                                    class="font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-600">30%</span>
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
                             </label>
                             <input type="range" id="adoptionRateInput" min="1" max="100" value="30"
                                 class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600" />
@@ -68,6 +107,7 @@
                         <div>
                             <label class="flex justify-between text-sm font-medium mb-3 text-gray-700">
                                 <span>Horizonte de Tempo (Anos)</span>
+<<<<<<< HEAD
                                 <span id="timeHorizonValue" class="font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-600">3 anos</span>
                             </label>
                             <div class="flex gap-2" id="horizonButtons">
@@ -75,6 +115,24 @@
                                 <button data-years="3" class="horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-blue-50 border-blue-200 text-blue-700 shadow-sm active-horizon">3 anos</button>
                                 <button data-years="5" class="horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white border-gray-200 text-gray-600 hover:bg-gray-50">5 anos</button>
                                 <button data-years="10" class="horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white border-gray-200 text-gray-600 hover:bg-gray-50">10 anos</button>
+=======
+                                <span id="timeHorizonValue"
+                                    class="font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-600">3 anos</span>
+                            </label>
+                            <div class="flex gap-2" id="horizonButtons">
+                                <button data-years="1"
+                                    class="horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white border-gray-200 text-gray-600 hover:bg-gray-50">1
+                                    ano</button>
+                                <button data-years="3"
+                                    class="horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-blue-50 border-blue-200 text-blue-700 shadow-sm active-horizon">3
+                                    anos</button>
+                                <button data-years="5"
+                                    class="horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white border-gray-200 text-gray-600 hover:bg-gray-50">5
+                                    anos</button>
+                                <button data-years="10"
+                                    class="horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white border-gray-200 text-gray-600 hover:bg-gray-50">10
+                                    anos</button>
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
                             </div>
                         </div>
                     </div>
@@ -88,11 +146,21 @@
                     <ul class="space-y-4 text-sm text-slate-300">
                         <li class="flex items-start">
                             <i data-lucide="shield-check" class="w-5 h-5 mr-2 text-green-400 shrink-0 mt-0.5"></i>
+<<<<<<< HEAD
                             <span>Em <span id="insightYears">3</span> anos, você atingirá conformidade avançada com metas de ESG corporativas.</span>
                         </li>
                         <li class="flex items-start">
                             <i data-lucide="building" class="w-5 h-5 mr-2 text-blue-400 shrink-0 mt-0.5"></i>
                             <span>Economia projetada em horas operacionais reduz o OPEX da frota significativamente.</span>
+=======
+                            <span>Em <span id="insightYears">3</span> anos, você atingirá conformidade avançada com
+                                metas de ESG corporativas.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="building" class="w-5 h-5 mr-2 text-blue-400 shrink-0 mt-0.5"></i>
+                            <span>Economia projetada em horas operacionais reduz o OPEX da frota
+                                significativamente.</span>
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
                         </li>
                     </ul>
                 </div>
@@ -103,7 +171,12 @@
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
                         <div>
                             <h2 class="text-xl font-bold">Projeção de CO₂ Evitado (kg)</h2>
+<<<<<<< HEAD
                             <p class="text-sm text-gray-500">Comparativo entre adoção projetada e cenário otimista (Dados reais do Backend)</p>
+=======
+                            <p class="text-sm text-gray-500">Comparativo entre adoção projetada e cenário otimista
+                                (Dados reais do Backend)</p>
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
                         </div>
                         <div class="flex items-center gap-4 text-sm">
                             <div class="flex items-center">
@@ -123,11 +196,21 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div class="p-6 rounded-2xl border flex items-center gap-6 bg-blue-50/50 border-blue-100">
+<<<<<<< HEAD
                         <div class="w-16 h-16 rounded-full flex items-center justify-center shrink-0 bg-white shadow-sm">
                             <i data-lucide="rocket" class="w-8 h-8 text-blue-600"></i>
                         </div>
                         <div>
                             <p class="text-sm font-medium mb-1 text-gray-600">Impacto Final Projetado (Ano <span id="finalYearLabel"></span>)</p>
+=======
+                        <div
+                            class="w-16 h-16 rounded-full flex items-center justify-center shrink-0 bg-white shadow-sm">
+                            <i data-lucide="rocket" class="w-8 h-8 text-blue-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium mb-1 text-gray-600">Impacto Final Projetado (Ano <span
+                                    id="finalYearLabel"></span>)</p>
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
                             <p class="text-2xl font-bold">
                                 <span id="finalSavingsValue">0</span> <span class="text-base font-normal">kg CO₂</span>
                             </p>
@@ -135,13 +218,23 @@
                     </div>
 
                     <div class="p-6 rounded-2xl border flex items-center gap-6 bg-emerald-50/50 border-emerald-100">
+<<<<<<< HEAD
                         <div class="w-16 h-16 rounded-full flex items-center justify-center shrink-0 bg-white shadow-sm">
+=======
+                        <div
+                            class="w-16 h-16 rounded-full flex items-center justify-center shrink-0 bg-white shadow-sm">
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
                             <i data-lucide="shield-check" class="w-8 h-8 text-emerald-600"></i>
                         </div>
                         <div>
                             <p class="text-sm font-medium mb-1 text-gray-600">Benefício Ambiental Equivalente</p>
                             <p class="text-2xl font-bold text-emerald-500">
+<<<<<<< HEAD
                                 <span id="treesEquivalentValue">0</span> <span class="text-base font-normal">árvores/ano</span>
+=======
+                                <span id="treesEquivalentValue">0</span> <span
+                                    class="text-base font-normal">árvores/ano</span>
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
                             </p>
                         </div>
                     </div>
@@ -168,7 +261,11 @@
         const horizonButtons = document.querySelectorAll('.horizon-btn');
         const timeHorizonValue = document.getElementById('timeHorizonValue');
         const insightYears = document.getElementById('insightYears');
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
         const finalYearLabel = document.getElementById('finalYearLabel');
         const finalSavingsValue = document.getElementById('finalSavingsValue');
         const treesEquivalentValue = document.getElementById('treesEquivalentValue');
@@ -186,9 +283,15 @@
                     plugins: { legend: { display: false } },
                     scales: {
                         x: { grid: { display: false } },
+<<<<<<< HEAD
                         y: { 
                             grid: { borderDash: [3, 3], color: '#f3f4f6' },
                             ticks: { callback: function(value) { return (value / 1000) + 'k'; } }
+=======
+                        y: {
+                            grid: { borderDash: [3, 3], color: '#f3f4f6' },
+                            ticks: { callback: function (value) { return (value / 1000) + 'k'; } }
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
                         }
                     }
                 }
@@ -202,6 +305,7 @@
             const volumeTotal = Math.round(fleetSize * (adoptionRate / 100) * transacoesPorVeiculoAno);
 
             try {
+<<<<<<< HEAD
                 // Chama o SEU backend Java!
                 const response = await fetch(`http://localhost:8080/api/impacto/simular?volumeTransacoes=${volumeTotal}`, {
                     method: 'POST'
@@ -211,11 +315,27 @@
                 // Pega o valor real calculado pelo Java (0.05kg por transação)
                 const co2Base = impactoBase.co2Evitado; 
                 
+=======
+                // Usa a mesma origem por padrão e permite sobrescrever por window.ECOTAGGY_API_BASE
+                const apiBase = (window.ECOTAGGY_API_BASE || '').replace(/\/$/, '');
+                const response = await fetch(`${apiBase}/api/impacto/simular?volumeTransacoes=${volumeTotal}`, {
+                    method: 'POST'
+                });
+                const impactoBase = await response.json();
+
+                // Pega o valor real calculado pelo Java (0.05kg por transação)
+                const co2Base = impactoBase.co2Evitado;
+
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
                 generateChartData(co2Base);
             } catch (error) {
                 console.error("Erro ao conectar com o backend. O Spring Boot está rodando?", error);
                 // Fallback visual caso o servidor caia
+<<<<<<< HEAD
                 generateChartData(volumeTotal * 0.05); 
+=======
+                generateChartData(volumeTotal * 0.05);
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
             }
         }
 
@@ -224,13 +344,21 @@
             const dataProjetado = [];
             const dataOtimista = [];
             const currentYear = new Date().getFullYear();
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
             let currentAdoption = adoptionRate;
             const adoptionGrowthRate = 1.2;
 
             for (let i = 0; i <= timeHorizon; i++) {
                 labels.push((currentYear + i).toString());
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
                 // Cálculo da Projeção Normal
                 const multiplicadorProjetado = currentAdoption / adoptionRate;
                 const projectedSavings = Math.round(baseCo2Savings * multiplicadorProjetado);
@@ -295,7 +423,11 @@
                     b.className = "horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white border-gray-200 text-gray-600 hover:bg-gray-50";
                 });
                 e.target.className = "horizon-btn flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-blue-50 border-blue-200 text-blue-700 shadow-sm active-horizon";
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
                 timeHorizon = parseInt(e.target.dataset.years);
                 timeHorizonValue.innerText = timeHorizon + (timeHorizon === 1 ? ' ano' : ' anos');
                 insightYears.innerText = timeHorizon;
@@ -309,4 +441,8 @@
 
     </script>
 </body>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
 </html>
