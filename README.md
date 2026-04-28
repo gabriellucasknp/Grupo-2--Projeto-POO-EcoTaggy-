@@ -427,3 +427,56 @@ Banco de Dados: H2 Database (Modo Arquivo para persistência entre reinicializa�
 
 Documentação: PDF generation library (iText/OpenPDF).
 >>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
+
+Entrega 03: Consolidação, Persistência Avançada e Relatórios
+Esta seção detalha a finalização do ecossistema EcoTaggy, apresentando a integração completa entre o perfil do usuário, o registro de transações reais e a saída de dados via relatórios profissionais.
+
+Histórias de Usuário Implementadas (Novas)
+História 03 (Perfil e Identidade): Gestão de perfil com upload de imagem e persistência em Base64, utilizando mapeamento de grandes objetos.
+
+História 05 (Transação Real): Módulo de registro de passagens por tipo de veículo (Carro, Caminhão, Moto) com atualização imediata do banco de dados e recálculo de indicadores.
+
+História 06 (Relatórios ESG): Geração de relatórios consolidados em PDF com os indicadores acumulados de impacto ambiental do usuário.
+
+Diferenciais Técnicos desta Entrega
+Persistência LOB (Large Object): Armazenamento de fotos de perfil diretamente no banco de dados H2 através de mapeamento @Lob e tipos LONGTEXT, garantindo a integridade da identidade visual sem dependências externas.
+
+Arquitetura de Serviços: Refatoração do ImpactoService para suportar coeficientes de emissão diferenciados por categoria veicular, baseando-se em metodologias do GHG Protocol e CETESB.
+
+UX/UI Reativa: Implementação de Dashboard reativo com Chart.js, suporte a Dark Mode nativo e formulários de transação com feedback visual de processamento (loading states).
+
+Segurança e Integridade: Tratamento de persistência e garantia de integridade referencial entre as tabelas de Usuário e seus respectivos registros de Impacto Ambiental.
+
+Gestão de Tarefas (Status Final)
+O board de desenvolvimento foi atualizado para o status de "Concluído", refletindo o encerramento do ciclo de desenvolvimento da Entrega 03:
+https://trello.com/b/vIVQ4Sob/ecotaggy-poo
+
+Screencast do Sistema (Entrega 03)
+Demonstração completa do fluxo de ponta a ponta: Cadastro -> Perfil -> Registro de Passagem Real -> Dashboard Reativo -> Geração de Relatório PDF:
+https://www.youtube.com/watch?v=JHOLz4y82IM
+
+Como Executar a Aplicação (Atualizado)
+Clone o repositório atualizado.
+
+Acesse a pasta do backend: cd ecoTaggy-backend
+
+No Windows, verifique se a pasta C:/temp/ existe para a persistência do banco H2 em modo arquivo.
+
+Execute a aplicação: mvn spring-boot:run
+
+Acesse as rotas principais (Porta 8081):
+
+Início: http://localhost:8081/
+
+Registro de Passagem: http://localhost:8081/transacao
+
+Dashboard ESG: http://localhost:8081/dashboard
+
+Tecnologias Utilizadas (Revisado)
+Backend: Java 21, Spring Boot 3.5.x, Spring Data JPA.
+
+Frontend: Thymeleaf (Templates dinâmicos), Tailwind CSS, Chart.js (Gráficos), JavaScript ES6.
+
+Banco de Dados: H2 Database (Modo Arquivo para persistência de dados).
+
+Documentação/Saída: html2pdf.js / iText para exportação de relatórios corporativos.
