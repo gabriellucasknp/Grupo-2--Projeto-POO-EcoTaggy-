@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -24,10 +25,11 @@ public class TransacaoController {
 
     // 1. Rota para abrir a página transacao.html
     @GetMapping
-    public String exibirPaginaTransacao(Model model) {
+    public String exibirPaginaTransacao(Model model, HttpSession session) {
         try {
-            // Buscamos o teu usuário (ID 1L para teste) para exibir os dados e a foto no header
-            Usuario usuario = usuarioService.buscarPorId(1L);
+            Long id = (Long) session.getAttribute("usuarioLogadoId");
+            if (id == null) id = 1L;
+            Usuario usuario = usuarioService.buscarPorId(id);
             model.addAttribute("usuario", usuario);
             return "transacao"; 
         } catch (Exception e) {

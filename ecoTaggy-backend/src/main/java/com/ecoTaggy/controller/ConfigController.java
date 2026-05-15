@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -23,9 +24,11 @@ public class ConfigController {
      * 🟢 EXIBIR PERFIL
      * Abre a página de configurações com os dados do usuário logado.
      */
-    @GetMapping("/{id}")
-    public String exibirPerfil(@PathVariable Long id, Model model) {
+    @GetMapping
+    public String exibirPerfil(HttpSession session, Model model) {
         try {
+            Long id = (Long) session.getAttribute("usuarioLogadoId");
+            if (id == null) id = 1L;
             Usuario usuario = usuarioService.buscarPorId(id);
             model.addAttribute("usuario", usuario);
             return "perfil";
@@ -44,20 +47,17 @@ public class ConfigController {
     public String atualizarPerfil(@RequestParam Long id, 
                                    @RequestParam String nome, 
                                    @RequestParam(required = false) String novaSenha,
+                                   @RequestParam(required = false, defaultValue = "perfil") String origem,
                                    @RequestParam("imagemArquivo") MultipartFile imagemArquivo) {
         
         try {
             // Chama o método que ajustamos no seu UsuarioService
             usuarioService.atualizarPerfil(id, nome, novaSenha, imagemArquivo);
             
-            // Redireciona de volta para a página de perfil com aviso de sucesso
-            return "redirect:/perfil/" + id + "?sucesso=true";
+            // Retorna EXATAMENTE para a aba (perfil ou configurações) que emitiu o Post
+            return "redirect:/" + origem + "?sucesso=true";
         } catch (Exception e) {
-            // Se der erro, volta para a página com erro (você pode tratar isso na tela depois)
-            return "redirect:/perfil/" + id + "?erro=true";
+            return "redirect:/" + origem + "?erro=true";
         }
     }
 }
-
-
-

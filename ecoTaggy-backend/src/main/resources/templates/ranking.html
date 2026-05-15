@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Ranking - EcoTaggy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else { document.documentElement.classList.remove('dark'); }
+    tailwind.config = { darkMode: 'class' }
+  </script>
+</head>
+<body class="bg-gray-50 dark:bg-slate-950 min-h-screen text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+  <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a th:href="@{/landing}" class="flex items-center text-gray-600 dark:text-gray-400 hover:text-green-600 font-medium"><i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i> Voltar</a>
+      <img src="/images/logo1.png" alt="Logo" class="h-8 dark:brightness-110">
+      <div class="w-[120px]"></div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 py-8">
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4"><i data-lucide="trophy" class="w-8 h-8 text-green-600"></i></div>
+      <h1 class="text-3xl font-bold mb-2">Liga da Sustentabilidade</h1>
+      <p class="text-gray-600 dark:text-gray-400">Reduza emissões e suba no ranking global da EcoTaggy.</p>
+    </div>
+
+    <div class="flex justify-center mb-10">
+      <div class="bg-white dark:bg-slate-900 p-1 rounded-xl shadow-sm border border-gray-200 dark:border-slate-800 inline-flex w-full md:w-auto">
+        <button onclick="switchRank('user')" id="tab-user" class="flex-1 md:flex-none flex items-center justify-center px-8 py-3 rounded-lg font-bold text-sm bg-green-600 text-white shadow-md transition-all"><i data-lucide="users" class="w-4 h-4 mr-2"></i> Motoristas</button>
+        <button onclick="switchRank('comp')" id="tab-comp" class="flex-1 md:flex-none flex items-center justify-center px-8 py-3 rounded-lg font-bold text-sm text-gray-500 hover:bg-gray-50 dark:hover:bg-slate-800 transition-all"><i data-lucide="building-2" class="w-4 h-4 mr-2"></i> Frotas</button>
+      </div>
+    </div>
+
+    <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-800 overflow-hidden">
+      <div class="p-4 bg-gray-50 dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 flex justify-between text-xs font-bold text-gray-500 uppercase tracking-wider">
+        <span class="w-12 text-center">Pos</span><span class="flex-1 px-4">Participante</span><span class="w-24 text-right">EcoPoints</span>
+      </div>
+      
+      <div id="list-user" class="divide-y divide-gray-100 dark:divide-slate-800">
+        <div class="flex items-center p-4 hover:bg-gray-50 dark:hover:bg-slate-800">
+            <div class="w-12 text-center font-black text-yellow-500">1º</div>
+            <div class="flex-1 px-4"><p class="font-bold">Carlos Eduardo</p><p class="text-xs text-gray-500">São Paulo, SP</p></div>
+            <div class="w-24 text-right"><p class="font-black text-gray-900 dark:text-white">15.420</p></div>
+        </div>
+        <div class="flex items-center p-4 hover:bg-gray-50 dark:hover:bg-slate-800">
+            <div class="w-12 text-center font-black text-slate-400">2º</div>
+            <div class="flex-1 px-4"><p class="font-bold">Mariana Silva</p><p class="text-xs text-gray-500">Curitiba, PR</p></div>
+            <div class="w-24 text-right"><p class="font-black text-gray-900 dark:text-white">14.100</p></div>
+        </div>
+        <div class="flex items-center p-4 hover:bg-gray-50 dark:hover:bg-slate-800">
+            <div class="w-12 text-center font-black text-orange-400">3º</div>
+            <div class="flex-1 px-4"><p class="font-bold">Pedro Bastos</p><p class="text-xs text-gray-500">Recife, PE</p></div>
+            <div class="w-24 text-right"><p class="font-black text-gray-900 dark:text-white">13.200</p></div>
+        </div>
+        <div class="flex items-center p-4 bg-green-50 dark:bg-slate-800 border-l-4 border-green-500">
+            <div class="w-12 text-center font-black text-gray-400">4º</div>
+            <div class="flex-1 px-4"><p class="font-bold text-green-600" th:text="${usuario.nome} + ' (Você)'">João (Você)</p><p class="text-xs text-gray-500">Registrado</p></div>
+            <div class="w-24 text-right"><p class="font-black text-green-600">10.500</p></div>
+        </div>
+        <div class="flex items-center p-4 hover:bg-gray-50 dark:hover:bg-slate-800">
+            <div class="w-12 text-center font-black text-gray-400">5º</div>
+            <div class="flex-1 px-4"><p class="font-bold">Gabriel Lucas</p><p class="text-xs text-gray-500">Belo Horizonte, MG</p></div>
+            <div class="w-24 text-right"><p class="font-black text-gray-900 dark:text-white">9.800</p></div>
+        </div>
+      </div>
+
+      <div id="list-comp" class="divide-y divide-gray-100 dark:divide-slate-800 hidden">
+        <div class="flex items-center p-4 hover:bg-gray-50 dark:hover:bg-slate-800">
+            <div class="w-12 text-center font-black text-yellow-500">1º</div>
+            <div class="flex-1 px-4"><p class="font-bold">Logística BR</p><p class="text-xs text-gray-500">Nacional</p></div>
+            <div class="w-24 text-right"><p class="font-black text-gray-900 dark:text-white">285.000</p></div>
+        </div>
+        <div class="flex items-center p-4 hover:bg-gray-50 dark:hover:bg-slate-800">
+            <div class="w-12 text-center font-black text-slate-400">2º</div>
+            <div class="flex-1 px-4"><p class="font-bold">EcoTransportes</p><p class="text-xs text-gray-500">Sul e Sudeste</p></div>
+            <div class="w-24 text-right"><p class="font-black text-gray-900 dark:text-white">242.100</p></div>
+        </div>
+        <div class="flex items-center p-4 hover:bg-gray-50 dark:hover:bg-slate-800">
+            <div class="w-12 text-center font-black text-orange-400">3º</div>
+            <div class="flex-1 px-4"><p class="font-bold">Viação Verde</p><p class="text-xs text-gray-500">São Paulo, SP</p></div>
+            <div class="w-24 text-right"><p class="font-black text-gray-900 dark:text-white">198.000</p></div>
+        </div>
+        <div class="flex items-center p-4 hover:bg-gray-50 dark:hover:bg-slate-800">
+            <div class="w-12 text-center font-black text-gray-400">4º</div>
+            <div class="flex-1 px-4"><p class="font-bold">Rápido Log</p><p class="text-xs text-gray-500">Norte e Nordeste</p></div>
+            <div class="w-24 text-right"><p class="font-black text-gray-900 dark:text-white">154.000</p></div>
+        </div>
+        <div class="flex items-center p-4 bg-green-50 dark:bg-slate-800 border-l-4 border-green-500">
+            <div class="w-12 text-center font-black text-gray-400">5º</div>
+            <div class="flex-1 px-4"><p class="font-bold text-green-600">Sua Frota</p><p class="text-xs text-gray-500">Sede</p></div>
+            <div class="w-24 text-right"><p class="font-black text-green-600">112.000</p></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    lucide.createIcons();
+    function switchRank(tab) {
+        const actClass = 'flex-1 md:flex-none flex items-center justify-center px-8 py-3 rounded-lg font-bold text-sm bg-green-600 text-white shadow-md transition-all';
+        const inactClass = 'flex-1 md:flex-none flex items-center justify-center px-8 py-3 rounded-lg font-bold text-sm text-gray-500 hover:bg-gray-50 dark:hover:bg-slate-800 transition-all';
+        
+        document.getElementById('tab-user').className = tab === 'user' ? actClass : inactClass;
+        document.getElementById('tab-comp').className = tab === 'comp' ? actClass : inactClass;
+        
+        if(tab === 'user') {
+            document.getElementById('list-user').classList.remove('hidden');
+            document.getElementById('list-comp').classList.add('hidden');
+        } else {
+            document.getElementById('list-user').classList.add('hidden');
+            document.getElementById('list-comp').classList.remove('hidden');
+        }
+    }
+  </script>
+</body>
+</html>

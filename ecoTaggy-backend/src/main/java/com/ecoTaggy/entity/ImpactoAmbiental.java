@@ -14,6 +14,7 @@ public class ImpactoAmbiental {
     private Double co2Evitado;
     private Double papelEconomizado;
     private Double combustivelEconomizado;
+    private Integer arvoresSalvas = 0;
 
     @OneToOne //Cada registro de impacto está associado a um único usuário
     @JoinColumn(name = "usuario_id")
@@ -25,16 +26,20 @@ public class ImpactoAmbiental {
         this.co2Evitado = 0.0;
         this.papelEconomizado = 0.0;
         this.combustivelEconomizado = 0.0;
+        this.arvoresSalvas = 0;
     }
     
-    public ImpactoAmbiental() {}
+    public ImpactoAmbiental() {
+        this.arvoresSalvas = 0;
+    }
 
-    public ImpactoAmbiental(Long id, Integer transacoesProcessadas, Double co2Evitado, Double papelEconomizado, Double combustivelEconomizado, Usuario usuario) {
+    public ImpactoAmbiental(Long id, Integer transacoesProcessadas, Double co2Evitado, Double papelEconomizado, Double combustivelEconomizado, Integer arvoresSalvas, Usuario usuario) {
         this.id = id;
         this.transacoesProcessadas = transacoesProcessadas;
         this.co2Evitado = co2Evitado;
         this.papelEconomizado = papelEconomizado;
         this.combustivelEconomizado = combustivelEconomizado;
+        this.arvoresSalvas = arvoresSalvas;
         this.usuario = usuario;
     }
     public Usuario getUsuario() { return usuario; }
@@ -50,8 +55,11 @@ public class ImpactoAmbiental {
     public Double getCombustivelEconomizado() { return combustivelEconomizado; }
     public void setCombustivelEconomizado(Double combustivelEconomizado) { this.combustivelEconomizado = combustivelEconomizado; }
 
+    public Integer getArvoresSalvas() { return arvoresSalvas; }
+    public void setArvoresSalvas(Integer arvoresSalvas) { this.arvoresSalvas = arvoresSalvas; }
+
     @Override
     public String toString() {
-        return "ImpactoAmbiental{id=" + id + ", co2=" + co2Evitado + ", papel=" + papelEconomizado + "}";
+        return "ImpactoAmbiental{id=" + id + ", co2=" + co2Evitado + ", papel=" + papelEconomizado + ", arvores=" + arvoresSalvas + "}";
     }
 }

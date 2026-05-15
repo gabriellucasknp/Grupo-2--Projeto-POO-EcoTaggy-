@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Cenários - EcoTaggy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+    tailwind.config = { darkMode: 'class' }
+  </script>
+  <style>
+    input[type=range] { accent-color: #2563eb; }
+  </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 min-h-screen text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300">
+
+  <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a th:href="@{/landing}" class="flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-600 transition-colors font-medium">
+        <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i> Voltar ao Início
+      </a>
+      <div class="flex items-center">
+        <span class="text-green-600 font-extrabold text-2xl tracking-tight">EcoTaggy</span>
+      </div>
+      <div class="w-[120px]"></div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 py-8 lg:py-12">
+    <div class="text-center mb-12">
+      <div class="inline-block p-3 bg-blue-100 rounded-full text-blue-600 mb-4">
+        <i data-lucide="line-chart" class="w-8 h-8"></i>
+      </div>
+      <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">Simulador de Cenários Futuros</h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+        Projete o impacto ambiental da sua empresa nos próximos anos variando o tamanho da frota e a taxa de adoção da solução digital.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <div class="lg:col-span-4 space-y-6">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-800 p-6">
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center">
+            <i data-lucide="target" class="w-5 h-5 mr-2 text-blue-600"></i> Variáveis da Projeção
+          </h2>
+          <div class="space-y-8">
+            <div>
+              <label class="flex justify-between text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                <span>Tamanho da Frota (Veículos)</span>
+                <span id="val-fleet" class="text-blue-600 font-bold bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded">500</span>
+              </label>
+              <input type="range" id="fleetSize" min="10" max="5000" step="10" value="500" class="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer">
+            </div>
+            <div>
+              <label class="flex justify-between text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                <span>Adoção Inicial da Taggy</span>
+                <span id="val-adoption" class="text-blue-600 font-bold bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded">30%</span>
+              </label>
+              <input type="range" id="adoptionRate" min="1" max="100" value="30" class="w-full h-2 bg-gray-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer">
+            </div>
+            <div>
+              <label class="flex justify-between text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+                <span>Horizonte de Tempo (Anos)</span>
+                <span id="val-horizon" class="text-blue-600 font-bold bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded">3 anos</span>
+              </label>
+              <div class="flex gap-2" id="horizonButtons">
+                <button class="btn-horizon flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700" data-years="1">1 ano</button>
+                <button class="btn-horizon flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-400 shadow-sm" data-years="3">3 anos</button>
+                <button class="btn-horizon flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700" data-years="5">5 anos</button>
+                <button class="btn-horizon flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700" data-years="10">10 anos</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl shadow-sm p-6 text-white">
+          <h3 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="zap" class="w-5 h-5 mr-2 text-yellow-400"></i> Impacto Estratégico
+          </h3>
+          <ul class="space-y-4 text-sm text-slate-300">
+            <li class="flex items-start">
+              <i data-lucide="shield-check" class="w-5 h-5 mr-2 text-green-400 shrink-0 mt-0.5"></i>
+              <span>Você atingirá conformidade avançada com metas de ESG corporativas de longo prazo.</span>
+            </li>
+            <li class="flex items-start">
+              <i data-lucide="building" class="w-5 h-5 mr-2 text-blue-400 shrink-0 mt-0.5"></i>
+              <span>Economia projetada em horas operacionais reduz o OPEX da frota significativamente.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="lg:col-span-8 space-y-6">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-gray-200 dark:border-slate-800 p-6 lg:p-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
+            <div>
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white">Projeção de CO₂ Evitado (kg)</h2>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Comparativo entre adoção projetada e cenário otimista</p>
+            </div>
+          </div>
+          <div class="h-[350px] w-full relative">
+            <canvas id="simChart"></canvas>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="bg-blue-50 dark:bg-slate-800 rounded-2xl p-6 border border-blue-100 dark:border-slate-700 relative overflow-hidden">
+            <i data-lucide="rocket" class="absolute -right-4 -bottom-4 w-24 h-24 text-blue-100 dark:text-slate-700 opacity-50"></i>
+            <div class="relative z-10">
+              <p id="res-year-title" class="text-blue-800 dark:text-blue-400 font-medium mb-1">Acumulado no Fim do Período</p>
+              <h3 class="text-4xl font-bold text-blue-900 dark:text-white mb-2">
+                <span id="res-co2">0</span> <span class="text-lg text-blue-700 dark:text-blue-500 font-medium">kg CO₂</span>
+              </h3>
+              <p class="text-sm text-blue-700 dark:text-blue-500">Evitados na atmosfera no final da projeção.</p>
+            </div>
+          </div>
+
+          <div class="bg-emerald-50 dark:bg-slate-800 rounded-2xl p-6 border border-emerald-100 dark:border-slate-700">
+            <p class="text-emerald-800 dark:text-emerald-400 font-medium mb-1">Equivalência Sustentável</p>
+            <div class="flex items-end gap-3 mb-2">
+              <h3 id="res-trees" class="text-4xl font-bold text-emerald-900 dark:text-white">0</h3>
+              <span class="text-lg text-emerald-700 dark:text-emerald-500 font-medium mb-1">árvores</span>
+            </div>
+            <p class="text-sm text-emerald-700 dark:text-emerald-500">Precisariam ser plantadas para absorver esse volume projetado.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    lucide.createIcons();
+    let simChartInstance = null;
+    let timeHorizon = 3;
+    const ctx = document.getElementById('simChart').getContext('2d');
+
+    document.querySelectorAll('.btn-horizon').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        document.querySelectorAll('.btn-horizon').forEach(b => {
+          b.className = "btn-horizon flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700";
+        });
+        e.target.className = "btn-horizon flex-1 py-2 text-sm font-medium rounded-lg border transition-all bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-400 shadow-sm";
+        timeHorizon = parseInt(e.target.dataset.years);
+        document.getElementById('val-horizon').innerText = `${timeHorizon} ano${timeHorizon > 1 ? 's' : ''}`;
+        updateSim();
+      });
+    });
+
+    function updateSim() {
+      const fleet = parseInt(document.getElementById('fleetSize').value);
+      const adoption = parseInt(document.getElementById('adoptionRate').value);
+      document.getElementById('val-fleet').innerText = fleet.toLocaleString();
+      document.getElementById('val-adoption').innerText = adoption + '%';
+
+      const labels = [], atualData = [], otimistaData = [];
+      const currentYear = new Date().getFullYear();
+      
+      // Premissas validadas ESG (GHG Protocol): 
+      // Uma quebra de inércia e retomada no pedágio gasta em média 0.1 Litros de combustível.
+      // 2 paradas diárias x 250 dias úteis = 50 Litros gastos atoa anualmente por veículo.
+      // Fator de emissão da gasolina comum: ~2.4 kg CO₂ por litro. 50L * 2.4 = 120 kg CO₂.
+      const baseCo2 = 120; 
+      let currentAdoption = adoption;
+
+      for (let i = 0; i <= timeHorizon; i++) {
+        labels.push(currentYear + i);
+        const activeVehicles = fleet * (currentAdoption / 100);
+        atualData.push(Math.round(activeVehicles * baseCo2));
+        const aggressiveVehicles = fleet * (Math.min(100, adoption + (i * 25)) / 100);
+        otimistaData.push(Math.round(aggressiveVehicles * baseCo2));
+        currentAdoption = Math.min(100, currentAdoption * 1.2);
+      }
+
+      document.getElementById('res-year-title').innerText = `Acumulado no Ano ${labels[labels.length - 1]}`;
+      document.getElementById('res-co2').innerText = atualData[atualData.length - 1].toLocaleString();
+      document.getElementById('res-trees').innerText = Math.round(atualData[atualData.length - 1] / 21).toLocaleString();
+
+      if (simChartInstance) {
+        simChartInstance.data.labels = labels; simChartInstance.data.datasets[0].data = atualData; simChartInstance.data.datasets[1].data = otimistaData; simChartInstance.update();
+      } else {
+        simChartInstance = new Chart(ctx, { type: 'line', data: { labels: labels, datasets: [ { label: 'Cenário Projetado', data: atualData, borderColor: '#2563eb', backgroundColor: '#2563eb', borderWidth: 3, tension: 0.4 }, { label: 'Cenário Otimista', data: otimistaData, borderColor: '#10b981', backgroundColor: 'transparent', borderDash: [5, 5], borderWidth: 2, tension: 0.4 } ] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top', align: 'end', labels: { usePointStyle: true, boxWidth: 8 } } }, scales: { x: { grid: { display: false } }, y: { grid: { borderDash: [3, 3] }, ticks: { callback: function(value) { return value >= 1000 ? (value/1000).toFixed(1) + 'k' : value; } } } } } });
+      }
+    }
+
+    ['fleetSize', 'adoptionRate'].forEach(id => { document.getElementById(id).addEventListener('input', updateSim); });
+    updateSim();
+  </script>
+</body>
+</html>

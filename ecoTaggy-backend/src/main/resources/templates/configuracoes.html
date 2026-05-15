@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configurações - EcoTaggy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+    tailwind.config = { darkMode: 'class' }
+  </script>
+</head>
+<body class="bg-gray-50 dark:bg-slate-950 min-h-screen transition-colors duration-300 text-gray-900 dark:text-gray-100">
+
+  <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a th:href="@{/landing}" class="flex items-center text-gray-600 dark:text-gray-400 hover:text-[#1a9354] transition-colors font-medium">
+        <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i> Voltar ao Início
+      </a>
+      <img src="/images/logo1.png" alt="Logo" class="h-8 dark:brightness-110">
+      <div class="w-[120px] hidden md:block"></div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold mb-2">Configurações da Conta</h1>
+      <p class="text-gray-600 dark:text-gray-400">Gerencie suas informações, preferências e segurança.</p>
+    </div>
+    
+    <div th:if="${param.sucesso}" class="mb-6 p-4 bg-green-100 dark:bg-green-900/30 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 rounded-xl flex items-center">
+        <i data-lucide="check-circle" class="w-5 h-5 mr-2"></i> Perfil atualizado com sucesso!
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-8">
+      <aside class="w-full md:w-64 shrink-0">
+        <nav class="flex flex-row md:flex-col gap-2 overflow-x-auto pb-4 md:pb-0">
+          <button onclick="switchTab('perfil')" id="btn-perfil" class="tab-btn bg-[#1a9354] text-white shadow-md flex items-center px-4 py-3 rounded-xl font-medium transition-all whitespace-nowrap">
+            <i data-lucide="user" class="w-5 h-5 mr-3"></i> Perfil Pessoal
+          </button>
+          <button onclick="switchTab('aparencia')" id="btn-aparencia" class="tab-btn text-gray-600 dark:text-gray-400 hover:bg-white dark:hover:bg-slate-800 flex items-center px-4 py-3 rounded-xl font-medium transition-all whitespace-nowrap">
+            <i data-lucide="palette" class="w-5 h-5 mr-3"></i> Tema Visual
+          </button>
+          <button onclick="switchTab('notificacoes')" id="btn-notificacoes" class="tab-btn text-gray-600 dark:text-gray-400 hover:bg-white dark:hover:bg-slate-800 flex items-center px-4 py-3 rounded-xl font-medium transition-all whitespace-nowrap">
+            <i data-lucide="bell" class="w-5 h-5 mr-3"></i> Notificações
+          </button>
+          <button onclick="switchTab('seguranca')" id="btn-seguranca" class="tab-btn text-gray-600 dark:text-gray-400 hover:bg-white dark:hover:bg-slate-800 flex items-center px-4 py-3 rounded-xl font-medium transition-all whitespace-nowrap">
+            <i data-lucide="shield" class="w-5 h-5 mr-3"></i> Segurança
+          </button>
+        </nav>
+      </aside>
+
+      <div class="flex-1 p-6 md:p-8 rounded-2xl border shadow-sm bg-white dark:bg-slate-900 border-gray-200 dark:border-slate-800">
+        <form th:action="@{/perfil/atualizar}" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="id" th:value="${usuario.id}">
+          
+          <!-- ESSE INPUT É O SEGREDO PARA SALVAR E VOLTAR PARA CONFIGURAÇÕES -->
+          <input type="hidden" name="origem" value="configuracoes">
+          
+          <!-- ABA PERFIL -->
+          <div id="tab-perfil" class="tab-content space-y-6">
+            <h2 class="text-xl font-bold mb-6 pb-2 border-b border-gray-100 dark:border-slate-800">Informações Pessoais</h2>
+            <div class="flex items-center gap-6 mb-6">
+              <input type="file" name="imagemArquivo" id="file-input" accept="image/*" class="hidden">
+              <label for="file-input" class="w-24 h-24 rounded-full overflow-hidden border-4 border-[#1a9354] relative group cursor-pointer">
+                <img id="preview-img" th:src="${usuario.fotoUrl != null && !usuario.fotoUrl.isEmpty() ? usuario.fotoUrl : 'https://images.unsplash.com/photo-1603775493298-e06a5f21e46c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwZXJzb24lMjBwb3J0cmFpdCUyMHNtaWxlfGVufDF8fHx8MTc3NDUzMTY4OXww&ixlib=rb-4.1.0&q=80&w=1080'}" alt="Perfil" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-black/50 hidden group-hover:flex items-center justify-center transition-all">
+                  <span class="text-white text-xs font-bold text-center">Alterar<br>Foto</span>
+                </div>
+              </label>
+              <div>
+                <p class="font-medium text-gray-700 dark:text-gray-300">Foto de Perfil</p>
+                <p class="text-sm mb-2 text-gray-500">JPG, GIF ou PNG. Máximo de 2MB.</p>
+                <label for="file-input" class="px-4 py-1.5 bg-[#1a9354]/10 text-[#1a9354] font-bold rounded-lg text-sm hover:bg-[#1a9354]/20 cursor-pointer transition-colors">
+                  Fazer Upload
+                </label>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-bold mb-2">Nome Completo</label>
+                <input type="text" name="nome" th:value="${usuario.nome}" required class="w-full px-4 py-2.5 rounded-xl border bg-gray-50 border-gray-200 dark:bg-slate-800 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-[#1a9354] transition-all">
+              </div>
+              <div>
+                <label class="block text-sm font-bold mb-2">E-mail</label>
+                <input type="email" th:value="${usuario.email}" readonly class="w-full px-4 py-2.5 rounded-xl border bg-gray-100 border-gray-200 dark:bg-slate-950 dark:border-slate-800 text-gray-500 cursor-not-allowed transition-all">
+              </div>
+              <div>
+                <label class="block text-sm font-bold mb-2">Telefone</label>
+                <input type="tel" value="(11) 98765-4321" class="w-full px-4 py-2.5 rounded-xl border bg-gray-50 border-gray-200 dark:bg-slate-800 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-[#1a9354] transition-all">
+              </div>
+              <div>
+                <label class="block text-sm font-bold mb-2">Empresa / Frota</label>
+                <input type="text" value="Logística BR" class="w-full px-4 py-2.5 rounded-xl border bg-gray-50 border-gray-200 dark:bg-slate-800 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-[#1a9354] transition-all">
+              </div>
+            </div>
+          </div>
+
+          <!-- ABA APARÊNCIA -->
+          <div id="tab-aparencia" class="tab-content space-y-6 hidden">
+            <h2 class="text-xl font-bold mb-6 pb-2 border-b border-gray-100 dark:border-slate-800">Aparência e Tema</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <button type="button" onclick="toggleTheme(false)" class="p-6 rounded-2xl border-2 flex flex-col items-center justify-center gap-4 transition-all bg-white border-gray-200 dark:bg-slate-900 dark:border-gray-700 hover:border-[#1a9354]/50">
+                <i data-lucide="sun" class="w-10 h-10 text-[#1a9354] dark:text-gray-400"></i>
+                <div class="text-center">
+                  <p class="font-bold text-[#1a9354] dark:text-gray-100">Modo Claro</p>
+                  <p class="text-xs text-gray-500">Tema padrão brilhante</p>
+                </div>
+              </button>
+              <button type="button" onclick="toggleTheme(true)" class="p-6 rounded-2xl border-2 flex flex-col items-center justify-center gap-4 transition-all bg-white border-gray-200 dark:bg-slate-900 dark:border-gray-700 hover:border-[#1a9354]/50">
+                <i data-lucide="moon" class="w-10 h-10 text-gray-400 dark:text-[#1a9354]"></i>
+                <div class="text-center">
+                  <p class="font-bold text-gray-900 dark:text-[#1a9354]">Modo Escuro</p>
+                  <p class="text-xs text-gray-500">Ideal para visualização noturna</p>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- ABA NOTIFICAÇÕES -->
+          <div id="tab-notificacoes" class="tab-content space-y-6 hidden">
+            <h2 class="text-xl font-bold mb-6 pb-2 border-b border-gray-100 dark:border-slate-800">Preferências de Notificação</h2>
+            <div class="space-y-4">
+              <label class="flex items-start justify-between p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+                <div class="flex gap-4">
+                  <i data-lucide="mail" class="w-6 h-6 mt-0.5 text-gray-500 dark:text-gray-400"></i>
+                  <div>
+                    <p class="font-bold">Relatórios de Impacto Semanais</p>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Receba um resumo do seu impacto ambiental por e-mail.</p>
+                  </div>
+                </div>
+                <div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+                  <input type="checkbox" checked class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" style="right: 0; border-color: #1a9354;">
+                  <label class="toggle-label block overflow-hidden h-6 rounded-full bg-[#1a9354] cursor-pointer"></label>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- ABA SEGURANÇA -->
+          <div id="tab-seguranca" class="tab-content space-y-6 hidden">
+            <h2 class="text-xl font-bold mb-6 pb-2 border-b border-gray-100 dark:border-slate-800">Segurança da Conta</h2>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-bold mb-2">Senha Atual</label>
+                <input type="password" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border bg-gray-50 border-gray-200 dark:bg-slate-800 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-[#1a9354] transition-all max-w-md">
+              </div>
+              <div>
+                <label class="block text-sm font-bold mb-2">Nova Senha</label>
+                <input type="password" name="novaSenha" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border bg-gray-50 border-gray-200 dark:bg-slate-800 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-[#1a9354] transition-all max-w-md">
+              </div>
+              <div>
+                <label class="block text-sm font-bold mb-2">Confirmar Nova Senha</label>
+                <input type="password" placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border bg-gray-50 border-gray-200 dark:bg-slate-800 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-[#1a9354] transition-all max-w-md">
+              </div>
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-800">
+              <h3 class="font-bold mb-2">Autenticação em Dois Fatores (2FA)</h3>
+              <p class="text-sm mb-4 text-gray-600 dark:text-gray-400">Adicione uma camada extra de segurança à sua conta.</p>
+              <button type="button" class="px-4 py-2 border-2 border-[#1a9354] text-[#1a9354] font-bold rounded-lg hover:bg-[#1a9354]/10 transition-colors">
+                Ativar 2FA
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-10 pt-6 border-t border-gray-100 dark:border-slate-800 flex justify-end">
+            <button type="submit" class="flex items-center px-6 py-3 bg-[#1a9354] hover:bg-green-700 text-white font-bold rounded-xl transition-all shadow-md hover:shadow-lg">
+              <i data-lucide="save" class="w-5 h-5 mr-2"></i> Salvar Alterações no Banco
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('file-input').addEventListener('change', function() {
+        const file = this.files[0];
+        if (file) {
+            const r = new FileReader();
+            r.onload = e => document.getElementById('preview-img').src = e.target.result;
+            r.readAsDataURL(file);
+        }
+    });
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+        document.getElementById('tab-' + tabId).classList.remove('hidden');
+        document.querySelectorAll('.tab-btn').forEach(el => el.className = 'tab-btn text-gray-600 dark:text-gray-400 hover:bg-white dark:hover:bg-slate-800 flex items-center px-4 py-3 rounded-xl font-medium transition-all whitespace-nowrap');
+        document.getElementById('btn-' + tabId).className = 'tab-btn bg-[#1a9354] text-white shadow-md flex items-center px-4 py-3 rounded-xl font-medium transition-all whitespace-nowrap';
+    }
+    function toggleTheme(isDark) {
+        if (isDark) { document.documentElement.classList.add('dark'); localStorage.setItem('theme', 'dark'); } 
+        else { document.documentElement.classList.remove('dark'); localStorage.setItem('theme', 'light'); }
+    }
+  </script>
+</body>
+</html>

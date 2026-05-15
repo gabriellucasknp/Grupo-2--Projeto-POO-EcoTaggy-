@@ -5,19 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoTaggy - Dashboard de Sustentabilidade</title>
     
-    <!-- Tailwind CSS (CDN para visualização rápida) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Chart.js para renderização de gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- html2pdf.js para gerar e baixar o PDF automaticamente -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     
-    <!-- Configuração Global de Tema (Dark Mode) -->
     <script>
         if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
@@ -30,10 +22,9 @@
 <body class="bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
 
     <div class="size-full overflow-y-auto">
-        <!-- Header -->
-        <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 shadow-sm transition-colors">
+        <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 shadow-sm">
             <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-                <a th:href="@{/landing}" class="flex items-center text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors font-medium">
+                <a th:href="@{/landing}" class="flex items-center text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 font-medium">
                     <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i>
                     Voltar ao Início
                 </a>
@@ -44,11 +35,11 @@
                 </a>
                 
                 <div class="flex gap-3">
-                    <button class="flex items-center px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors text-sm font-medium shadow-sm">
+                    <button class="flex items-center px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium shadow-sm">
                         <i data-lucide="filter" class="w-4 h-4 mr-2"></i>
                         Filtros
                     </button>
-                    <button onclick="exportarESG()" class="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium shadow-sm hover:scale-105 active:scale-95 cursor-pointer">
+                    <button onclick="exportarESG()" class="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm font-medium shadow-sm hover:scale-105 active:scale-95">
                         <i data-lucide="download" class="w-4 h-4 mr-2"></i>
                         Exportar ESG
                     </button>
@@ -56,10 +47,8 @@
             </div>
         </header>
 
-        <!-- Main -->
         <main class="max-w-7xl mx-auto px-6 py-8">
             
-            <!-- Cabeçalho Oficial do PDF (Invisível na Tela, Visível no PDF) -->
             <div id="pdf-header" class="hidden mb-8 border-b-2 border-green-600 pb-4">
                 <div class="flex justify-between items-end">
                     <div>
@@ -73,190 +62,115 @@
                 </div>
             </div>
             
-            <!-- Top Info -->
             <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
                 <div>
                     <h1 class="text-3xl font-bold text-gray-900 mb-2">Dashboard de Sustentabilidade</h1>
-                    <p class="text-gray-600">Acompanhe as métricas de impacto ambiental da sua frota e operações.</p>
+                    <p class="text-gray-600" th:text="'Olá, ' + ${usuario.nome} + '. Acompanhe suas métricas de impacto.'">Acompanhe as métricas de impacto ambiental.</p>
                 </div>
                 
-                <!-- Filtro Dia/Mês/Ano Perfeitamente Funcional -->
                 <div class="flex bg-white rounded-lg p-1 border border-gray-200 shadow-sm self-start md:self-auto" id="time-range-container" data-html2canvas-ignore="true">
-                    <button onclick="updateTimeRange('diario')" id="btn-diario" class="time-range-btn px-4 py-1.5 text-sm font-medium rounded-md transition-colors text-gray-500 hover:text-gray-900 hover:bg-gray-50">Diário</button>
-                    <button onclick="updateTimeRange('semanal')" id="btn-semanal" class="time-range-btn px-4 py-1.5 text-sm font-medium rounded-md transition-colors text-gray-500 hover:text-gray-900 hover:bg-gray-50">Semanal</button>
-                    <button onclick="updateTimeRange('mensal')" id="btn-mensal" class="time-range-btn px-4 py-1.5 text-sm font-medium rounded-md transition-colors bg-green-50 text-green-700">Mensal</button>
-                    <button onclick="updateTimeRange('anual')" id="btn-anual" class="time-range-btn px-4 py-1.5 text-sm font-medium rounded-md transition-colors text-gray-500 hover:text-gray-900 hover:bg-gray-50">Anual</button>
+                    <button onclick="updateTimeRange('diario')" id="btn-diario" class="time-range-btn px-4 py-1.5 text-sm font-medium rounded-md transition-colors text-gray-500">Diário</button>
+                    <button onclick="updateTimeRange('semanal')" id="btn-semanal" class="time-range-btn px-4 py-1.5 text-sm font-medium rounded-md transition-colors text-gray-500">Semanal</button>
+                    <button onclick="updateTimeRange('mensal')" id="btn-mensal" class="time-range-btn px-4 py-1.5 text-sm font-medium rounded-md transition-colors text-gray-500">Mensal</button>
+                    <button onclick="updateTimeRange('anual')" id="btn-anual" class="time-range-btn px-4 py-1.5 text-sm font-medium rounded-md transition-colors text-gray-500">Anual</button>
                 </div>
             </div>
 
-            <!-- KPI Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden group hover:border-green-200 transition-colors">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i data-lucide="cloud-fog" class="w-16 h-16 text-green-600"></i>
-                    </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden group">
                     <div class="w-10 h-10 bg-green-100 text-green-700 rounded-xl flex items-center justify-center mb-4">
                         <i data-lucide="cloud-fog" class="w-5 h-5"></i>
                     </div>
                     <p class="text-sm font-medium text-gray-500 mb-1">CO₂ Evitado Total</p>
                     <div class="flex items-end gap-2">
-                        <h3 id="kpi-co2" class="text-3xl font-bold text-gray-900">3,900</h3>
+                        <h3 id="kpi-co2" class="text-3xl font-bold text-gray-900" th:text="${usuario.impacto?.co2Evitado ?: '0.0'}">0.0</h3>
                         <span class="text-sm text-gray-500 mb-1">kg</span>
-                    </div>
-                    <div class="mt-4 flex items-center text-sm">
-                        <span class="text-green-600 flex items-center font-medium">
-                            <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i>
-                            +14.2%
-                        </span>
-                        <span class="text-gray-400 ml-2">vs. anterior</span>
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden group hover:border-emerald-200 transition-colors">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i data-lucide="tree-pine" class="w-16 h-16 text-emerald-600"></i>
-                    </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden group">
                     <div class="w-10 h-10 bg-emerald-100 text-emerald-700 rounded-xl flex items-center justify-center mb-4">
                         <i data-lucide="tree-pine" class="w-5 h-5"></i>
                     </div>
                     <p class="text-sm font-medium text-gray-500 mb-1">Árvores Equivalentes</p>
                     <div class="flex items-end gap-2">
-                        <h3 id="kpi-trees" class="text-3xl font-bold text-gray-900">185</h3>
+                        <h3 id="kpi-trees" class="text-3xl font-bold text-gray-900" th:text="${usuario.impacto?.arvoresSalvas ?: '0'}">0</h3>
                         <span class="text-sm text-gray-500 mb-1">árvores</span>
-                    </div>
-                    <div class="mt-4 flex items-center text-sm">
-                        <span class="text-emerald-600 flex items-center font-medium">
-                            <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i>
-                            +22 novas
-                        </span>
-                        <span class="text-gray-400 ml-2">neste período</span>
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden group hover:border-blue-200 transition-colors">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i data-lucide="car" class="w-16 h-16 text-blue-600"></i>
-                    </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden group">
                     <div class="w-10 h-10 bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center mb-4">
                         <i data-lucide="car" class="w-5 h-5"></i>
                     </div>
                     <p class="text-sm font-medium text-gray-500 mb-1">Combustível Poupado</p>
                     <div class="flex items-end gap-2">
-                        <h3 id="kpi-fuel" class="text-3xl font-bold text-gray-900">2,340</h3>
+                        <h3 id="kpi-fuel" class="text-3xl font-bold text-gray-900" th:text="${usuario.impacto?.combustivelEconomizado ?: '0'}">0</h3>
                         <span class="text-sm text-gray-500 mb-1">L</span>
-                    </div>
-                    <div class="mt-4 flex items-center text-sm">
-                        <span class="text-blue-600 flex items-center font-medium">
-                            <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i>
-                            +8.5%
-                        </span>
-                        <span class="text-gray-400 ml-2">vs. anterior</span>
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden group hover:border-amber-200 transition-colors">
-                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                        <i data-lucide="receipt" class="w-16 h-16 text-amber-600"></i>
-                    </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 relative overflow-hidden group">
                     <div class="w-10 h-10 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center mb-4">
                         <i data-lucide="receipt" class="w-5 h-5"></i>
                     </div>
-                    <p class="text-sm font-medium text-gray-500 mb-1">Tickets de Papel Evitados</p>
+                    <p class="text-sm font-medium text-gray-500 mb-1">Tickets Evitados</p>
                     <div class="flex items-end gap-2">
-                        <h3 id="kpi-paper" class="text-3xl font-bold text-gray-900">8,200</h3>
+                        <h3 id="kpi-paper" class="text-3xl font-bold text-gray-900" th:text="${totalFolhas ?: '0'}">0</h3>
                         <span class="text-sm text-gray-500 mb-1">und</span>
-                    </div>
-                    <div class="mt-4 flex items-center text-sm">
-                        <span class="text-amber-600 flex items-center font-medium">
-                            <i data-lucide="trending-up" class="w-4 h-4 mr-1"></i>
-                            +12.1%
-                        </span>
-                        <span class="text-gray-400 ml-2">vs. anterior</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Charts Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8" id="charts-grid">
-                <!-- Main Chart - Area -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                 <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <div class="flex justify-between items-center mb-6">
-                        <div>
-                            <h3 class="text-lg font-bold text-gray-900">Evolução de Emissões Evitadas</h3>
-                            <p class="text-sm text-gray-500">Histórico de CO₂ evitado (em kg) ao longo do tempo</p>
-                        </div>
-                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-6">Evolução de Emissões Evitadas</h3>
                     <div class="h-[300px] w-full relative">
                         <canvas id="areaChart"></canvas>
                     </div>
                 </div>
 
-                <!-- Secondary Chart - Pie -->
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <div class="mb-6">
-                        <h3 class="text-lg font-bold text-gray-900">Origem da Redução</h3>
-                        <p class="text-sm text-gray-500">Distribuição por tipo de operação</p>
-                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-6">Origem da Redução</h3>
                     <div class="h-[240px] w-full relative flex justify-center items-center">
                         <canvas id="pieChart"></canvas>
-                        <div class="absolute inset-0 flex items-center justify-center flex-col pointer-events-none pb-2">
-                            <i data-lucide="zap" class="w-8 h-8 text-green-500 mb-1"></i>
+                        <div class="absolute inset-0 flex items-center justify-center flex-col pointer-events-none">
                             <span class="text-2xl font-bold text-gray-900">100%</span>
                         </div>
                     </div>
-                    <div class="mt-4 flex flex-col gap-3">
-                        <div class="flex items-center justify-between text-sm">
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 rounded-full mr-2" style="background-color: #16a34a"></div>
-                                <span class="text-gray-600">Pedágios (Sem Parar)</span>
-                            </div>
-                            <span class="font-bold text-gray-900" id="legend-pedagio">65%</span>
-                        </div>
-                        <div class="flex items-center justify-between text-sm">
-                            <div class="flex items-center">
-                                <div class="w-3 h-3 rounded-full mr-2" style="background-color: #10b981"></div>
-                                <span class="text-gray-600">Estacionamentos</span>
-                            </div>
-                            <span class="font-bold text-gray-900" id="legend-estacionamento">35%</span>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Impact Highlights -->
             <div class="bg-gradient-to-r from-green-600 to-emerald-700 rounded-2xl shadow-lg p-8 text-white flex flex-col md:flex-row items-center justify-between" data-html2canvas-ignore="true">
-                <div class="flex items-start gap-6 mb-6 md:mb-0">
-                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center shrink-0 backdrop-blur-sm">
+                <div class="flex items-start gap-6">
+                    <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
                         <i data-lucide="file-text" class="w-8 h-8 text-white"></i>
                     </div>
                     <div>
-                        <h3 class="text-2xl font-bold mb-2">Relatório ESG Q3 Pronto</h3>
-                        <p class="text-green-100 max-w-xl">
-                            Seu relatório padronizado seguindo o GHG Protocol já está disponível para download. 
-                            Os dados podem ser diretamente integrados ao seu balanço de sustentabilidade.
-                        </p>
+                        <h3 class="text-2xl font-bold mb-2">Relatório ESG Disponível</h3>
+                        <p class="text-green-100">Seu relatório padronizado seguindo o GHG Protocol está pronto para download.</p>
                     </div>
                 </div>
-                <button onclick="exportarESG()" class="whitespace-nowrap px-8 py-4 bg-white text-green-700 rounded-xl font-bold hover:bg-gray-50 transition-colors shadow-sm w-full md:w-auto text-center hover:scale-105 active:scale-95 cursor-pointer">
-                    Baixar PDF (2.4MB)
+                <button onclick="exportarESG()" class="mt-6 md:mt-0 px-8 py-4 bg-white text-green-700 rounded-xl font-bold hover:bg-gray-50 transition-colors">
+                    Baixar PDF
                 </button>
             </div>
 
-            <!-- Rodapé do PDF (Invisível na Tela, Visível no PDF) -->
             <div id="pdf-footer" class="hidden mt-12 pt-6 border-t border-gray-200 text-center">
-                <p class="text-xs text-gray-500 font-medium">© 2026 EcoTaggy. Todos os direitos reservados. | www.ecotaggy.com.br</p>
-                <p class="text-[10px] text-gray-400 mt-1">Este relatório é gerado com base em estimativas de mercado e operacionais padrão. Os dados visam auxiliar o monitoramento corporativo sustentável.</p>
+                <p class="text-xs text-gray-500">© 2026 EcoTaggy. Todos os direitos reservados.</p>
             </div>
-
         </main>
     </div>
 
-    <!-- Lógica de Funcionamento Gráficos e Filtros -->
-    <script>
-        // 1. Inicializa Ícones
+    <script th:inline="javascript">
         lucide.createIcons();
 
-        // 2. Mock Interativo para as opções de datas funcionarem visualmente (Dia/Semana/Mês/Ano)
+        // Injeção Segura do Thymeleaf para o JavaScript
+        const co2Banco = /*[[${usuario.impacto?.co2Evitado ?: 0}]]*/ 0;
+        const treesBanco = /*[[${usuario.impacto?.arvoresSalvas ?: 0}]]*/ 0;
+        const fuelBanco = /*[[${usuario.impacto?.combustivelEconomizado ?: 0}]]*/ 0;
+        const paperBanco = /*[[${totalFolhas ?: 0}]]*/ 0;
+
         const dashboardData = {
             'diario': {
                 kpis: { co2: '24', trees: '0.5', fuel: '15', paper: '48' },
@@ -274,7 +188,12 @@
                 sourceData: [60, 40]
             },
             'anual': {
-                kpis: { co2: '3,900', trees: '185', fuel: '2,340', paper: '8,200' },
+                kpis: { 
+                    co2: co2Banco.toString(), 
+                    trees: treesBanco.toString(), 
+                    fuel: fuelBanco.toString(), 
+                    paper: paperBanco.toString() 
+                },
                 chartData: { labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'], data: [400, 300, 550, 480, 600, 720, 850] },
                 sourceData: [65, 35]
             }
@@ -292,75 +211,60 @@
 
             areaChartInstance = new Chart(areaCtx, {
                 type: 'line',
-                data: { labels: [], datasets: [{ label: 'CO₂ Evitado (kg)', data: [], borderColor: '#16a34a', backgroundColor: gradient, borderWidth: 3, fill: true, tension: 0.4, pointRadius: 0, pointHoverRadius: 6 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { grid: { color: '#f3f4f6', drawBorder: false, borderDash: [3, 3] } } } }
+                data: { labels: [], datasets: [{ label: 'CO₂ Evitado (kg)', data: [], borderColor: '#16a34a', backgroundColor: gradient, borderWidth: 3, fill: true, tension: 0.4, pointRadius: 0 }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
 
             pieChartInstance = new Chart(pieCtx, {
                 type: 'doughnut',
-                data: { labels: ['Pedágios', 'Estacionamentos'], datasets: [{ data: [], backgroundColor: ['#16a34a', '#10b981'], borderWidth: 0, hoverOffset: 4 }] },
+                data: { labels: ['Pedágios', 'Estacionamentos'], datasets: [{ data: [], backgroundColor: ['#16a34a', '#10b981'], borderWidth: 0 }] },
                 options: { responsive: true, maintainAspectRatio: false, cutout: '75%', plugins: { legend: { display: false } } }
             });
 
-            // Carrega como padrão
-            updateTimeRange('mensal'); 
+            updateTimeRange('anual'); 
         }
 
-        // 3. Método responsável por fazer a mágica de Dia/Mês/Ano sem Recarregar!
         function updateTimeRange(range) {
-            // Reseta a classe visual de todos os botões do filtro
             document.querySelectorAll('.time-range-btn').forEach(btn => {
-                btn.className = 'time-range-btn px-4 py-1.5 text-sm font-medium rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-slate-700';
+                btn.className = 'time-range-btn px-4 py-1.5 text-sm font-medium rounded-md transition-colors text-gray-500';
             });
             
-            // Destaca o selecionado
-            document.getElementById('btn-' + range).className = 'time-range-btn px-4 py-1.5 text-sm font-medium rounded-md transition-colors bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400';
+            document.getElementById('btn-' + range).className = 'time-range-btn px-4 py-1.5 text-sm font-medium rounded-md transition-colors bg-green-50 text-green-700';
 
             const data = dashboardData[range];
-
-            // Atualiza KPIs
             document.getElementById('kpi-co2').textContent = data.kpis.co2;
             document.getElementById('kpi-trees').textContent = data.kpis.trees;
             document.getElementById('kpi-fuel').textContent = data.kpis.fuel;
             document.getElementById('kpi-paper').textContent = data.kpis.paper;
 
-            // Atualiza Gráficos Reativamente
             areaChartInstance.data.labels = data.chartData.labels;
             areaChartInstance.data.datasets[0].data = data.chartData.data;
             areaChartInstance.update();
 
             pieChartInstance.data.datasets[0].data = data.sourceData;
             pieChartInstance.update();
-            document.getElementById('legend-pedagio').textContent = data.sourceData[0] + '%';
-            document.getElementById('legend-estacionamento').textContent = data.sourceData[1] + '%';
         }
         
-        // 4. Integração do Botão de Exportar ESG (Download Automático de PDF)
         function exportarESG() {
             const elementoParaPDF = document.querySelector('main');
             const pdfHeader = document.getElementById('pdf-header');
             const pdfFooter = document.getElementById('pdf-footer');
             
-            // Configura a data do documento gerado
             const hoje = new Date();
             document.getElementById('pdf-date').innerText = `Emitido em: ${hoje.toLocaleDateString('pt-BR')}`;
             
-            // Exibe cabeçalho e rodapé oficiais para o PDF e uniformiza o fundo para branco
             pdfHeader.classList.remove('hidden');
             pdfFooter.classList.remove('hidden');
             elementoParaPDF.classList.add('bg-white');
             
-            // Configurações de qualidade e formato do PDF
             const opcoes = {
-                margin:       [0.5, 0.5, 0.5, 0.5], // Margem de meia polegada padrão de documento
-                filename:     'Relatorio_Oficial_ESG_EcoTaggy.pdf',
-                image:        { type: 'jpeg', quality: 1.0 },
-                html2canvas:  { scale: 2, useCORS: true, letterRendering: true },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
-                pagebreak:    { mode: 'avoid-all' } // Evita quebrar gráficos ou cartões ao meio
+                margin: [0.5, 0.5, 0.5, 0.5],
+                filename: 'Relatorio_ESG_EcoTaggy.pdf',
+                image: { type: 'jpeg', quality: 1.0 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
             };
 
-            // Gera o PDF, faz o download automaticamente e depois retorna a tela ao normal
             html2pdf().set(opcoes).from(elementoParaPDF).save().then(() => {
                 pdfHeader.classList.add('hidden');
                 pdfFooter.classList.add('hidden');
