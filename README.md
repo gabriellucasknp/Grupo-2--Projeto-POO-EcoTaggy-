@@ -359,13 +359,14 @@ https://youtu.be/ODd1CU9ADQA
    - Windows: `mvnw.cmd spring-boot:run`
    - Linux/macOS: `./mvnw spring-boot:run`
 4. Acesse as páginas no navegador usando a porta configurada.
-   - Localmente, o padrão é `8081`
+   - Localmente, o padrão é `8080`
    - Em deploy, a aplicação usa a variável de ambiente `PORT` da plataforma
    - Rotas principais:
-     - **Início:** `http://localhost:8081/`
-     - **Landing:** `http://localhost:8081/landing`
-     - **Dashboard:** `http://localhost:8081/dashboard`
-     - **Simulador:** `http://localhost:8081/simulador`
+     - **Início:** `http://localhost:8080/`
+     - **Landing:** `http://localhost:8080/landing`
+     - **Dashboard:** `http://localhost:8080/dashboard`
+     - **Simulador:** `http://localhost:8080/simulador`
+     - **Healthcheck Render:** `http://localhost:8080/health`
 
 Entrega 03: Consolidação, Persistência Avançada e Relatórios
 Esta seção detalha a finalização do ecossistema EcoTaggy, apresentando a integração completa entre o perfil do usuário, o registro de transações reais e a saída de dados via relatórios profissionais.
@@ -399,25 +400,32 @@ Clone o repositório atualizado.
 
 Acesse a pasta do backend: cd ecoTaggy-backend
 
-A aplicação usa a porta `8081` localmente e, em deploy, respeita a variável `PORT`.
+A aplicação usa a porta `8080` localmente e, em deploy, respeita a variável `PORT`.
 
-O banco H2 local agora usa um caminho relativo (`./data/ecotaggydb`), sem depender de `C:/temp/`.
+Sem configuração extra, a aplicação usa H2 em memória para facilitar execução local e deploy inicial.
 
 Execute a aplicação: mvn spring-boot:run
 
-Acesse as rotas principais (Porta 8081):
+Acesse as rotas principais (Porta 8080):
 
-Início: http://localhost:8081/
+Início: http://localhost:8080/
 
-Registro de Passagem: http://localhost:8081/transacao
+Registro de Passagem: http://localhost:8080/transacao
 
-Dashboard ESG: http://localhost:8081/dashboard
+Dashboard ESG: http://localhost:8080/dashboard
+
+Deploy no Render
+
+- O repositório já inclui `render.yaml` para deploy como serviço Java.
+- Build command: `cd ecoTaggy-backend && sh ./mvnw -DskipTests package`
+- Start command: `sh ./start.sh`
+- Health check: `/health`
 
 Tecnologias Utilizadas (Revisado)
 Backend: Java 21, Spring Boot 3.5.x, Spring Data JPA.
 
 Frontend: Thymeleaf (Templates dinâmicos), Tailwind CSS, Chart.js (Gráficos), JavaScript ES6.
 
-Banco de Dados: H2 Database (Modo Arquivo para persistência de dados).
+Banco de Dados: H2 Database (In-Memory por padrão, com URL sobrescrevível por variável de ambiente).
 
 Documentação/Saída: html2pdf.js / iText para exportação de relatórios corporativos.

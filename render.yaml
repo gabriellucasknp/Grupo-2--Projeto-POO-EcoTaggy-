@@ -5,7 +5,7 @@ services:
     plan: free
     buildCommand: cd ecoTaggy-backend && sh ./mvnw -DskipTests package
     startCommand: sh ./start.sh
-    healthCheckPath: /
+    healthCheckPath: /health
     envVars:
       - key: JAVA_VERSION
         value: 21
