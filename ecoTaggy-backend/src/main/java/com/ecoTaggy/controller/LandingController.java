@@ -19,15 +19,8 @@ public class LandingController {
 
     @GetMapping("/landing")
     public String exibirLanding(Model model) {
-        // Para a Entrega 3, vamos buscar o usuário ID 1 como padrão
-        // (Em um sistema real com login, usaríamos o usuário autenticado)
-        try {
-            Usuario usuario = usuarioService.buscarPorId(1L);
-            model.addAttribute("usuario", usuario);
-        } catch (Exception e) {
-            // Se o banco estiver vazio, criamos um objeto vazio para não quebrar a tela
-            model.addAttribute("usuario", new Usuario());
-        }
+        Usuario usuario = usuarioService.buscarPorIdOptional(1L).orElseGet(Usuario::new);
+        model.addAttribute("usuario", usuario);
         return "landing";
     }
 }

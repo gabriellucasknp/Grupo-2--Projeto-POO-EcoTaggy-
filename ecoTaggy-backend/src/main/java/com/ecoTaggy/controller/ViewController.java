@@ -2,7 +2,6 @@ package com.ecoTaggy.controller;
 
 import com.ecoTaggy.entity.ImpactoAmbiental;
 import com.ecoTaggy.entity.Usuario;
-import com.ecoTaggy.service.ImpactoService;
 import com.ecoTaggy.service.UsuarioService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,16 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpSession;
 
-import java.util.Map;
-
 @Controller
 public class ViewController {
 
-    private final ImpactoService impactoService;
     private final UsuarioService usuarioService;
 
-    public ViewController(ImpactoService impactoService, UsuarioService usuarioService) {
-        this.impactoService = impactoService;
+    public ViewController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 
@@ -60,12 +55,8 @@ public class ViewController {
 
     @PostMapping("/cadastrar")
     public String processarCadastro(@ModelAttribute("usuario") Usuario usuario) {
-        try {
-            usuarioService.cadastrarUsuario(usuario);
-            return "redirect:/login?sucesso";
-        } catch (Exception e) {
-            return "redirect:/cadastro?erro=" + e.getMessage();
-        }
+        usuarioService.cadastrarUsuario(usuario);
+        return "redirect:/login?sucesso";
     }
 
     // --- NOVOS MÓDULOS (Traduzidos do React para Thymeleaf) ---
@@ -126,15 +117,13 @@ public class ViewController {
 
     // Método auxiliar para evitar repetição e garantir o carregamento do cabeçalho
     private void adicionarUsuarioAoModel(Model model, HttpSession session) {
-        try {
-            Long id = (Long) session.getAttribute("usuarioLogadoId");
-            if (id == null) id = 1L; // Fallback para não quebrar a tela durante seus testes locais
-            Usuario usuario = usuarioService.buscarPorId(id);
-            model.addAttribute("usuario", usuario);
-            model.addAttribute("impacto", usuario.getImpacto() != null ? usuario.getImpacto() : new ImpactoAmbiental());
-        } catch (Exception e) {
-            model.addAttribute("usuario", new Usuario());
-            model.addAttribute("impacto", new ImpactoAmbiental());
+        Long id = (Long) session.getAttribute("usuarioLogadoId");
+        if (id == null) {
+            id = 1L;
         }
+
+        Usuario usuario = usuarioService.buscarPorIdOptional(id).orElseGet(Usuario::new);
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("impacto", usuario.getImpacto() != null ? usuario.getImpacto() : new ImpactoAmbiental());
     }
 }

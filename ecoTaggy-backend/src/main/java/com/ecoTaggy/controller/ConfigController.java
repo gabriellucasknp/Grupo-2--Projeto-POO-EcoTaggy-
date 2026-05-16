@@ -2,6 +2,7 @@ package com.ecoTaggy.controller;
 
 
 import com.ecoTaggy.entity.Usuario;
+import com.ecoTaggy.exception.ProfileImageProcessingException;
 import com.ecoTaggy.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,16 +27,17 @@ public class ConfigController {
      */
     @GetMapping
     public String exibirPerfil(HttpSession session, Model model) {
-        try {
-            Long id = (Long) session.getAttribute("usuarioLogadoId");
-            if (id == null) id = 1L;
-            Usuario usuario = usuarioService.buscarPorId(id);
-            model.addAttribute("usuario", usuario);
-            return "perfil";
-        } catch (Exception e) {
-            // Se o ID não existir, manda de volta para a landing
-            return "redirect:/landing";
+        Long id = (Long) session.getAttribute("usuarioLogadoId");
+        if (id == null) {
+            id = 1L;
         }
+
+        return usuarioService.buscarPorIdOptional(id)
+                .map(usuario -> {
+                    model.addAttribute("usuario", usuario);
+                    return "perfil";
+                })
+                .orElse("redirect:/landing?erro=usuario-nao-encontrado");
     }
 
 
@@ -48,16 +50,12 @@ public class ConfigController {
                                    @RequestParam String nome, 
                                    @RequestParam(required = false) String novaSenha,
                                    @RequestParam(required = false, defaultValue = "perfil") String origem,
-                                   @RequestParam("imagemArquivo") MultipartFile imagemArquivo) {
-        
+                                    @RequestParam("imagemArquivo") MultipartFile imagemArquivo) {
         try {
-            // Chama o método que ajustamos no seu UsuarioService
             usuarioService.atualizarPerfil(id, nome, novaSenha, imagemArquivo);
-            
-            // Retorna EXATAMENTE para a aba (perfil ou configurações) que emitiu o Post
             return "redirect:/" + origem + "?sucesso=true";
-        } catch (Exception e) {
-            return "redirect:/" + origem + "?erro=true";
+        } catch (ProfileImageProcessingException e) {
+            return "redirect:/" + origem + "?erro=imagem-invalida";
         }
     }
 }

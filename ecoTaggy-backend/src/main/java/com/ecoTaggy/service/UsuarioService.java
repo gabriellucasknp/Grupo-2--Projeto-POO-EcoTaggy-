@@ -3,6 +3,9 @@ package com.ecoTaggy.service;
 
 import com.ecoTaggy.entity.ImpactoAmbiental;
 import com.ecoTaggy.entity.Usuario;
+import com.ecoTaggy.exception.DuplicateEmailException;
+import com.ecoTaggy.exception.ProfileImageProcessingException;
+import com.ecoTaggy.exception.UserNotFoundException;
 import com.ecoTaggy.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,18 +26,15 @@ public class UsuarioService {
 
     @Transactional
     public void atualizarPerfil(Long id, String novoNome, String novaSenha, MultipartFile arquivo) {
-        // 1. Busca o usuário
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + id));
+                .orElseThrow(() -> new UserNotFoundException(id));
 
 
-        // 2. Atualiza o nome
         if (novoNome != null && !novoNome.trim().isEmpty()) {
             usuario.setNome(novoNome);
         }
 
 
-        // 3. Lógica para transformar o arquivo em String Base64 funcional
         if (arquivo != null && !arquivo.isEmpty()) {
             try {
                 byte[] bytes = arquivo.getBytes();
@@ -44,27 +44,22 @@ public class UsuarioService {
                 usuario.setFotoUrl(fotoUrlFinal);
                 
             } catch (IOException e) {
-                throw new RuntimeException("Erro ao processar a imagem: " + e.getMessage());
+                throw new ProfileImageProcessingException("Erro ao processar a imagem do perfil.", e);
             }
         }
 
 
-        // 4. Atualiza a senha (se preenchida)
         if (novaSenha != null && !novaSenha.trim().isEmpty()) {
             usuario.setSenha(novaSenha);
         }
 
 
-        // 5. Salva as alterações
         usuarioRepository.save(usuario);
     }
 
-
-    // --- Outros métodos permanecem iguais ---
-    
     public Usuario cadastrarUsuario(Usuario usuario) {
         if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
-            throw new RuntimeException("Este e-mail já está em uso!");
+            throw new DuplicateEmailException("Este e-mail já está em uso!");
         }
 
 
@@ -86,10 +81,13 @@ public class UsuarioService {
         return usuarioRepository.findByEmail(email);
     }
 
+    public Optional<Usuario> buscarPorIdOptional(Long id) {
+        return usuarioRepository.findById(id);
+    }
 
     public Usuario buscarPorId(Long id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado com ID: " + id));
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 }
 
