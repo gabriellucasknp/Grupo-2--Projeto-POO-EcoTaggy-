@@ -344,20 +344,6 @@ https://trello.com/invite/b/69d52e14a4a61f00aeb5d663/ATTIfda8e02c55713876f1d01cc
 
 ###  Screencast do Sistema (Entrega 02)
 Demonstração do sistema em uso (com áudio/narração explicativa), comprovando o funcionamento da API Rest e Frontend:
-<<<<<<< HEAD
-
-
-###  Como Executar a Aplicação Localmente
-
-1. Clone este repositório. https://github.com/gabriellucasknp/Grupo-2--Projeto-POO-EcoTaggy-
-2. Acesse a pasta do backend: `cd ecoTaggy-backend`
-3. Execute o comando Maven: `mvn spring-boot:run`
-4. Acesse as páginas no navegador:
-   * **Início:** `http://localhost:8080/`
-   * **Dashboard:** `http://localhost:8080/dashboard`
-   * **Simulador:** `http://localhost:8080/simulador
-
-=======
 https://youtu.be/ODd1CU9ADQA
 
 ###  Como Executar a Aplicação Localmente
@@ -366,67 +352,21 @@ https://youtu.be/ODd1CU9ADQA
    https://github.com/gabriellucasknp/Grupo-2--Projeto-POO-EcoTaggy-
 2. Acesse a pasta do backend:
    `cd ecoTaggy-backend`
-3. No Windows, confira se a pasta `C:/temp/` existe (usada pelo H2 em modo arquivo).
-4. Execute a aplicação Spring Boot:
+3. Execute a aplicação Spring Boot:
    `mvn spring-boot:run`
 
    Alternativa sem Maven instalado globalmente:
    - Windows: `mvnw.cmd spring-boot:run`
    - Linux/macOS: `./mvnw spring-boot:run`
-5. Acesse as páginas no navegador (porta `8081`):
-   - **Início:** `http://localhost:8081/`
-   - **Landing:** `http://localhost:8081/landing`
-   - **Dashboard:** `http://localhost:8081/dashboard`
-   - **Simulador:** `http://localhost:8081/simulador`
-  
-
-Entrega 03: Consolidação, Persistência Avançada e Relatórios
-Esta seção detalha a finalização do ecossistema EcoTaggy, apresentando a integração completa entre o perfil do usuário, o registro de transações reais e a saída de dados via relatórios profissionais.
-
-Histórias de Usuário Implementadas (Novas)
-História 03 (Perfil e Identidade): Gestão de perfil com upload de imagem e persistência em Base64 (Utilizando @Lob).
-
-História 05 (Transação Real): Módulo de registro de passagens por tipo de veículo (Carro, Caminhão, Moto) com atualização imediata do banco de dados.
-
-História 06 (Relatórios ESG): Geração de relatórios consolidados em PDF com os indicadores acumulados do usuário.
-
-Diferenciais Técnicos desta Entrega
-Persistência LOB (Large Object): Implementação de armazenamento de imagens de perfil diretamente no banco de dados H2 através de mapeamento @Lob e LONGTEXT.
-
-Arquitetura de Serviços: Refatoração do ImpactoService para suportar coeficientes de emissão diferenciados por categoria veicular (Baseado em GHG Protocol).
-
-UX/UI Dinâmica: Implementação de Dark Mode nativo e formulários de transação com feedback visual em tempo real e estados de "Loading" para simular processamento de backend.
-
-Segurança de Dados: Tratamento de persistência de senhas e integridade referencial entre as tabelas Usuario e ImpactoAmbiental.
-
-Gestão de Tarefas (Status Final)
-O board de desenvolvimento foi atualizado para o status de "Concluído", refletindo o encerramento do ciclo de desenvolvimento da Entrega 03:
-(https://trello.com/b/vIVQ4Sob/ecotaggy-poo)
-
-Screencast do Sistema (Entrega Final 03)
-Demonstração completa do fluxo de ponta a ponta: Cadastro -> Upload de Foto -> Registro de Passagem -> Visualização no Dashboard -> Geração de Relatório PDF:
-[Link do Vídeo da Entrega 03]
-
-Como Executar a Aplicação (Atualizado)
-1. Clone o repositório atualizado.
-2. Acesse a pasta do backend: `cd ecoTaggy-backend`
-3. Verifique a pasta `C:/temp/` no Windows (persistência do H2).
-4. Execute: `mvn spring-boot:run`
-5. Abra no navegador:
-   - `http://localhost:8081/`
-   - `http://localhost:8081/landing`
-   - `http://localhost:8081/dashboard`
-   - `http://localhost:8081/simulador`
-
-Tecnologias Utilizadas (Revisado)
-Backend: Java 21, Spring Boot 3.5.x, Spring Data JPA.
-
-Frontend: Thymeleaf, Tailwind CSS, Lucide Icons, JavaScript (ES6).
-
-Banco de Dados: H2 Database (Modo Arquivo para persistência entre reinicializações).
-
-Documentação: PDF generation library (iText/OpenPDF).
->>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
+4. Acesse as páginas no navegador usando a porta configurada.
+   - Localmente, o padrão é `8080`
+   - Em deploy, a aplicação usa a variável de ambiente `PORT` da plataforma
+   - Rotas principais:
+     - **Início:** `http://localhost:8080/`
+     - **Landing:** `http://localhost:8080/landing`
+     - **Dashboard:** `http://localhost:8080/dashboard`
+     - **Simulador:** `http://localhost:8080/simulador`
+     - **Healthcheck Render:** `http://localhost:8080/health`
 
 Entrega 03: Consolidação, Persistência Avançada e Relatórios
 Esta seção detalha a finalização do ecossistema EcoTaggy, apresentando a integração completa entre o perfil do usuário, o registro de transações reais e a saída de dados via relatórios profissionais.
@@ -460,23 +400,32 @@ Clone o repositório atualizado.
 
 Acesse a pasta do backend: cd ecoTaggy-backend
 
-No Windows, verifique se a pasta C:/temp/ existe para a persistência do banco H2 em modo arquivo.
+A aplicação usa a porta `8080` localmente e, em deploy, respeita a variável `PORT`.
+
+Sem configuração extra, a aplicação usa H2 em memória para facilitar execução local e deploy inicial.
 
 Execute a aplicação: mvn spring-boot:run
 
-Acesse as rotas principais (Porta 8081):
+Acesse as rotas principais (Porta 8080):
 
-Início: http://localhost:8081/
+Início: http://localhost:8080/
 
-Registro de Passagem: http://localhost:8081/transacao
+Registro de Passagem: http://localhost:8080/transacao
 
-Dashboard ESG: http://localhost:8081/dashboard
+Dashboard ESG: http://localhost:8080/dashboard
+
+Deploy no Render
+
+- O repositório já inclui `render.yaml` para deploy como serviço Java.
+- Build command: `cd ecoTaggy-backend && sh ./mvnw -DskipTests package`
+- Start command: `sh ./start.sh`
+- Health check: `/health`
 
 Tecnologias Utilizadas (Revisado)
 Backend: Java 21, Spring Boot 3.5.x, Spring Data JPA.
 
 Frontend: Thymeleaf (Templates dinâmicos), Tailwind CSS, Chart.js (Gráficos), JavaScript ES6.
 
-Banco de Dados: H2 Database (Modo Arquivo para persistência de dados).
+Banco de Dados: H2 Database (In-Memory por padrão, com URL sobrescrevível por variável de ambiente).
 
 Documentação/Saída: html2pdf.js / iText para exportação de relatórios corporativos.

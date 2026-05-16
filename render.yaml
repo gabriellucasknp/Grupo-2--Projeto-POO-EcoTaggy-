@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: ecotaggy
+    env: java
+    plan: free
+    buildCommand: cd ecoTaggy-backend && sh ./mvnw -DskipTests package
+    startCommand: sh ./start.sh
+    healthCheckPath: /health
+    envVars:
+      - key: JAVA_VERSION
+        value: 21

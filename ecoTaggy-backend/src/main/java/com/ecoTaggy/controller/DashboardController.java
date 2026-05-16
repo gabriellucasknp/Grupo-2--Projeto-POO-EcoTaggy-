@@ -28,39 +28,27 @@ public class DashboardController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model, HttpSession session) {
-        try {
-            Long id = (Long) session.getAttribute("usuarioLogadoId");
-            if (id == null) id = 1L;
-            Usuario usuario = usuarioService.buscarPorId(id);    
-
-            if (usuario == null) {
-                return "redirect:/";
-            }
-
-            model.addAttribute("usuario", usuario);
-            model.addAttribute("impacto", usuario.getImpacto() != null ? usuario.getImpacto() : new ImpactoAmbiental());
-
-            var registrosPapel = papelEconomizadoRepository.findAll();
-            int totalFolhas = 0;
-
-            if (registrosPapel != null) {
-                totalFolhas = registrosPapel.stream()
-                        .mapToInt(reg -> reg.getQuantidadeFolhas() != null ? reg.getQuantidadeFolhas() : 0)
-                        .sum();
-            }
-
-            model.addAttribute("totalFolhas", totalFolhas);
-
-            Map<String, Object> relatorio = impactoService.gerarRelatorioESG();
-            model.addAttribute("relatorio", relatorio != null ? relatorio : new HashMap<>());
-            
-            return "dashboard"; 
-
-        } catch (Exception e) {
-            System.err.println("Erro ao carregar Dashboard: " + e.getMessage());
-            e.printStackTrace();
-            return "redirect:/";
+        Long id = (Long) session.getAttribute("usuarioLogadoId");
+        if (id == null) {
+            id = 1L;
         }
+
+        Usuario usuario = usuarioService.buscarPorIdOptional(id)
+                .orElseGet(Usuario::new);
+
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("impacto", usuario.getImpacto() != null ? usuario.getImpacto() : new ImpactoAmbiental());
+
+        int totalFolhas = papelEconomizadoRepository.findAll().stream()
+                .mapToInt(reg -> reg.getQuantidadeFolhas() != null ? reg.getQuantidadeFolhas() : 0)
+                .sum();
+
+        model.addAttribute("totalFolhas", totalFolhas);
+
+        Map<String, Object> relatorio = impactoService.gerarRelatorioESG();
+        model.addAttribute("relatorio", relatorio != null ? relatorio : new HashMap<>());
+
+        return "dashboard";
     }
 
 }

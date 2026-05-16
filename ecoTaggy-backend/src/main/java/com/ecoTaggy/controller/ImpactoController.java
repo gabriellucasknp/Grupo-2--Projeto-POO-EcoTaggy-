@@ -4,8 +4,10 @@ package com.ecoTaggy.controller;
 import com.ecoTaggy.entity.ImpactoAmbiental;
 import com.ecoTaggy.entity.Usuario;
 import com.ecoTaggy.service.ImpactoService;
-import com.ecoTaggy.service.UsuarioService; // Precisamos disso para buscar o usuário pelo ID
+import com.ecoTaggy.service.UsuarioService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 
 @RestController
@@ -23,23 +25,18 @@ public class ImpactoController {
     }
 
 
-    // 1. Simulação (Usa o método que criamos no Service)
     @PostMapping("/simular")
     public ImpactoAmbiental simular(@RequestParam int volumeTransacoes) {
         return impactoService.simularImpacto(volumeTransacoes);
     }
 
 
-    // 2. Cálculo Real (Agora buscando o usuário de verdade)
     @PostMapping("/calcular/{usuarioId}")
     public ImpactoAmbiental calcular(
             @PathVariable Long usuarioId, 
             @RequestParam String tipoOperacao) {
-        
-        // Buscamos o usuário no banco primeiro
-        Usuario usuario = usuarioService.buscarPorId(usuarioId); 
-        
-        // Enviamos o objeto Usuario e o Tipo para o Service processar
+        Usuario usuario = usuarioService.buscarPorIdOptional(usuarioId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado."));
         return impactoService.registrarPassagemReal(usuario, tipoOperacao);
     }
 }

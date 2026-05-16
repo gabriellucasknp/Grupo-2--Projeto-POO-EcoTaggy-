@@ -1,0 +1,9 @@
+**/target/
+**/build/
+**/.DS_Store
+**/Thumbs.db
+
+# H2 database runtime files
+**/*.mv.db
+**/*.trace.db
+**/data/*.db
