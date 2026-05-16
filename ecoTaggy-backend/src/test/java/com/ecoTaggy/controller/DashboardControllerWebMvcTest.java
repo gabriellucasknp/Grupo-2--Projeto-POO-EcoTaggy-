@@ -59,4 +59,17 @@ class DashboardControllerWebMvcTest {
                 .andExpect(model().attributeExists("usuario", "impacto", "totalFolhas", "relatorio"))
                 .andExpect(model().attribute("totalFolhas", 7));
     }
+
+    @Test
+    void dashboardSemUsuarioPersistidoRenderizaComModeloVazio() throws Exception {
+        when(usuarioService.buscarPorIdOptional(1L)).thenReturn(Optional.empty());
+        when(papelEconomizadoRepository.findAll()).thenReturn(List.of());
+        when(impactoService.gerarRelatorioESG()).thenReturn(null);
+
+        mockMvc.perform(get("/dashboard"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("dashboard"))
+                .andExpect(model().attributeExists("usuario", "impacto", "totalFolhas", "relatorio"))
+                .andExpect(model().attribute("totalFolhas", 0));
+    }
 }

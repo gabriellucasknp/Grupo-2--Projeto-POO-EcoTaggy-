@@ -34,7 +34,7 @@ public class DashboardController {
         }
 
         Usuario usuario = usuarioService.buscarPorIdOptional(id)
-                .orElseThrow(() -> new IllegalStateException("Usuário padrão indisponível para carregar o dashboard."));
+                .orElseGet(Usuario::new);
 
         model.addAttribute("usuario", usuario);
         model.addAttribute("impacto", usuario.getImpacto() != null ? usuario.getImpacto() : new ImpactoAmbiental());
