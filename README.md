@@ -418,7 +418,7 @@ Resolução de Débitos Técnicos: Correção do problema crítico de concorrên
 
 Sincronização e Ajuste Fino de Layout: Unificação visual da interface com suporte nativo ao recurso de Dark Mode. Substituição completa de dados estáticos (mocks) por dados dinâmicos recuperados do banco através do Thymeleaf na tela de perfil e configurações.
 
-(Filtrar/inserir link do novo Screencast se disponível)
+(https://youtu.be/rvrk7RwwZfk?si=wQCILQ2MWqnSxc1-)
 
 Gestão de Tarefas & Versionamento (Issue / Bug Tracker)
 O fluxo de gerenciamento de tarefas, controle de bugs e refinamento de código foi centralizado e rastreado semanalmente através de commits frequentes e reuniões de alinhamento. O quadro de desenvolvimento atual reflete 100% das histórias de usuário e demandas técnicas movidas para o status de Concluído.
