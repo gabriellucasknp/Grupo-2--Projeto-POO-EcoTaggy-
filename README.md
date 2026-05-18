@@ -425,6 +425,6 @@ O fluxo de gerenciamento de tarefas, controle de bugs e refinamento de código f
 
 Link para o Quadro de Gerenciamento do Projeto: Quadro EcoTaggy - Trello (https://trello.com/b/vIVQ4Sob/ecotaggy-poo)
 
-Evidência do Bug / Issue Tracker
+
 
 
