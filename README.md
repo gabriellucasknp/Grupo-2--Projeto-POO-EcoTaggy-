@@ -391,7 +391,7 @@ Criação do documento oficial do BDD no Google Docs.
 
 Desenvolvimento do Protótipo de Baixa Fidelidade através da ferramenta Figma.
 
-Gravação e publicação do Screencast de Apresentação do Protótipo Lo-Fi (YouTube Shorts).
+Gravação e publicação do Screencast de Apresentação do Protótipo Lo-Fi (YouTube Shorts). (https://www.youtube.com/shorts/w2Ib_-uEIPA)
 
 🔸 Entrega 02: Desenvolvimento e Integration Base
 Estruturação inicial do ambiente de desenvolvimento Spring Boot integrado ao banco de dados em memória.
@@ -400,7 +400,7 @@ História 01 (Dashboard): Tela de visualização de Indicadores Ambientais volta
 
 História 04 (Simulador): Desenvolvimento do algoritmo de Simulação de Impacto Ambiental baseada na taxa de adoção de frotas logísticas.
 
-Gravação e publicação do Screencast de Demonstração das funcionalidades da Entrega 02 (YouTube).
+Gravação e publicação do Screencast de Demonstração das funcionalidades da Entrega 02 (YouTube). (https://www.youtube.com/watch?v=ODd1CU9ADQA)
 
 🔸 Entrega 03: Consolidação, Persistência Avançada e Relatórios
 História 03 (Perfil e Identidade): Módulo de gerenciamento de perfil com upload e codificação de imagens via Base64.
@@ -409,7 +409,7 @@ História 05 (Transação Real): Módulo de registro de passagens e pedágios co
 
 História 06 (Relatórios ESG): Desenvolvimento do motor de exportação de dados consolidados em formato PDF para fins de marketing institucional e compliance ambiental.
 
-Gravação e publicação do Screencast de Demonstração de ponta a ponta da Entrega 03 (YouTube).
+Gravação e publicação do Screencast de Demonstração de ponta a ponta da Entrega 03 (YouTube). (https://www.youtube.com/watch?v=JHOLz4y82IM)
 
 🔸 Entrega 04: Implementação Final e Fechamento de Ciclo
 Finalização das Histórias Restantes: Implementação de refinamentos de segurança da aplicação, fluxo visual reativo de carregamento (loading states) nos formulários e tratamento rigoroso para concorrência e controle de sessões ativas utilizando HttpSession.
@@ -423,6 +423,8 @@ Sincronização e Ajuste Fino de Layout: Unificação visual da interface com su
 Gestão de Tarefas & Versionamento (Issue / Bug Tracker)
 O fluxo de gerenciamento de tarefas, controle de bugs e refinamento de código foi centralizado e rastreado semanalmente através de commits frequentes e reuniões de alinhamento. O quadro de desenvolvimento atual reflete 100% das histórias de usuário e demandas técnicas movidas para o status de Concluído.
 
-Link para o Quadro de Gerenciamento do Projeto: Quadro EcoTaggy - Trello
+Link para o Quadro de Gerenciamento do Projeto: Quadro EcoTaggy - Trello (https://trello.com/b/vIVQ4Sob/ecotaggy-poo)
 
 Evidência do Bug / Issue Tracker
+
+
