@@ -297,186 +297,104 @@ A criação de uma plataforma de cálculo e visualização de impacto ambiental 
 Ao transformar dados operacionais em indicadores ambientais claros e acessíveis, a ferramenta permite que usuários e empresas compreendam melhor sua contribuição para a redução de emissões de gases de efeito estufa.
 Além disso, a plataforma pode contribuir para fortalecer estratégias de sustentabilidade, melhorar a comunicação com clientes e apoiar iniciativas relacionadas à responsabilidade ambiental.
 
-# Projeto Eco Taggy - Plataforma de Sustentabilidade
+🌿 Projeto EcoTaggy — Plataforma de Sustentabilidade
+Repositório oficial do projeto EcoTaggy (também referenciado como CleanTaggy), uma Aplicação Web Orientada a Objetos desenvolvida em Java para mensurar, simular e reportar o impacto ambiental positivo gerado pela substituição de métodos de pagamento físicos (tickets de papel, paradas em cabines) por soluções digitais de passagem automática (Taggy) em pedágios e estacionamentos.
 
-Repositório oficial do projeto **Eco Taggy**, uma Aplicação WEB Orientada a Objetos desenvolvida para a resolução de problemas ambientais, calculando e simulando impactos evitados por meio de soluções de pagamento digital em pedágios e estacionamentos.
-
-## Equipe e Responsabilidades (Kickoff)
-
-| Integrante | Função |
-| :--- | :--- |
-| **Matheus Paulo** | DevOps / Líder (Arquitetura, Integração e Merge) |
-| **Gabriel Lucas e David Alves** | Backend Core (Modelagem de Entidades e Repositórios) |
-| **Pedro Pessoa e João Neri** | Backend Service (Regras de Negócio e Controllers) |
-| **Rafael** | Frontend UI (Telas dinâmicas com Thymeleaf) |
-| **Diego Jose** | QA & Documentação (Issue Tracker, Validação e Screencasts) |
-
----
-
-## Entrega 01: Planejamento e Prototipação
-
-Esta seção contempla os artefatos iniciais de definição do produto:
-
-* **Histórias de Usuário (BDD):** BDD - https://docs.google.com/document/d/1sdJkV6rNWwF7iKfVUFjboWM1kaCtoc9ELlnbYbxGx44/edit?usp=sharing
-* **Protótipo de Baixa Fidelidade (Figma):** https://www.figma.com/design/TGD8z07FFK2N8NXbb2GH8j/EcoTaggy?node-id=0-1&p=f&t=Z0rBfxvdiPGCsXii-0
-* **Screencast do Protótipo (Apresentação Lo-Fi):** https://youtube.com/shorts/w2Ib_-uEIPA?si=N3eJL1VYIspQOFWI
-
----
-
-##  Entrega 02: Desenvolvimento e Integração Base
-
-Esta seção detalha o ambiente de desenvolvimento e as duas primeiras histórias de usuário integradas e funcionais, com leitura e escrita em banco de dados.
-
-### Diretrizes e Stack Tecnológica
-* **Linguagem:** Java 21 | **Framework:** Spring Boot 3.5.x
-* **Persistência e Banco:** Spring Data JPA / H2 Database (In-Memory)
-* **Visualização:** Thymeleaf (HTML/CSS), Tailwind CSS e Chart.js
-* **Nota de Conformidade:** Cumprindo a regra do projeto, **a biblioteca Lombok NÃO foi utilizada**. Todos os códigos boilerplate (construtores, getters, setters) foram desenvolvidos manualmente.
-
-### Histórias de Usuário Implementadas
-1. **História 01 (Dashboard):** Visualização de Indicadores Ambientais para Empresas.
-2. **História 04 (Simulador):** Simulação de Impacto Ambiental baseada na taxa de adoção e tamanho da frota.
-
-###  Gestão de Tarefas (Issue Tracker)
-Ambiente de versionamento atuante com acompanhamento contínuo de tarefas:
-
-https://trello.com/invite/b/69d52e14a4a61f00aeb5d663/ATTIfda8e02c55713876f1d01cc014ba168b9F5534AB/ecotaggy-poo
-
-###  Screencast do Sistema (Entrega 02)
-Demonstração do sistema em uso (com áudio/narração explicativa), comprovando o funcionamento da API Rest e Frontend:
-<<<<<<< HEAD
+👥 Equipe e Responsabilidades
+Integrante
+Papel Principal
+Atribuições Principais
+Matheus Paulo dos Santos Silva
+DevOps / Líder
+Arquitetura, Integração e Gerenciamento de Merge
+Gabriel Lucas Soares da Silva
+Backend Core
+Modelagem de Entidades e Repositórios
+David Guilherme Souza Alves
+Backend Core
+Modelagem de Entidades e Repositórios
+Pedro Pessoa Bastos
+Serviço Backend
+Regras de Negócio e Controladores
+João Gabriel de Souza Neri
+Serviço Backend
+Regras de Negócio e Controladores
+Rafael de Andrade Arruda
+Frontend UI
+Desenvolvimento de telas dinâmicas e reativas com Thymeleaf
+Diego José Arroxelas
+QA e Documentação
+Issue Tracker, Validação de Bugs e Screencasts
 
 
-###  Como Executar a Aplicação Localmente
+🚀 Como Executar a Aplicação Localmente (Montando o Ambiente)
+Siga as instruções abaixo para configurar e executar o ecossistema EcoTaggy em sua máquina local.
+📋 Pré-requisitos
+Java 21 LTS (ou superior) instalado e devidamente configurado nas variáveis de ambiente do sistema.
+Maven 3.9+ instalado (opcional, caso prefira usar o wrapper incluso .mvnw).
+Diretório Local (Windows): Certifique-se de que o diretório C:/temp/ existe no seu sistema, pois ele é estritamente necessário para a persistência do banco de dados H2 em modo arquivo.
+🛠️ Passo a Passo para Inicialização
+Clonar o Repositório:
+Abra o terminal no diretório de sua preferência e execute:
+git clone https://github.com/gabriellucasknp/Grupo-2--Projeto-POO-EcoTaggy-.git
+Navegar até a Pasta do Backend:
+Acesse a pasta raiz do código Java:
+cd Grupo-2--Projeto-POO-EcoTaggy-/ecoTaggy-backend
+Executar a Aplicação (Maven):
+Se você possui o Maven instalado globalmente (Windows/Linux/Mac):
+mvn spring-boot:run
+Se for utilizar o Maven Wrapper incluso no projeto (Windows):
+mvnw.cmd spring-boot:run
+Se for utilizar o Maven Wrapper incluso no projeto (Linux/macOS):
+./mvnw spring-boot:run
+Acesso ao Sistema no Navegador:
+A aplicação subirá por padrão na porta 8081. Uma vez iniciado o servidor, utilize os endereços abaixo para navegar pelas funcionalidades:
+Página Inicial / Landing Page: http://localhost:8081/
+Registro de Transações/Passagens: http://localhost:8081/transacao
+Dashboard de Controle ESG: http://localhost:8081/dashboard
+Simulador de Cenários: http://localhost:8081/simulador
+Calculadora GHG: http://localhost:8081/calculadora
+Liga Sustentável (Ranking): http://localhost:8081/ranking
+Jornada & Metas: http://localhost:8081/metas
+Relatório Corporativo: http://localhost:8081/relatorio-ghg
 
-1. Clone este repositório. https://github.com/gabriellucasknp/Grupo-2--Projeto-POO-EcoTaggy-
-2. Acesse a pasta do backend: `cd ecoTaggy-backend`
-3. Execute o comando Maven: `mvn spring-boot:run`
-4. Acesse as páginas no navegador:
-   * **Início:** `http://localhost:8080/`
-   * **Dashboard:** `http://localhost:8080/dashboard`
-   * **Simulador:** `http://localhost:8080/simulador
+🛠️ Stack Tecnológica & Diferenciais Técnicos
+Backend Core: Java 21, Spring Boot 3.5.x, Spring Data JPA.
+Interface do Usuário (UI): Templates dinâmicos renderizados via Thymeleaf, estilizados com Tailwind CSS, ícones vetoriais da biblioteca Lucide e gráficos analíticos reativos gerados com Chart.js.
+Banco de Dados: H2 Database configurado em modo arquivo, garantindo a retenção e persistência dos dados simulados entre reinicializações do servidor.
+Conformidade Arquitetural (Sem Lombok): Atendendo rigidamente às diretrizes pedagógicas de modelagem da disciplina, a biblioteca Lombok não foi utilizada. Todas as estruturas essenciais (construtores, métodos getters, setters e encapsulamentos) foram codificadas de forma manual e explícita pelo time.
+Persistência Avançada (LOB): Armazenamento de fotos de perfil direto no banco de dados utilizando mapeamento @Lob e tipos LONGTEXT convertidos nativamente em Base64.
+Arquitetura Reativa de Serviços: O componente central ImpactoService realiza o cálculo imediato de emissões poluentes aplicando coeficientes de conversão para categorias veiculares distintas (Carro, Caminhão e Moto), em total conformidade com as diretrizes metodológicas internacionais do GHG Protocol e nacionais da CETESB.
 
-=======
-https://youtu.be/ODd1CU9ADQA
+📋 Histórico de Entregas e Evolução do Projeto
+🔸 Entrega 01: Planejamento e Prototipação
+Definição e mapeamento de Histórias de Usuário utilizando a sintaxe BDD.
+Criação do documento oficial do BDD no Google Docs.
+Desenvolvimento do Protótipo de Baixa Fidelidade através da ferramenta Figma.
+Gravação e publicação do Screencast de Apresentação do Protótipo Lo-Fi (YouTube Shorts).
+🔸 Entrega 02: Desenvolvimento e Integração Base
+Estruturação inicial do ambiente de desenvolvimento Spring Boot integrado ao banco de dados em memória.
+História 01 (Dashboard): Tela de visualização de Indicadores Ambientais voltada para Empresas.
+História 04 (Simulador): Desenvolvimento do algoritmo de Simulação de Impacto Ambiental baseada na taxa de adoção de frotas logísticas.
+Gravação e publicação do Screencast de Demonstração das funcionalidades da Entrega 02 (YouTube).
+🔸 Entrega 03: Consolidação, Persistência Avançada e Relatórios
+História 03 (Perfil e Identidade): Módulo de gerenciamento de perfil com upload e codificação de imagens via Base64.
+História 05 (Transação Real): Módulo de registro de passagens e pedágios com recálculo instantâneo baseado no tipo do veículo selecionado.
+História 06 (Relatórios ESG): Desenvolvimento do motor de exportação de dados consolidados em formato PDF para fins de marketing institucional e compliance ambiental.
+Gravação e publicação do Screencast de Demonstração de ponta a ponta da Entrega 03 (YouTube).
+🔸 Entrega 04: Implementação Final e Fechamento de Ciclo
+Finalização das Histórias Restantes: Implementação de refinamentos de segurança da aplicação, fluxo visual reativo de carregamento (loading states) nos formulários e tratamento rigoroso para concorrência e controle de sessões ativas utilizando HttpSession.
+Resolução de Débitos Técnicos: Correção do problema crítico de concorrência e bloqueio do banco de dados aplicando o parâmetro ;AUTO_SERVER=TRUE na URL de conexão do arquivo application.properties, mitigando em definitivo os travamentos durante a reinicialização da aplicação.
+Sincronização e Ajuste Fino de Layout: Unificação visual da interface com suporte nativo ao recurso de Dark Mode. Substituição completa de dados estáticos (mocks) por dados dinâmicos recuperados do banco através do Thymeleaf na tela de perfil e configurações.
+(Inserir link do novo Screencast se disponível)
 
-###  Como Executar a Aplicação Localmente
+🛠️ Gestão de Tarefas & Versionamento (Issue / Bug Tracker)
+O fluxo de gerenciamento de tarefas, controle de bugs e refinamento de código foi centralizado e rastreado semanalmente através de commits frequentes e reuniões de alinhamento. O quadro de desenvolvimento atual reflete 100% das histórias de usuário e demandas técnicas movidas para o status de Concluído.
+🔗 Link para o Quadro de Gerenciamento do Projeto: Quadro EcoTaggy - Trello
+📸 Evidência do Bug / Issue Tracker
+Nota para o Relatório: Cole no espaço abaixo o print screen atualizado do quadro do Trello ou ferramenta de tracker demonstrando todas as atividades concluídas da Entrega 04.
+(Espaço reservado para inserção da imagem do quadro finalizado)
 
-1. Clone este repositório:
-   https://github.com/gabriellucasknp/Grupo-2--Projeto-POO-EcoTaggy-
-2. Acesse a pasta do backend:
-   `cd ecoTaggy-backend`
-3. No Windows, confira se a pasta `C:/temp/` existe (usada pelo H2 em modo arquivo).
-4. Execute a aplicação Spring Boot:
-   `mvn spring-boot:run`
 
-   Alternativa sem Maven instalado globalmente:
-   - Windows: `mvnw.cmd spring-boot:run`
-   - Linux/macOS: `./mvnw spring-boot:run`
-5. Acesse as páginas no navegador (porta `8081`):
-   - **Início:** `http://localhost:8081/`
-   - **Landing:** `http://localhost:8081/landing`
-   - **Dashboard:** `http://localhost:8081/dashboard`
-   - **Simulador:** `http://localhost:8081/simulador`
-  
 
-Entrega 03: Consolidação, Persistência Avançada e Relatórios
-Esta seção detalha a finalização do ecossistema EcoTaggy, apresentando a integração completa entre o perfil do usuário, o registro de transações reais e a saída de dados via relatórios profissionais.
-
-Histórias de Usuário Implementadas (Novas)
-História 03 (Perfil e Identidade): Gestão de perfil com upload de imagem e persistência em Base64 (Utilizando @Lob).
-
-História 05 (Transação Real): Módulo de registro de passagens por tipo de veículo (Carro, Caminhão, Moto) com atualização imediata do banco de dados.
-
-História 06 (Relatórios ESG): Geração de relatórios consolidados em PDF com os indicadores acumulados do usuário.
-
-Diferenciais Técnicos desta Entrega
-Persistência LOB (Large Object): Implementação de armazenamento de imagens de perfil diretamente no banco de dados H2 através de mapeamento @Lob e LONGTEXT.
-
-Arquitetura de Serviços: Refatoração do ImpactoService para suportar coeficientes de emissão diferenciados por categoria veicular (Baseado em GHG Protocol).
-
-UX/UI Dinâmica: Implementação de Dark Mode nativo e formulários de transação com feedback visual em tempo real e estados de "Loading" para simular processamento de backend.
-
-Segurança de Dados: Tratamento de persistência de senhas e integridade referencial entre as tabelas Usuario e ImpactoAmbiental.
-
-Gestão de Tarefas (Status Final)
-O board de desenvolvimento foi atualizado para o status de "Concluído", refletindo o encerramento do ciclo de desenvolvimento da Entrega 03:
-(https://trello.com/b/vIVQ4Sob/ecotaggy-poo)
-
-Screencast do Sistema (Entrega Final 03)
-Demonstração completa do fluxo de ponta a ponta: Cadastro -> Upload de Foto -> Registro de Passagem -> Visualização no Dashboard -> Geração de Relatório PDF:
-[Link do Vídeo da Entrega 03]
-
-Como Executar a Aplicação (Atualizado)
-1. Clone o repositório atualizado.
-2. Acesse a pasta do backend: `cd ecoTaggy-backend`
-3. Verifique a pasta `C:/temp/` no Windows (persistência do H2).
-4. Execute: `mvn spring-boot:run`
-5. Abra no navegador:
-   - `http://localhost:8081/`
-   - `http://localhost:8081/landing`
-   - `http://localhost:8081/dashboard`
-   - `http://localhost:8081/simulador`
-
-Tecnologias Utilizadas (Revisado)
-Backend: Java 21, Spring Boot 3.5.x, Spring Data JPA.
-
-Frontend: Thymeleaf, Tailwind CSS, Lucide Icons, JavaScript (ES6).
-
-Banco de Dados: H2 Database (Modo Arquivo para persistência entre reinicializações).
-
-Documentação: PDF generation library (iText/OpenPDF).
->>>>>>> 7f44aafeaf45c2bbd72851f7a737ddb4feb635bd
-
-Entrega 03: Consolidação, Persistência Avançada e Relatórios
-Esta seção detalha a finalização do ecossistema EcoTaggy, apresentando a integração completa entre o perfil do usuário, o registro de transações reais e a saída de dados via relatórios profissionais.
-
-Histórias de Usuário Implementadas (Novas)
-História 03 (Perfil e Identidade): Gestão de perfil com upload de imagem e persistência em Base64, utilizando mapeamento de grandes objetos.
-
-História 05 (Transação Real): Módulo de registro de passagens por tipo de veículo (Carro, Caminhão, Moto) com atualização imediata do banco de dados e recálculo de indicadores.
-
-História 06 (Relatórios ESG): Geração de relatórios consolidados em PDF com os indicadores acumulados de impacto ambiental do usuário.
-
-Diferenciais Técnicos desta Entrega
-Persistência LOB (Large Object): Armazenamento de fotos de perfil diretamente no banco de dados H2 através de mapeamento @Lob e tipos LONGTEXT, garantindo a integridade da identidade visual sem dependências externas.
-
-Arquitetura de Serviços: Refatoração do ImpactoService para suportar coeficientes de emissão diferenciados por categoria veicular, baseando-se em metodologias do GHG Protocol e CETESB.
-
-UX/UI Reativa: Implementação de Dashboard reativo com Chart.js, suporte a Dark Mode nativo e formulários de transação com feedback visual de processamento (loading states).
-
-Segurança e Integridade: Tratamento de persistência e garantia de integridade referencial entre as tabelas de Usuário e seus respectivos registros de Impacto Ambiental.
-
-Gestão de Tarefas (Status Final)
-O board de desenvolvimento foi atualizado para o status de "Concluído", refletindo o encerramento do ciclo de desenvolvimento da Entrega 03:
-https://trello.com/b/vIVQ4Sob/ecotaggy-poo
-
-Screencast do Sistema (Entrega 03)
-Demonstração completa do fluxo de ponta a ponta: Cadastro -> Perfil -> Registro de Passagem Real -> Dashboard Reativo -> Geração de Relatório PDF:
-https://www.youtube.com/watch?v=JHOLz4y82IM
-
-Como Executar a Aplicação (Atualizado)
-Clone o repositório atualizado.
-
-Acesse a pasta do backend: cd ecoTaggy-backend
-
-No Windows, verifique se a pasta C:/temp/ existe para a persistência do banco H2 em modo arquivo.
-
-Execute a aplicação: mvn spring-boot:run
-
-Acesse as rotas principais (Porta 8081):
-
-Início: http://localhost:8081/
-
-Registro de Passagem: http://localhost:8081/transacao
-
-Dashboard ESG: http://localhost:8081/dashboard
-
-Tecnologias Utilizadas (Revisado)
-Backend: Java 21, Spring Boot 3.5.x, Spring Data JPA.
-
-Frontend: Thymeleaf (Templates dinâmicos), Tailwind CSS, Chart.js (Gráficos), JavaScript ES6.
-
-Banco de Dados: H2 Database (Modo Arquivo para persistência de dados).
-
-Documentação/Saída: html2pdf.js / iText para exportação de relatórios corporativos.
+em total conformidade com as diretrizes metodológicas internacionais do GHG Protocol e nacionais da CETESB.📋 Histórico de Entregas e Evolução do Projeto🔸 Entrega 01: Planejamento e PrototipaçãoDefinição e mapeamento de Histórias de Usuário utilizando a sintaxe BDD.Criação do documento oficial do BDD no Google Docs.Desenvolvimento do Protótipo de Baixa Fidelidade através da ferramenta Figma.Gravação e publicação do Screencast de Apresentação do Protótipo Lo-Fi (YouTube Shorts).🔸 Entrega 02: Desenvolvimento e Integração BaseEstruturação inicial do ambiente de desenvolvimento Spring Boot integrado ao banco de dados em memória.História 01 (Dashboard): Tela de visualização de Indicadores Ambientais voltada para Empresas.História 04 (Simulador): Desenvolvimento do algoritmo de Simulação de Impacto Ambiental baseada na taxa de adoção de frotas logísticas.Gravação e publicação do Screencast de Demonstração das funcionalidades da Entrega 02 (YouTube).🔸 Entrega 03: Consolidação, Persistência Avançada e RelatóriosHistória 03 (Perfil e Identidade): Módulo de gerenciamento de perfil com upload e codificação de imagens via Base64.História 05 (Transação Real): Módulo de registro de passagens e pedágios com recálculo instantâneo baseado no tipo do veículo selecionado.História 06 (Relatórios ESG): Desenvolvimento do motor de exportação de dados consolidados em formato PDF para fins de marketing institucional e compliance ambiental.Gravação e publicação do Screencast de Demonstração de ponta a ponta da Entrega 03 (YouTube).🔸 Entrega 04: Implementação Final e Fechamento de CicloFinalização das Histórias Restantes: Implementação de refinamentos de segurança da aplicação, fluxo visual reativo de carregamento (loading states) nos formulários e tratamento rigoroso para concorrência e controle de sessões ativas utilizando HttpSession.Resolução de Débitos Técnicos: Correção do problema crítico de concorrência e bloqueio do banco de dados aplicando o parâmetro ;AUTO_SERVER=TRUE na URL de conexão do arquivo application.properties, mitigando em definitivo os travamentos durante a reinicialização da aplicação.Sincronização e Ajuste Fino de Layout: Unificação visual da interface com suporte nativo ao recurso de Dark Mode. Substituição completa de dados estáticos (mocks) por dados dinâmicos recuperados do banco através do Thymeleaf na tela de perfil e configurações.(Inserir link do novo Screencast se disponível)🛠️ Gestão de Tarefas & Versionamento (Issue / Bug Tracker)O fluxo de gerenciamento de tarefas, controle de bugs e refinamento de código foi centralizado e rastreado semanalmente através de commits frequentes e reuniões de alinhamento. O quadro de desenvolvimento atual reflete 100% das histórias de usuário e demandas técnicas movidas para o status de Concluído.🔗 Link para o Quadro de Gerenciamento do Projeto: Quadro EcoTaggy - Trello📸 Evidência do Bug / Issue TrackerNota para o Relatório: Cole no espaço abaixo o print screen atualizado do quadro do Trello ou ferramenta de tracker demonstrando todas as atividades concluídas da Entrega 04.(Espaço reservado para inserção da imagem do quadro finalizado)
